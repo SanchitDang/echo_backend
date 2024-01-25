@@ -15,9 +15,8 @@ class UsersApiView(APIView):
         serializer = UsersSerializer(data=request.data)
 
         if serializer.is_valid():
-            user = serializer.save()
-            serialized_user = UsersSerializer(user).data  # Include the id field in the response
-            return Response(serialized_user, status=status.HTTP_201_CREATED)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -66,3 +65,19 @@ class BidsApiView(APIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+class RefersApiView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        all_refers = Refers.objects.all().values()
+        return Response({"status": "success", "data": all_refers})
+
+    def post(self, request, *args, **kwargs):
+        serializer = RefersSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        

@@ -27,3 +27,8 @@ class Bids(models.Model):
 
 class Refers(models.Model):
     id = models.AutoField(primary_key=True)
+    manufacturer_id = models.CharField(max_length=200, null=True)
+    manufacturer_username = models.CharField(max_length=200, null=True)
+    seller_id = models.CharField(max_length=200, null=True)
+    seller_username = models.CharField(max_length=200, null=True)
+    referral_price = models.CharField(max_length=20, null=True)
