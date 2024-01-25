@@ -22,8 +22,8 @@ class Bids(models.Model):
     description = models.CharField(max_length=1000)
     party1_id = models.CharField(max_length=100)
     party1_name = models.CharField(max_length=100)
-    party2_id = models.CharField(max_length=100, null=True)
-    party2_name = models.CharField(max_length=100, null=True)
+    party2_id = models.CharField(max_length=100, default="x")
+    party2_name = models.CharField(max_length=100, default="x")
 
 class Refers(models.Model):
     id = models.AutoField(primary_key=True)
