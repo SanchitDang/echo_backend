@@ -4,6 +4,7 @@ from rest_framework import status
 from django.db.models import Q
 from .models import *
 from .serializers import *
+import json
 
 class UsersApiView(APIView):
 
@@ -49,9 +50,13 @@ class BidsApiView(APIView):
 
     def get(self, request, *args, **kwargs):
             given_id = request.query_params.get('id', None)
+            given_bid_id = request.query_params.get('bid_id', None)
 
             if given_id is not None:
                 filtered_bids = Bids.objects.filter(Q(party1_id=given_id) | Q(party2_id=given_id)).values()
+                return Response({"status": "success", "data": filtered_bids})
+            elif given_bid_id is not None:
+                filtered_bids = Bids.objects.filter(Q(id=given_bid_id)).values()
                 return Response({"status": "success", "data": filtered_bids})
             else:
                 all_bids = Bids.objects.all().values()
@@ -65,6 +70,35 @@ class BidsApiView(APIView):
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)    
+
+    def put(self, request, *args, **kwargs):
+        bid_id = kwargs.get('id', None)
+
+        if bid_id is not None:
+            try:
+                bid_instance = Bids.objects.get(id=bid_id)
+            except Bids.DoesNotExist:
+                return Response({"status": "error", "message": "Bid not found"}, status=status.HTTP_404_NOT_FOUND)
+
+            data = request.data.copy()
+            other_parties_data = data.pop('other_parties', None)
+
+            # Convert 'null' to an empty list
+            existing_other_parties = bid_instance.other_parties
+            existing_other_parties_list = json.loads(existing_other_parties) if existing_other_parties else []
+
+            # Append the new data to the existing list or create a new list
+            updated_other_parties = existing_other_parties_list + [data] if existing_other_parties_list else [data]
+
+            # Update the bid instance with the new 'other_parties'
+            bid_instance.other_parties = json.dumps(updated_other_parties)
+            bid_instance.save()
+
+            serializer = BidsSerializer(bid_instance)
+
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "error", "message": "Bid ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
 
 class RefersApiView(APIView):
 

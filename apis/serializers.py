@@ -9,7 +9,8 @@ class UsersSerializer(serializers.ModelSerializer):
 class BidsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bids
-        fields = ['id', 'item', 'price', 'description', 'party1_id', 'party1_name', 'party2_id', 'party2_name']
+        # fields = ['id', 'item', 'price', 'description', 'party1_id', 'party1_name', 'party2_id', 'party2_name']
+        fields = '__all__'
 
 class RefersSerializer(serializers.ModelSerializer):
     class Meta:

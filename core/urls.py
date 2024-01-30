@@ -15,6 +15,7 @@ urlpatterns = [
     # api urls
     path('api/users', views.UsersApiView.as_view()),
     path('api/bids', views.BidsApiView.as_view()),
+    path('api/bids/<int:id>/', views.BidsApiView.as_view()),
     path('api/users-by-type/', views.UsersByTypeApiView.as_view()),
     path('api/refers', views.RefersApiView.as_view()),
 
