@@ -1,3 +1,4 @@
+from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -115,3 +116,17 @@ class RefersApiView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
+class ItemsCategoryListCreateView(generics.ListCreateAPIView):
+    queryset = ItemsCategory.objects.all()
+    serializer_class = ItemsCategorySerializer
+
+class ItemsSubCategoriesListCreateView(generics.ListCreateAPIView):
+    queryset = ItemsSubCategories.objects.all()
+    serializer_class = ItemsSubCategoriesSerializer
+
+class ItemsSubCategoriesByCategoryView(generics.ListAPIView):
+    serializer_class = ItemsSubCategoriesSerializer
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return ItemsSubCategories.objects.filter(category_id=category_id)

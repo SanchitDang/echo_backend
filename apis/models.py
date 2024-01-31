@@ -25,6 +25,7 @@ class Bids(models.Model):
     party2_id = models.CharField(max_length=100, default="x")
     party2_name = models.CharField(max_length=100, default="x")
     other_parties = models.TextField(null=True)
+    bid_opening_time = models.TextField(null=True)
 
 class Refers(models.Model):
     id = models.AutoField(primary_key=True)
@@ -33,3 +34,12 @@ class Refers(models.Model):
     seller_id = models.CharField(max_length=200, null=True)
     seller_username = models.CharField(max_length=200, null=True)
     referral_price = models.CharField(max_length=20, null=True)
+
+class ItemsCategory(models.Model):
+    id = models.AutoField(primary_key=True)
+    category = models.CharField(max_length=200, null=True)
+
+class ItemsSubCategories(models.Model):
+    id = models.AutoField(primary_key=True)
+    sub_category = models.CharField(max_length=200, null=True)
+    category_id = models.CharField(max_length=200, null=True)
