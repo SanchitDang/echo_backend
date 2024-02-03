@@ -32,7 +32,7 @@ class UsersApiView(APIView):
             user = None
 
         if user is not None and user.password == password:
-            return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "id": user.id})
+            return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "username": user.username, "id": user.id})
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
 
@@ -120,13 +120,48 @@ class ItemsCategoryListCreateView(generics.ListCreateAPIView):
     queryset = ItemsCategory.objects.all()
     serializer_class = ItemsCategorySerializer
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        data = {'status': 'success', 'data': serializer.data}
+        return Response(data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        data = {'status': 'success', 'data': serializer.data}
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+
 class ItemsSubCategoriesListCreateView(generics.ListCreateAPIView):
     queryset = ItemsSubCategories.objects.all()
     serializer_class = ItemsSubCategoriesSerializer
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        data = {'status': 'success', 'data': serializer.data}
+        return Response(data)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        data = {'status': 'success', 'data': serializer.data}
+        return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
 class ItemsSubCategoriesByCategoryView(generics.ListAPIView):
     serializer_class = ItemsSubCategoriesSerializer
 
     def get_queryset(self):
         category_id = self.kwargs['category_id']
-        return ItemsSubCategories.objects.filter(category_id=category_id)
+        queryset = ItemsSubCategories.objects.filter(category_id=category_id)
+        return queryset
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        data = {'status': 'success', 'data': serializer.data}
+        return Response(data)

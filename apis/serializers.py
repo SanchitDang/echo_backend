@@ -4,7 +4,7 @@ from .models import *
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ['id', 'name', 'password', 'username', 'user_type', 'address', 'company_name', 'company_size', 'manufacturer_category', 'adhaar_number']
+        fields = '__all__'
 
 class BidsSerializer(serializers.ModelSerializer):
     class Meta:

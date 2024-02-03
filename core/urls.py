@@ -22,5 +22,4 @@ urlpatterns = [
     path('api/categories/', ItemsCategoryListCreateView.as_view(), name='category-list-create'),
     path('api/subcategories/', ItemsSubCategoriesListCreateView.as_view(), name='subcategory-list-create'),
     path('api/subcategories/<int:category_id>/', ItemsSubCategoriesByCategoryView.as_view(), name='subcategory-by-category'),
-
 ]
