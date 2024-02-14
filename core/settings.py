@@ -45,7 +45,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'core.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['198.211.99.20', 'localhost', '127.0.0.1', '192.168.0.105']    #edit to add more hosts whre api's could be accessed
+ALLOWED_HOSTS = ['198.211.99.20', '192.168.0.107', 'localhost', '127.0.0.1', '192.168.0.105']    #edit to add more hosts whre api's could be accessed
 
 
 REST_FRAMEWORK = {

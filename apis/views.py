@@ -2,6 +2,8 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import render
+from django.views import View
 from django.db.models import Q
 from .models import *
 from .serializers import *
@@ -164,4 +166,38 @@ class ItemsSubCategoriesByCategoryView(generics.ListAPIView):
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
         data = {'status': 'success', 'data': serializer.data}
+        return Response(data)
+  
+class DashboardDataAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        # Count users
+        total_users = Users.objects.count()
+
+        # Count bids
+        total_bids = Bids.objects.count()
+
+        # Count refers
+        total_refers = Refers.objects.count()
+
+        # Count live one-time bids
+        one_time_bids = Bids.objects.filter(type='one_time').count()
+
+        # Count live real-time bids
+        real_time_bids = Bids.objects.filter(type='real_time').count()
+
+        # Count users by type (supplier, manufacturer)
+        users_by_type = {
+            'supplier': Users.objects.filter(user_type='supplier').count(),
+            'manufacturer': Users.objects.filter(user_type='manufacturer').count(),
+        }
+
+        data = {
+            'total_users': total_users,
+            'total_bids': total_bids,
+            'total_refers': total_refers,
+            'one_time_bids': one_time_bids,
+            'real_time_bids': real_time_bids,
+            'users_by_type': users_by_type,
+        }
+
         return Response(data)
