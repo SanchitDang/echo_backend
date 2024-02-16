@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">
+    <!-- Bootstrap DateTimePicker CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background: rgb(99, 39, 120);
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #BA68C8;
+        }
+
+        .profile-button {
+            background: rgb(99, 39, 120);
+            box-shadow: none;
+            border: none;
+        }
+
+        .profile-button:hover {
+            background: #682773;
+        }
+
+        .profile-button:focus {
+            background: #682773;
+            box-shadow: none;
+        }
+
+        .profile-button:active {
+            background: #682773;
+            box-shadow: none;
+        }
+
+        .back:hover {
+            color: #682773;
+            cursor: pointer;
+        }
+
+        .labels {
+            font-size: 11px;
+        }
+
+        .add-experience:hover {
+            background: #BA68C8;
+            color: #fff;
+            cursor: pointer;
+            border: solid 1px #BA68C8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-5"
+                         width="150px"
+                         src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <span class="font-weight-bold">{{ bid_data.0.item }}</span>
+                    <span></span>
+                </div>
+            </div>
+           
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Bid Settings</h4>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label class="labels">ID</label>
+                            <input type="text" class="form-control" placeholder="id" name ="id" id="id" value="{{ bid_data.0.id }}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Name</label>
+                            <input type="text" class="form-control" placeholder="name" name ="name" id="name" value="{{ bid_data.0.party1_name }}">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Mobile Number</label>
+                            <input type="text" class="form-control" placeholder="enter phone number" name="Mobile" id="Mobile" value="{{ bid_data.0.party1_id }}">
+                        </div>
+                        <div class="col-md-12">
+                            <label class="labels">Email ID</label>
+                            <input type="text" class="form-control" placeholder="enter email id" name="party1_name" id="party1_name" value="{{ bid_data.0.party1_name }}">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Address</label>
+                            <input type="text" class="form-control" placeholder="enter address" name="party1_address" id="party1_address" value="{{ bid_data.0.party1_address }}">
+                        </div>
+                    </div>
+                    <!-- Add more input fields for other attributes -->
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="labels">Price</label>
+                            <input type="text" class="form-control" placeholder="enter price" name="price" id="price"value="{{ bid_data.0.price }}">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label class="labels">Bid Category</label>
+                            <input type="text" class="form-control" placeholder="enter bid category" name="bid_category" id="bid_category" value="{{ bid_data.0.bid_category }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="labels">Bid Subcategory</label>
+                            <input type="text" class="form-control" placeholder="enter bid subcategory" name="bid_sub_category" id="bid_sub_category" value="{{ bid_data.0.bid_sub_category }}">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Description</label>
+                            <textarea class="form-control" placeholder="enter description" name="description" id="description" rows="5">{{ bid_data.0.description }}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Bid Opening Time</label>
+                            <div class="input-group date" id="bidOpeningTimePicker" data-target-input="nearest">
+                                <input type="datetime-local" class="form-control datetimepicker-input" data-target="#bidOpeningTimePicker" placeholder="Select bid opening time" name="bid_opening_time" id="bid_opening_time" value="{{ bid_data.0.bid_opening_time }}" />
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Bid Closing Time</label>
+                            <div class="input-group date" id="bidClosingTimePicker" data-target-input="nearest">
+                                <input type="datetime-local" class="form-control datetimepicker-input" data-target="#bidClosingTimePicker" placeholder="Select bid closing time" name="bid_closing_time" id="bid_closing_time" value="{{ bid_data.0.bid_closing_time }}" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Bid Status {{bid_id}}</label>
+                            <div class="d-flex align-items-center">
+                                <span class="current-status {% if bid_data.0.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
+                                    {% if bid_data.0.is_approved == 'yes' %}
+                                        Approved
+                                    {% else %}
+                                        Not Approved
+                                    {% endif %}
+                                </span>
+                                <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                                    <div class="ml-auto">
+                                        <button id="approvalButton" class="border px-3 p-1 add-experience" type="button" onclick="toggleApproval({{ bid_id }})">
+                                            Change Status
+                                        </button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    
+    <!-- Datetimepicker JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+    <script>
+        function toggleApproval(bidId) {
+            $.ajax({
+                type: 'GET',
+                url: `/api/toggle_approval/${bidId}/`,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        const button = $('#approvalButton');
+                        if (response.is_approved === 'yes') {
+                            button.text('Approved').removeClass('btn-danger').addClass('btn-success');
+                        } else {
+                            button.text('Not Approved').removeClass('btn-success').addClass('btn-danger');
+                        }
+                    } else {
+                        console.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+
+        // Initialize DateTimePicker for bid opening time
+       // $('#bidOpeningTimePicker').datetimepicker({
+        //     format: 'YYYY-MM-DD HH:mm:ss',
+        //     useCurrent: false,
+        // });
+
+        // // Initialize DateTimePicker for bid closing time
+        // $('#bidClosingTimePicker').datetimepicker({
+        //     format: 'YYYY-MM-DD HH:mm:ss',
+        //     useCurrent: false,
+        // });
+
+    </script>
+
+</body>
+
+</html>

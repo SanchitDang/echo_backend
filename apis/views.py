@@ -2,8 +2,6 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.shortcuts import render
-from django.views import View
 from django.db.models import Q
 from .models import *
 from .serializers import *
@@ -37,6 +35,24 @@ class UsersApiView(APIView):
             return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "username": user.username, "id": user.id})
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    def patch(self, request, *args, **kwargs):
+        user_id = request.data.get('id', None)
+        if not user_id:
+            return Response({"error": "User ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = Users.objects.get(id=user_id)
+        except Users.DoesNotExist:
+            return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = UsersSerializer(instance=user, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UsersByTypeApiView(APIView):
 
@@ -180,11 +196,14 @@ class DashboardDataAPIView(APIView):
         total_refers = Refers.objects.count()
 
         # Count live one-time bids
-        one_time_bids = Bids.objects.filter(type='one_time').count()
+        one_time_bids = Bids.objects.filter(bid_type='one_time').count()
 
         # Count live real-time bids
-        real_time_bids = Bids.objects.filter(type='real_time').count()
+        real_time_bids = Bids.objects.filter(bid_type='real_time').count()
 
+        on_going_bids = Bids.objects.filter(bid_status='on_going').count()
+        finished_bids = Bids.objects.filter(bid_status='finished').count()
+        
         # Count users by type (supplier, manufacturer)
         users_by_type = {
             'supplier': Users.objects.filter(user_type='supplier').count(),
@@ -197,6 +216,8 @@ class DashboardDataAPIView(APIView):
             'total_refers': total_refers,
             'one_time_bids': one_time_bids,
             'real_time_bids': real_time_bids,
+            'on_going_bids': on_going_bids,
+            'finished_bids': finished_bids,
             'users_by_type': users_by_type,
         }
 

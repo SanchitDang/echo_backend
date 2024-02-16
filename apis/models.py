@@ -7,6 +7,8 @@ class Users(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     username = models.CharField(max_length=200, unique=True, null=True)
+    email = models.CharField(max_length=200, unique=True, null=True)
+    phone = models.CharField(max_length=200, unique=True, null=True)
     password = models.CharField(max_length=200)
     user_type = models.CharField(max_length=200)
     address = models.CharField(max_length=500, blank=True, null=True)
@@ -29,6 +31,7 @@ class Bids(models.Model):
     bid_sub_category = models.CharField(max_length=100, null=True)
     bid_type = models.CharField(max_length=10, null=True)               #one_time or real_time
     bid_win_type = models.CharField(max_length=10, null=True)           #highest win or lowest win
+    bid_status= models.CharField(max_length=20, null=True)           #on_going cancelled or finished
     bid_opening_time = models.TextField(null=True)
     bid_closing_time = models.TextField(null=True)
     is_approved = models.CharField(max_length=5, default="no")
