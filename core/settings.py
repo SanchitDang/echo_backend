@@ -3,7 +3,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -13,11 +12,10 @@ SECRET_KEY = 'django-insecure-pr2d0*6c36ulb_@6n!29uwxcg!uj(sir^$1(r+(yet_s)2ap^5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+CORS_ORIGIN_ALLOW_ALL = True  
+ALLOWED_HOSTS = ['localhost','192.168.56.1','192.168.56.2','192.168.0.106','172.17.0.1']    # edit to add more hosts whre api's could be accessed
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -43,10 +41,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
-
-CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['198.211.99.20', '192.168.0.106', '192.168.56.2','192.168.0.107', 'localhost', '127.0.0.1', '192.168.0.105']    #edit to add more hosts whre api's could be accessed
-
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': [

@@ -1,5 +1,6 @@
 from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
@@ -32,7 +33,7 @@ class UsersApiView(APIView):
             user = None
 
         if user is not None and user.password == password:
-            return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "username": user.username, "id": user.id})
+            return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "username": user.username, "email": user.email, "phone": user.phone ,"id": user.id})
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
     
@@ -201,7 +202,10 @@ class DashboardDataAPIView(APIView):
         # Count live real-time bids
         real_time_bids = Bids.objects.filter(bid_type='real_time').count()
 
-        on_going_bids = Bids.objects.filter(bid_status='on_going').count()
+        # Count on going bids
+        on_going_bids = Bids.objects.filter(bid_status='one_time').count()
+
+        # Count on finished bids
         finished_bids = Bids.objects.filter(bid_status='finished').count()
         
         # Count users by type (supplier, manufacturer)
@@ -222,3 +226,14 @@ class DashboardDataAPIView(APIView):
         }
 
         return Response(data)
+
+
+@api_view(['GET'])
+def get_approval_status(request, bid_id):
+    try:
+        bid = Bids.objects.get(id=bid_id)
+        serializer = BidsSerializer(bid)
+        return Response({'status': serializer.data['is_approved'] == 'yes'})
+    except Bids.DoesNotExist:
+        return Response({'status': False, 'error': 'Bid not found'}, status=status.HTTP_404_NOT_FOUND)
+    

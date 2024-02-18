@@ -18,6 +18,7 @@ urlpatterns = [
     path('edit_bid/', bids_edit_view, name='edit-bid'),
     # path('update_bid/<int:id>', update_bids, name='update-bid'),
     path('api/toggle_approval/<int:bid_id>/', toggle_approval, name='toggle-approval'),
+    path('api/bids/<int:bid_id>/approval-status/', get_approval_status, name='get_approval_status'),
 
     # api urls
     path('api/users', views.UsersApiView.as_view()),
