@@ -13,7 +13,8 @@ SECRET_KEY = 'django-insecure-pr2d0*6c36ulb_@6n!29uwxcg!uj(sir^$1(r+(yet_s)2ap^5
 DEBUG = True
 
 CORS_ORIGIN_ALLOW_ALL = True  
-ALLOWED_HOSTS = ['localhost','192.168.56.1','192.168.56.2','192.168.0.106','172.17.0.1']    # edit to add more hosts whre api's could be accessed
+# ALLOWED_HOSTS = ['localhost','192.168.56.1','192.168.56.2','192.168.0.106','172.17.0.1']    # edit to add more hosts whre api's could be accessed
+ALLOWED_HOSTS = ['*']    
 
 # Application definition
 INSTALLED_APPS = [
