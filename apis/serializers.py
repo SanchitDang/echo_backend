@@ -6,6 +6,27 @@ class UsersSerializer(serializers.ModelSerializer):
         model = Users
         fields = '__all__'
 
+class ProductsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Products
+        fields = '__all__'
+
+class ScrapsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Scraps
+        fields = '__all__'
+
+class ServicesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Services
+        fields = '__all__'
+
+class ProductsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Products
+        fields = '__all__'
+
+
 class BidsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bids

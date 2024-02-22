@@ -55,6 +55,60 @@ class UsersApiView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class ProductsApiVIew(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        user_id = request.query_params.get('user_id', None)
+        if user_id is not None:
+            products = Products.objects.filter(user_id=user_id)
+            serializer = ProductsSerializer(products, many=True)
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "message": "user_id parameter is required"})
+        
+    def post(self, request, *args, **kwargs):
+        serializer = ProductsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
+
+class ScrapsApiVIew(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        user_id = request.query_params.get('user_id', None)
+        if user_id is not None:
+            scraps = Scraps.objects.filter(user_id=user_id)
+            serializer = ScrapsSerializer(scraps, many=True)
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "message": "user_id parameter is required"})
+        
+    def post(self, request, *args, **kwargs):
+        serializer = ScrapsSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
+
+class ServicessApiVIew(APIView):
+    
+    def get(self, request, *args, **kwargs):
+        user_id = request.query_params.get('user_id', None)
+        if user_id is not None:
+            services = Services.objects.filter(user_id=user_id)
+            serializer = ServicesSerializer(services, many=True)
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "message": "user_id parameter is required"})
+        
+    def post(self, request, *args, **kwargs):
+        serializer = ServicesSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
+
 class UsersByTypeApiView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -226,7 +280,6 @@ class DashboardDataAPIView(APIView):
         }
 
         return Response(data)
-
 
 @api_view(['GET'])
 def get_approval_status(request, bid_id):

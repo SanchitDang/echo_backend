@@ -36,6 +36,24 @@ class Bids(models.Model):
     bid_closing_time = models.TextField(null=True)
     is_approved = models.CharField(max_length=5, default="no")
 
+class Products(models.Model):
+    id = models.AutoField(primary_key=True)
+    item = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    user_id = models.CharField(max_length=10)
+
+class Services(models.Model):
+    id = models.AutoField(primary_key=True)
+    item = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    user_id = models.CharField(max_length=10)
+
+class Scraps(models.Model):
+    id = models.AutoField(primary_key=True)
+    item = models.CharField(max_length=100)
+    description = models.CharField(max_length=1000)
+    user_id = models.CharField(max_length=10)
+
 class Refers(models.Model):
     id = models.AutoField(primary_key=True)
     manufacturer_id = models.CharField(max_length=200, null=True)
