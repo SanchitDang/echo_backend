@@ -290,3 +290,12 @@ def get_approval_status(request, bid_id):
     except Bids.DoesNotExist:
         return Response({'status': False, 'error': 'Bid not found'}, status=status.HTTP_404_NOT_FOUND)
     
+@api_view(['GET'])
+def get_user_types_list(request, user_id):
+    try:
+        user_instance = Users.objects.get(id=user_id)
+        serializer = UsersSerializer(user_instance)
+        return Response({"status": "success", "data": serializer.data['user_types']})
+    except Users.DoesNotExist:
+        return Response({"status": "error", "message": f"User with id {user_id} does not exist"}, status=404)
+    

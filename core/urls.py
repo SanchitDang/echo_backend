@@ -31,5 +31,6 @@ urlpatterns = [
     path('api/refers', views.RefersApiView.as_view()),
     path('api/categories/', ItemsCategoryListCreateView.as_view(), name='category-list-create'),
     path('api/subcategories/', ItemsSubCategoriesListCreateView.as_view(), name='subcategory-list-create'),
-    path('api/subcategories/<int:category_id>/', ItemsSubCategoriesByCategoryView.as_view(), name='subcategory-by-category'),   
+    path('api/subcategories/<int:category_id>/', ItemsSubCategoriesByCategoryView.as_view(), name='subcategory-by-category'),  
+    path('api/get_user_types_list/<int:user_id>', get_user_types_list, name='get_user_types_list'), 
 ]

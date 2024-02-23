@@ -10,7 +10,8 @@ class Users(models.Model):
     email = models.CharField(max_length=200, unique=True, null=True)
     phone = models.CharField(max_length=200, unique=True, null=True)
     password = models.CharField(max_length=200)
-    user_type = models.CharField(max_length=200)
+    user_type = models.CharField(max_length=200) # current user type selected by user
+    user_types = models.JSONField(default=list) 
     address = models.CharField(max_length=500, blank=True, null=True)
     company_name = models.CharField(max_length=500, blank=True, null=True)
     company_size = models.CharField(max_length=500, blank=True, null=True)
