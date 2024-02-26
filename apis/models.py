@@ -1,8 +1,13 @@
 from django.db import models
 
 # python manage.py makemigrations
-# python manage.py migrate  
+# python manage.py migrate 
 
+#dashboard users
+# class PanelUsers()
+#user_type
+
+# application users
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
@@ -16,7 +21,7 @@ class Users(models.Model):
     company_name = models.CharField(max_length=500, blank=True, null=True)
     company_size = models.CharField(max_length=500, blank=True, null=True)
     manufacturer_category = models.CharField(max_length=500, blank=True, null=True)
-    adhaar_number = models.CharField(max_length=200, blank=True, null=True)
+    adhaar_number = models.CharField(max_length=200, blank=True, null=True) 
 
 class Bids(models.Model):
     id = models.AutoField(primary_key=True)
