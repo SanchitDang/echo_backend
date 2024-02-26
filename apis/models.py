@@ -71,3 +71,9 @@ class ItemsSubCategories(models.Model):
     id = models.AutoField(primary_key=True)
     sub_category = models.CharField(max_length=200, null=True)
     category_id = models.CharField(max_length=200, null=True)
+
+class Assessment(models.Model):
+    data = models.JSONField(default=dict)
+
+    def __str__(self):
+        return f"Assessment {self.pk}"

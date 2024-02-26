@@ -1,6 +1,6 @@
 # myapp/forms.py
 from django import forms
-from .models import Bids
+from .models import Bids, Assessment
 
 class BidsForm(forms.ModelForm):
     class Meta:
@@ -11,3 +11,4 @@ class BidsForm(forms.ModelForm):
             'bid_opening_time': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD HH:MM:SS'}),
             'bid_closing_time': forms.TextInput(attrs={'placeholder': 'YYYY-MM-DD HH:MM:SS'}),
         }
+

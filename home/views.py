@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from apis.models import Users, Bids
+from apis.models import Users, Bids, Assessment
 from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from .forms import DynamicAssessmentForm
 
 def dashboard(request):
     # Get the count of all users
@@ -80,3 +82,43 @@ def toggle_approval(request, bid_id):
         return JsonResponse({'status': 'success', 'is_approved': bid.is_approved})
     except Bids.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Bid not found'}, status=404)
+
+def create_assessment(request):
+    if request.method == 'POST':
+        # Process dynamic data and convert it to JSON
+        dynamic_data = {}
+        for key, value in request.POST.items():
+            if key.startswith('data_key_') and value:
+                field_number = key.split('_')[-1]
+                data_key = value
+                data_value = request.POST.get(f'data_value_{field_number}')
+                dynamic_data[data_key] = data_value
+
+        Assessment.objects.create(data=dynamic_data)
+        return redirect('/')  # Redirect to the assessment list vie
+
+    return render(request, 'create_assessment.html')
+
+def edit_assessment(request, assessment_id):
+    assessment = Assessment.objects.get(pk=assessment_id)
+    form_data = {}
+    for i, (key, value) in enumerate(assessment.data.items()):
+        form_data['data_key_{}'.format(i)] = key
+        form_data['data_value_{}'.format(i)] = value
+
+    form = DynamicAssessmentForm(initial=form_data)
+
+    if request.method == 'POST':
+        dynamic_data = {}
+        for key, value in request.POST.items():
+            if key.startswith('data_key_') and value:
+                field_number = key.split('_')[-1]
+                data_key = value
+                data_value = request.POST.get(f'data_value_{field_number}')
+                dynamic_data[data_key] = data_value
+
+        assessment.data = dynamic_data
+        assessment.save()
+        return redirect('/')  # Redirect to the assessment list view
+
+    return render(request, 'edit_assessment.html', {'data': form_data, 'form': form})

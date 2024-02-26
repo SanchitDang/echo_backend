@@ -1,0 +1,66 @@
+{% block content %}
+  <h2>Create Assessment</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    <div id="dynamic-fields">
+      {% for key, value in data.items %}
+        <div class="key-value-pair">
+          <input type="hidden" name="data_key_{{ forloop.counter0 }}" value="{{ key }}">
+          <input type="hidden" name="data_value_{{ forloop.counter0 }}" value="{{ value }}">
+          <span>{{ key }}</span>: <span>{{ value }}</span>
+          <button type="button" class="remove-pair">Remove</button>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div id="additional-fields">
+      <input type="text" name="data_key" placeholder="Key">
+      <input type="text" name="data_value" placeholder="Value">
+      <button type="button" id="add-field">Add</button>
+    </div>
+
+    <button type="submit">Save</button>
+  </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const additionalFields = document.getElementById("additional-fields");
+      const dynamicFields = document.getElementById("dynamic-fields");
+
+      document.getElementById("add-field").addEventListener("click", function () {
+        const newFieldDiv = document.createElement("div");
+        newFieldDiv.className = "key-value-pair";
+
+        const newKeyInput = document.createElement("input");
+        newKeyInput.type = "text";
+        newKeyInput.name = "data_key_" + dynamicFields.children.length;
+        newKeyInput.placeholder = "Key";
+        newFieldDiv.appendChild(newKeyInput);
+
+        const newValueInput = document.createElement("input");
+        newValueInput.type = "text";
+        newValueInput.name = "data_value_" + dynamicFields.children.length;
+        newValueInput.placeholder = "Value";
+        newFieldDiv.appendChild(newValueInput);
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "remove-pair";
+        removeButton.textContent = "Remove";
+        removeButton.addEventListener("click", function () {
+          newFieldDiv.remove();
+        });
+        newFieldDiv.appendChild(removeButton);
+
+        dynamicFields.appendChild(newFieldDiv);
+      });
+
+      document.querySelectorAll(".remove-pair").forEach(function (button) {
+        button.addEventListener("click", function () {
+          button.closest(".key-value-pair").remove();
+        });
+      });
+    });
+  </script>
+{% endblock %}

@@ -18,6 +18,8 @@ urlpatterns = [
     path('edit_bid/', bids_edit_view, name='edit-bid'),
     path('api/toggle_approval/<int:bid_id>/', toggle_approval, name='toggle-approval'),
     path('api/bids/<int:bid_id>/approval-status/', get_approval_status, name='get_approval_status'),
+    path('create_assessment/', create_assessment, name='create_assessment'),
+    path('edit_assessment/<int:assessment_id>/', edit_assessment, name='edit_assessment'),
 
     # api urls
     path('api/users', views.UsersApiView.as_view()),
