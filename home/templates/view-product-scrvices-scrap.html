@@ -1,0 +1,95 @@
+{% extends "base.html" %} {% block title %}<title>Category</title> {% endblock title %} {% block body %}
+
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+
+                <nav class="breadcrumb">
+                    <a class="breadcrumb-item" href="{% url 'dashboard' %}">Home</a>
+                    {% if "product" in path.request %}
+                    <span class="breadcrumb-item active">Product</span>
+                    {% elif "services" in path.request %}
+                    <span class="breadcrumb-item active">services</span>
+                    {% elif "category" in path.request %}
+                    <span class="breadcrumb-item active">Scraps</span>
+                    {% elif "bids" in path.request %}
+                    <span class="breadcrumb-item active">Bids</span>
+                    {% endif %}
+
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    {% if "product" in request.path %}
+                    <h4 class="card-title">Product</h4>
+                    <h6 class="card-subtitle">List of all Product</h6>
+                    {% elif "scrvices" in request.path %}
+                    <h4 class="card-title">services</h4>
+                    <h6 class="card-subtitle">List of all services</h6>
+                    {% elif "scraps" in request.path %}
+                    <h4 class="card-title">Scraps</h4>
+                    <h6 class="card-subtitle">List of all categories</h6>
+                    {% elif "bids" in request.path %}
+                    <h4 class="card-title">Bids</h4>
+                    <h6 class="card-subtitle">List of all Bids</h6>
+                    {% endif %}
+
+
+                    
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>item</th>
+                                    <th>description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                               
+                                {% for obj in datas %}
+                                <tr>
+                                    
+                                    <td>{{ loop.index }}</td>
+                                    
+                                    <td>{{ obj.item }}</td>
+                                    <td>{{ obj.description }}</td>
+                                   
+                                    <td class="text-end">
+                                        <a href="" >
+                                        <button type="button"
+                                            class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock body %}

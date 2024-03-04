@@ -4,9 +4,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models import Q
+import json
 from .models import *
 from .serializers import *
-import json
+from home.models import Assessments
 
 class UsersApiView(APIView):
 
@@ -61,6 +62,10 @@ class ProductsApiVIew(APIView):
         user_id = request.query_params.get('user_id', None)
         if user_id is not None:
             products = Products.objects.filter(user_id=user_id)
+            serializer = ProductsSerializer(products, many=True)
+            return Response({"status": "success", "data": serializer.data})
+        elif user_id == "all":
+            products = Products.objects.all().values()
             serializer = ProductsSerializer(products, many=True)
             return Response({"status": "success", "data": serializer.data})
         else:
@@ -299,3 +304,95 @@ def get_user_types_list(request, user_id):
     except Users.DoesNotExist:
         return Response({"status": "error", "message": f"User with id {user_id} does not exist"}, status=404)
     
+
+
+@api_view(['POST'])
+def referral(request):
+    
+    serializers = ReferralSerializer(data=request.data)
+    if serializers.is_valid():
+        serializers.save()
+        return Response(serializers.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# changeBidWinUser
+# "bid_id": bidId,
+#         "party2_id": user["loggedInId"],
+#         "party2_name": user["loggedInName"],
+@api_view(['POST'])
+def changeBidWinUser(request):
+    bid_id = request.data.get('bid_id', None)
+    party2_id = request.data.get('party2_id', None)
+    party2_name = request.data.get('party2_name', None)
+
+    if not bid_id or not party2_id or not party2_name:
+        return Response({"error": "bid_id, party2_id and party2_name are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        bid_instance = Bids.objects.get(id=bid_id)
+    except Bids.DoesNotExist:
+        return Response({"error": "Bid not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    bid_instance.party2_id = party2_id
+    bid_instance.party2_name = party2_name
+    bid_instance.save()
+
+    serializer = BidsSerializer(bid_instance)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+class AssessmentApiView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        assessment_id = request.data.get('id', None)
+        if assessment_id is None:
+            return Response({"error": "Assessment ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+        assessments = Assessments.objects.get(id=assessment_id)
+        return Response({"status": "success", "data": assessments})
+
+
+    def post(self, request, *args, **kwargs):
+        serializer = AssessmentsSerializer(data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+    def put(self, request, *args, **kwargs):
+        assessment_id = request.data.get('id', None)
+        if not assessment_id:
+            return Response({"error": "Assessment ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            assessment = Assessments.objects.get(id=assessment_id)
+        except Assessments.DoesNotExist:
+            return Response({"error": "Assessment not found"}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = AssessmentsSerializer(instance=assessment, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
+
+@api_view(['GET'])
+def get_domains(request):
+    domains = Domains.objects.all().values()
+    return Response({"status": "success", "data": domains})
+
+
+@api_view(['GET'])
+def get_users_types(request):
+    user_types = UserType.objects.all().values()
+    return Response({"status": "success", "data": user_types})

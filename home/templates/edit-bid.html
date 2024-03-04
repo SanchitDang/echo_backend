@@ -1,0 +1,187 @@
+{% extends "base.html" %} {% block title %}<title>Bids</title> {% endblock title %} 
+
+{% block style %}
+
+
+<style>
+    body {
+        background: rgb(99, 39, 120);
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8;
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none;
+    }
+
+    .profile-button:hover {
+        background: #682773;
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none;
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none;
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer;
+    }
+
+    .labels {
+        font-size: 11px;
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8;
+    }
+</style>
+
+
+{% endblock style %}
+
+{% block body %}
+
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5"
+                     width="150px"
+                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">{{ bid_data.0.item }}</span>
+                <span></span>
+            </div>
+        </div>
+       
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    
+                    <button type="button" class="btn btn-outline-secondary btn-rounded"><i class="bi bi-arrow-left"></i> Back</button>
+
+
+                    <h4 class="text-right">Bid Settings</h4>
+                </div>
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <label class="labels">ID</label>
+                        <input type="text" class="form-control" placeholder="id" name ="id" id="id" value="{{ bid_data.0.id }}" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Item</label>
+                        <input type="text" class="form-control" placeholder="item" name ="item" id="item" value="{{ bid_data.0.item }}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Price</label>
+                        <input type="text" class="form-control" placeholder="enter price" name="price" id="price" value="{{ bid_data.0.price }}">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="labels">Bid Type</label>
+                        <input type="text" class="form-control" placeholder="bid type" name="bid_type" id="bid_type" value="{{ bid_data.0.bid_type }}" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">Requirement By ID</label>
+                        <input type="text" class="form-control" placeholder="requirement by ID" name="party1_id" id="party1_id" value="{{ bid_data.0.party1_id }}" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Requirement By</label>
+                        <input type="text" class="form-control" placeholder="requirement by" name="party1_name" id="party1_name" value="{{ bid_data.0.party1_name }}" readonly>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">Bid Category</label>
+                        <input type="text" class="form-control" placeholder="enter bid category" name="bid_category" id="bid_category" value="{{ bid_data.0.bid_category }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="labels">Bid Subcategory</label>
+                        <input type="text" class="form-control" placeholder="enter bid subcategory" name="bid_sub_category" id="bid_sub_category" value="{{ bid_data.0.bid_sub_category }}">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Description</label>
+                        <textarea class="form-control" placeholder="enter description" name="description" id="description" rows="5">{{ bid_data.0.description }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Bid Opening Time</label>
+                        <div class="input-group date" id="bidOpeningTimePicker" data-target-input="nearest">
+                            <input type="datetime-local" class="form-control datetimepicker-input" data-target="#bidOpeningTimePicker" placeholder="Select bid opening time" name="bid_opening_time" id="bid_opening_time" value="{{ bid_data.0.bid_opening_time }}" />
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Bid Closing Time</label>
+                        <div class="input-group date" id="bidClosingTimePicker" data-target-input="nearest">
+                            <input type="datetime-local" class="form-control datetimepicker-input" data-target="#bidClosingTimePicker" placeholder="Select bid closing time" name="bid_closing_time" id="bid_closing_time" value="{{ bid_data.0.bid_closing_time }}" />
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-5 text-center">
+                    <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Bid Status</label>
+                        <div class="d-flex align-items-center">
+                            <span class="current-status {% if bid_data.0.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
+                                {% if bid_data.0.is_approved == 'yes' %}
+                                    Approved
+                                {% else %}
+                                    Not Approved
+                                {% endif %}
+                            </span>
+                            <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                                <div class="ml-auto">
+                                    <button id="approvalButton" class="border px-3 p-1 add-experience" type="button" onclick="toggleApproval({{ bid_id }})">
+                                        Change Status
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock body %}
+

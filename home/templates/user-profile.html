@@ -1,0 +1,328 @@
+{% extends "base.html" %} {% block title %}<title>Bids</title> {% endblock title %}
+
+{% block style %}
+
+
+<style>
+    body {
+        background: rgb(99, 39, 120);
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #BA68C8;
+    }
+
+    .profile-button {
+        background: rgb(99, 39, 120);
+        box-shadow: none;
+        border: none;
+    }
+
+    .profile-button:hover {
+        background: #682773;
+    }
+
+    .profile-button:focus {
+        background: #682773;
+        box-shadow: none;
+    }
+
+    .profile-button:active {
+        background: #682773;
+        box-shadow: none;
+    }
+
+    .back:hover {
+        color: #682773;
+        cursor: pointer;
+    }
+
+    .labels {
+        font-size: 11px;
+    }
+
+    .add-experience:hover {
+        background: #BA68C8;
+        color: #fff;
+        cursor: pointer;
+        border: solid 1px #BA68C8;
+    }
+</style>
+
+
+{% endblock style %}
+
+{% block body %}
+
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                <img class="rounded-circle mt-5" width="150px"
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                <span class="font-weight-bold">{{ bid_data.0.item }}</span>
+                <span></span>
+            </div>
+        </div>
+
+        <div class="col-md-5 border-right">
+
+          
+
+            <div class="p-3 py-5">
+               
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    
+                    <button type="button" class="btn btn-outline-secondary btn-rounded"><i class="bi bi-arrow-left"></i> Back</button>
+    
+    
+                    <h4 class="text-right">User Profile</h4>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <label for="{{ form.id.id_for_label }}">ID</label>
+                            <br>
+                            {{ userid }}
+                            {% if form.id.errors %}
+                            <p class="mb-0 text-danger">{{ form.id.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                            {{ form.name }}
+
+                            {% if form.name.errors %}
+                            <p class="mb-0 text-danger">{{ form.name.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+
+                            <label for="{{ form.name.id_for_label }}">{{ form.email.label }}</label>
+                            {{ form.email }}
+
+                            {% if form.email.errors %}
+                            <p class="mb-0 text-danger">{{ form.email.errors.as_text }}</p>
+                            {% endif %}
+
+                        </div>
+
+                        <div class="col-md-12">
+
+                            <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                            {{ form.phone }}
+
+                            {% if form.phone.errors %}
+                            <p class="mb-0 text-danger">{{ form.phone.errors.as_text }}</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+
+                            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+                            {{ form.password }}
+
+                            {% if form.password.errors %}
+                            <p class="mb-0 text-danger">{{ form.password.errors.as_text }}</p>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.user_type.id_for_label }}">{{ form.user_type.label }}</label>
+                            {{ form.user_type }}
+
+                            {% if form.user_type.errors %}
+                            <p class="mb-0 text-danger">{{ form.user_type.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="{{ form.company_name.id_for_label }}">{{ form.company_name.label }}</label>
+                            {{ form.company_name }}
+
+                            {% if form.company_name.errors %}
+                            <p class="mb-0 text-danger">{{ form.company_name.errors.as_text }}</p>
+                            {% endif %}
+
+                        </div>
+                        <div class="col-md-6">
+                            <label for="{{ form.company_size.id_for_label }}">{{ form.company_size.label }}</label>
+                            {{ form.company_size }}
+
+                            {% if form.company_size.errors %}
+                            <p class="mb-0 text-danger">{{ form.company_size.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+                            {{ form.address }}
+
+                            {% if form.address.errors %}
+                            <p class="mb-0 text-danger">{{ form.address.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="{{ form.manufacturer_category.id_for_label }}">{{form.manufacturer_category.label }}</label>
+                            {{ form.manufacturer_category }}
+
+                            {% if form.manufacturer_category.errors %}
+                            <p class="mb-0 text-danger">{{ form.manufacturer_category.errors.as_text }}</p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label for="{{ form.adhaar_number.id_for_label }}">{{ form.adhaar_number.label }}</label>
+                            {{ form.adhaar_number }}
+
+                            {% if form.adhaar_number.errors %}
+                            <p class="mb-0 text-danger">{{ form.adhaar_number.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">User Status</label>
+                        <div class="d-flex align-items-center">
+                            <span
+                                class="current-status {% if bid_data.0.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
+                                {% if bid_data.0.is_approved == 'yes' %}
+                                Approved
+                                {% else %}
+                                Not Approved
+                                {% endif %}
+                            </span>
+                            <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                                <div class="ml-auto">
+                                    <button id="approvalButton" class="border px-3 p-1 add-experience" type="button"
+                                        onclick="toggleApproval({{ bid_id }})">
+                                        Change Status
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="labels"></label>
+                        <div class="d-flex align-items-center">
+
+                            <div class="col-md-12">
+                                <div class="ml-auto">
+                                    <a href="{% url 'user-assessment' id=userid %}">
+                                        <button id="approvalButton" class="border px-3 p-1 add-experience"
+                                            type="button">
+                                            View Assesment
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p></P>
+                        <div class="col-md-12">
+                            <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                                <div class="ml-auto">
+                                    <a href="{% url 'user-products' user_id=userid %}">
+                                        <button id="approvalButton" class="border px-3 p-1 add-experience"
+                                            type="button">
+                                            View Products
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <p></P>
+                <div class="col-md-12">
+                    <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                        <div class="ml-auto">
+                            <a href="{% url 'user-assessment' id=userid %}">
+                                <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
+                                    View services provided
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <p></P>
+
+                <div class="col-md-12">
+                    <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                        <div class="ml-auto">
+                            <a href="{% url 'user-scrap' user_id=userid %}">
+                                <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
+                                    View Scraps
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <p></P>
+                <div class="col-md-12">
+                    
+                        <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                            <div class="ml-auto">
+
+                                
+                                {% if user.user_types == "supplier" %}
+                                <a href="{% url 'supplier_bids_list' user_id=userid %}">
+                                    <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
+                                        View Bids
+                                    </button>
+                                </a>
+                                {% elif user.user_types == "manufacturer" %}
+                                <a href="{% url 'manufacturer_bids_list' user_id=userid %}">
+                                    <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
+                                        View Bids
+                                    </button>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                  
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+
+
+{% endblock body %}

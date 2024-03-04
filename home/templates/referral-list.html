@@ -1,0 +1,76 @@
+{% extends "base.html" %} {% block title %}<title>Bids</title> {% endblock title %} {% block body %}
+
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+
+                <nav class="breadcrumb">
+                    <a class="breadcrumb-item" href="{% url 'dashboard' %}">Home</a>
+                    <span class="breadcrumb-item active">Referral List</span>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+    <!-- Main -->
+    <main class="py-6 bg-surface-secondary">
+        <div class="container-fluid">
+            <div class="card shadow border-0 mb-7">
+                <div class="card-header">
+                    <h3 class="mb-0">Referral List</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover table-nowrap">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">SR No.</th>
+                                <th scope="col">party1 id</th>
+                                <th scope="col">party1 name</th>
+                                <th scope="col">party2 id</th>
+                                <th scope="col">party2 name</th>
+                                <th scope="col">Action</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for referral in referrals %}
+                                <tr>
+                                    <td>{{ forloop.counter}}</td>
+                                    <td>{{ referral.party1_id }}</td>
+                                    <td>
+                                        <a class="text-heading font-semibold" href="#">{{ referral.party1_name }}</a>
+                                    </td>
+                                    <td>{{ referral.party2_id }}</td>
+                                    <td>
+                                        <a class="text-heading font-semibold" href="#">{{ referral.party1_name }}</a>
+                                    </td>
+                                    <td class="text-end">
+                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            <a href="{% url 'delete_referral' referral_id=referral.id %}">
+                                            
+                                            <i class="bi bi-trash"></i>
+                                            </a>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+</div>
+
+
+
+
+
+{% endblock body %}

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from home.models import Assessments
 
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
@@ -46,3 +47,19 @@ class ItemsSubCategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemsSubCategories
         fields = '__all__'
+
+
+
+class ReferralSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Referral
+        fields = '__all__'
+
+
+
+class AssessmentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Assessments
+        fields = '__all__'
+
+

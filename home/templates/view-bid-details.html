@@ -1,0 +1,86 @@
+{% extends "base.html" %} {% block title %}<title>my profile</title> {% endblock title %} 
+
+{% block style %}
+
+
+
+{% endblock style %}
+
+{% block body %}
+
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+
+    {% if messages %}
+        <div class="alert alert-success " role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+       
+    {% endif %}
+
+
+    <div class="row">
+        <div class="d-flex justify-content-between align-items-center mb-12">
+            <button type="button" class="btn btn-outline-secondary btn-rounded"><i class="bi bi-arrow-left"></i> Back</button>
+        </div>
+        <div class="col-md-12 border-right">
+            <h2 class="text-right">Bid Details</h2>
+            
+            <div class="p-1 py-1">
+
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6 col-mb-6">
+                                
+                                {{bid.other_parties.party_name}}
+                                <h3>Party Name</h3>
+                                
+                                
+                                <div class="dropdown-divider"></div>
+                            </div>
+                            <div class="col-md-6 col-mb-6">
+                                {{bid.other_parties.party_bid_price}}
+                                <h3>Bid Price</h3>
+                                
+                                <div class="dropdown-divider"></div>
+                            </div>
+                            
+                            <div class="col-md-6 col-mb-6">
+
+                                {{bid.other_parties.party_bid_duration}}
+                                <h3>Bid Duration</h3>
+                                <div class="dropdown-divider"></div>
+                                
+                            </div>
+                            <div class="col-md-6 col-mb-6">
+                                {{bid.other_parties.party_bid_description}}
+                                <h3>Bid Description</h3>
+                                <div class="dropdown-divider"></div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                 
+
+                
+
+
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+{% endblock body %}
