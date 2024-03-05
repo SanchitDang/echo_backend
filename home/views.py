@@ -53,9 +53,9 @@ def dashboard(request):
     supplier_count = Users.objects.filter(user_type='supplier').count()
     manufacturer_count = Users.objects.filter(user_type='manufacturer').count()
     referral_count = Users.objects.filter(user_type='referral').count()
+    service_provider_count = Users.objects.filter(user_type='service provider').count()
 
     bid_count = Bids.objects.count()
-
     on_going_bid_count= Bids.objects.filter(bid_status='on_going').count()
     bid_finished_count = Bids.objects.filter(bid_status='finished').count()
     bid_cancelled_count = Bids.objects.filter(bid_status='cancelled').count()
@@ -67,6 +67,7 @@ def dashboard(request):
         'user_count': user_count,
         'bid_count': bid_count,
         'supplier_count': supplier_count,
+        'service_provider_count':service_provider_count,
         'manufacturer_count': manufacturer_count,
         'referral_count': referral_count,
         "bid_cancelled_count": bid_cancelled_count,
@@ -412,6 +413,7 @@ def view_scrap(request,user_id):
     scrap = Scraps.objects.filter(user_id=user_id)
     type = "scrap"
     return render(request, 'view-product-scrvices-scrap.html',{"datas":scrap, "type":type})
+
 
 
 

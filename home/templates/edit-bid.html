@@ -102,6 +102,20 @@
                     </div>
                 </div>
                 <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Bid Material</label>
+                        <input type="text" class="form-control" placeholder="enter bid material" name="bid_material" id="bid_material" value="{{ bid_data.0.bid_material }}">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="labels">Bid Delivery Time</label>
+                        <input type="text" class="form-control" placeholder="enter bid delivery time" name="bid_delivery_time" id="bid_delivery_time" value="{{ bid_data.0.bid_delivery_time }}">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="labels">Bid Win Type</label>
+                        <input type="text" class="form-control" placeholder="bid win type" name="bid_win_type" id="bid_win_type" value="{{ bid_data.0.bid_win_type }}">
+                    </div>
+                </div>
+                <div class="row mt-3">
                     <div class="col-md-6">
                         <label class="labels">Requirement By ID</label>
                         <input type="text" class="form-control" placeholder="requirement by ID" name="party1_id" id="party1_id" value="{{ bid_data.0.party1_id }}" readonly>
@@ -122,6 +136,10 @@
                     </div>
                 </div>
                 <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label class="labels">Bid Quantity</label>
+                        <input type="text" class="form-control" placeholder="enter bid quantity" name="bid_quantity" id="bid_quantity" value="{{ bid_data.0.bid_quantity }}">
+                    </div>
                     <div class="col-md-6">
                         <label class="labels">Percentage Increment/Decrement</label>
                         <input type="text" class="form-control" placeholder="enter percentage" name="percentage_inc_dec" id="percentage_inc_dec" value="{{ bid_data.0.percentage_inc_dec }}">

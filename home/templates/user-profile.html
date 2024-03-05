@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}<title>Bids</title> {% endblock title %}
+{% extends "base.html" %} {% block title %}<title>Edit User</title> {% endblock title %}
 
 {% block style %}
 
@@ -269,7 +269,7 @@
                 <div class="col-md-12">
                     <div class="ml-auto"> <!-- Add this div with ml-auto -->
                         <div class="ml-auto">
-                            <a href="{% url 'user-assessment' id=userid %}">
+                            <a href="{% url 'user-scrvices' user_id=userid %}">
                                 <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
                                     View services provided
                                 </button>
