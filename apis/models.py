@@ -40,8 +40,8 @@ class Bids(models.Model):
     bid_type = models.CharField(max_length=10, null=True)               #one_time or real_time
     bid_win_type = models.CharField(max_length=10, null=True)           #highest win or lowest win
     bid_status= models.CharField(max_length=20, null=True)           #on_going cancelled or finished
-    bid_opening_time = models.TextField(null=True)
-    bid_closing_time = models.TextField(null=True)
+    bid_opening_time = models.TextField(default='2000-01-01T18:18', null=True)
+    bid_closing_time = models.TextField(default='2000-01-01T18:18', null=True)
     is_approved = models.CharField(max_length=5, default="no")
     bid_quantity = models.CharField(max_length=20, null=True)
     bid_delivery_time = models.CharField(max_length=20, null=True)

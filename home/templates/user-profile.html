@@ -297,16 +297,16 @@
                             <div class="ml-auto">
 
                                 
-                                {% if user.user_types == "supplier" %}
+                                {% if user.user_type == "supplier" %}
                                 <a href="{% url 'supplier_bids_list' user_id=userid %}">
                                     <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
                                         View Bids
                                     </button>
                                 </a>
-                                {% elif user.user_types == "manufacturer" %}
+                                {% elif user.user_type == "manufacturer" %}
                                 <a href="{% url 'manufacturer_bids_list' user_id=userid %}">
                                     <button id="approvalButton" class="border px-3 p-1 add-experience" type="button">
-                                        View Bids
+                                        View Placed Requirements
                                     </button>
                                 </a>
                                 {% endif %}

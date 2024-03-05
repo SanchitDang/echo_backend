@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from apis.models import Users, Bids, Assessment
 from .models import PanelUser,Assessments
 from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm
-from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Referral,Domains,UserType
+from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Referral,Domains,UserType,Refers
 
 
 
@@ -111,9 +111,9 @@ def my_profile(request):
 def edit_user_profile(request, id):
     user = Users.objects.get(id=id)
 
-    user.user_types = user.user_types[0]
 
-    print("User type",user.user_types)
+
+    print("User type",user.user_type)
 
     form = UserForm(instance=user)
     if request.method == 'POST':
@@ -178,6 +178,24 @@ def suppliers_list(request):
 
 
 
+def service_provider_list(request):
+    users = Users.objects.filter(user_type='service provider')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'user-type-list.html', context)
+
+
+def referral_list(request):
+    users = Users.objects.filter(user_type='referral')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'user-type-list.html', context)
 
 
 
@@ -201,6 +219,9 @@ def bids_edit_view(request,bid_id):
 
     if request.method == "POST":
             bid_id = request.POST.get('id')
+
+            print(">>>>>>>bid id is ", bid_id)
+
             bid = get_object_or_404(Bids, id=bid_id)
 
             bid.item = request.POST.get('item')
@@ -214,7 +235,7 @@ def bids_edit_view(request,bid_id):
 
             bid.save()  
 
-            bid_id = request.GET.get('id', '')       
+            bid_id = request.POST.get('id')      
             bid = Bids.objects.filter(id=bid_id)
             return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,})
 
@@ -329,11 +350,10 @@ def sub_category_list(request):
     # get category list from ItemsSubCategories.ItemsCategory
 
 
-    # for category in sub_categories:
-        # print(category.category_id)
-        # category_name = ItemsCategory.objects.get(id=category.category_id)
-        # print(category_name.category)
-        # category.category_id = category_name.category
+    for category in sub_categories:
+        print(category.category_id)
+        category_name = ItemsCategory.objects.get(id=category.category_id)
+        category.category_id = category_name.category
     
     context = {
         'sub_categories': sub_categories
@@ -344,14 +364,15 @@ def sub_category_list(request):
 
 
 
-def add_sub_category(request,):
+def add_sub_category(request):
+    
     form = ItemsSubCategoriesForm(request.POST or None)
+    
     if form.is_valid():
         form.save()
         return redirect('sub_category_list')
     
     return render(request, 'add-update-sub-category.html', {'form': form})
-
 
 
 def update_sub_category(request, sub_category_id):
@@ -363,6 +384,16 @@ def update_sub_category(request, sub_category_id):
     
 
     return render(request, 'add-update-sub-category.html', {'form': form, 'sub_category_id': sub_category_id,})
+
+
+
+def delete_subcategory(request,id):
+
+    sub_category = ItemsSubCategories.objects.get(id=id)
+    sub_category.delete()
+
+    return redirect('sub_category_list')
+
 
 
 def view_product(request,user_id):
@@ -384,9 +415,9 @@ def view_scrap(request,user_id):
 
 
 
-def referral_list(request):
-    referral = Referral.objects.all()
-    return render(request, 'referral-list.html',{"referrals":referral})
+def refers_list(request):
+    refers = Refers.objects.all()
+    return render(request, 'refer-list.html',{"refers":refers})
 
 def delete_referral(request,referral_id):
     referral = Referral.objects.get(id=referral_id)

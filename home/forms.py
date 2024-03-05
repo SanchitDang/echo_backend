@@ -84,12 +84,17 @@ class ItemsCategoryForm(forms.ModelForm):
 
 
 class ItemsSubCategoriesForm(forms.ModelForm):
+
+	category_id = forms.ChoiceField(choices=[])
 	class Meta:
 		model = ItemsSubCategories
 		fields = "__all__"
 
-	category_id = forms.ModelChoiceField(queryset=ItemsCategory.objects.all(), empty_label="Select Category")
-		
+	
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		# Fetch choices for the category_id field
+		self.fields['category_id'].choices = [(i.id, i.category) for i in ItemsCategory.objects.all()]
 
 
 

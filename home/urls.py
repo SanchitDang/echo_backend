@@ -15,6 +15,7 @@ urlpatterns = [
 
     path('users-by-type/manufacturers', views.manufacturers_list, name='manufacturers-users-by-type'),
     path('users-by-type/suppliers', views.suppliers_list, name='suppliers-users-by-type'),
+    path('users-by-type/service-provider', views.service_provider_list, name='service-provider-users-by-type'),
 
     path('user-profile/<int:id>/', views.edit_user_profile, name='user-profile'),
     path('user-assessment/<int:id>/', views.edit_user_assessment, name='user-assessment'),
@@ -37,14 +38,16 @@ urlpatterns = [
     path('sub-category-list/', views.sub_category_list, name='sub_category_list'),
     path('add-sub-category/', views.add_sub_category, name='add_sub_category'),
     path('edit-sub-category/<int:sub_category_id>/', views.update_sub_category, name='edit_sub_category'),
+    path('delete-sub-category/<int:id>/', views.delete_subcategory, name='delete_sub_category'),    
 
 
     path('user/products/<str:user_id>', views.view_product, name='user-products'),
     path('user/scrvices/<str:user_id>', views.view_scrvices, name='user-scrvices'),
     path('user/scraps/<str:user_id>', views.view_scrap, name='user-scrap'),
-
-
     path('referral-list/', views.referral_list, name='referral_list'),
+
+
+    path('refers-list/', views.refers_list, name='refers_list'),
     path('referral/<int:referral_id>/', views.delete_referral, name='delete_referral'),
 
 
