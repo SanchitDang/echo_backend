@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('home.urls')),
     path('api/toggle_approval/<int:bid_id>/', toggle_approval, name='toggle-approval'),
+    path('api/toggle_user_approval/<int:user_id>/', toggle_user_approval, name='user-toggle-approval'),
     path('api/bids/<int:bid_id>/approval-status/', get_approval_status, name='get_approval_status'),
 
     # api urls

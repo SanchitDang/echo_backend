@@ -98,7 +98,23 @@
                     </div>
                     <div class="col-md-12">
                         <label class="labels">Bid Type</label>
-                        <input type="text" class="form-control" placeholder="bid type" name="bid_type" id="bid_type" value="{{ bid_data.0.bid_type }}" readonly>
+                    
+                            <select class="form-control" name="bid_type" id="type">
+                                <option value="one_time" {% if bid_data.0.bid_type == "one_time" %} selected {% endif %}>One Time</option>
+                                <option value="real_time" {% if bid_data.0.bid_type == "real_time" %} selected {% endif %}>Real Time</option>
+                            </select>
+                        <!-- <input type="text" class="form-control" placeholder="bid type" name="bid_type" id="bid_type" value="{{ bid_data.0.bid_type }}" > -->
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="labels">Bid Status</label>
+                    
+                            <select class="form-control" name="bid_status" id="bid_status">
+                                <option value="on_going" {% if bid_data.0.bid_status == "on_going" %} selected {% endif %}>On Going</option>
+                                <option value="finished" {% if bid_data.0.bid_status == "finished" %} selected {% endif %}>Finished</option>
+                                <option value="cancelled" {% if bid_data.0.bid_status == "cancelled" %} selected {% endif %}>Cancelled</option>
+                            </select>
+    
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -112,7 +128,13 @@
                     </div>
                     <div class="col-md-12">
                         <label class="labels">Bid Win Type</label>
-                        <input type="text" class="form-control" placeholder="bid win type" name="bid_win_type" id="bid_win_type" value="{{ bid_data.0.bid_win_type }}">
+
+                        <select class="form-control" name="bid_win_type" id="bid_win_type">
+                            <option value="highest" {% if bid_data.0.bid_win_type == "highest" %} selected {% endif %}>Higest</option>
+                            <option value="lowest" {% if  bid_data.0.bid_win_type == "lowest" %} selected {% endif %}>Lowest</option>
+                        </select>
+
+                        <!-- <input type="text" class="form-control" placeholder="bid win type" name="bid_win_type" id="bid_win_type" value="{{ bid_data.0.bid_win_type }}"> -->
                     </div>
                 </div>
                 <div class="row mt-3">
@@ -128,12 +150,24 @@
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <label class="labels">Bid Category</label>
-                        <input type="text" class="form-control" placeholder="enter bid category" name="bid_category" id="bid_category" value="{{ bid_data.0.bid_category }}">
+                        <select class="form-control" name="bid_category" id="bid_category">
+                        {% for data  in itemscategory %}
+                            <option value="{{ data.category }}" {% if category == bid_data.0.bid_category %} selected {% endif %}>{{ data.category }}</option>    
+                        {% endfor %}
+                        </select>
+
                     </div>
+
                     <div class="col-md-6">
                         <label class="labels">Bid Subcategory</label>
-                        <input type="text" class="form-control" placeholder="enter bid subcategory" name="bid_sub_category" id="bid_sub_category" value="{{ bid_data.0.bid_sub_category }}">
+                        <select class="form-control" name="bid_sub_category" id="bid_sub_category">
+                            {% for data  in itemssubcategory %}
+                                <option value="{{ data.sub_category }}" {% if subcategory == bid_data.0.bid_sub_category %} selected {% endif %}>{{ data.sub_category }}</option>
+                            {% endfor %}
+                        </select>
+                   
                     </div>
+
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">

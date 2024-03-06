@@ -56,28 +56,7 @@ class UsersApiView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class ProductsApiVIew(APIView):
-    
-#     def get(self, request, *args, **kwargs):
-#         user_id = request.get('user_id', None)
-#         print("user id", user_id)
-#         if user_id is not None:
-#             products = Products.objects.filter(user_id=user_id)
-#             serializer = ProductsSerializer(products, many=True)
-#             return Response({"status": "success", "data": serializer.data})
-#         elif user_id == "all":
-#             products = Products.objects.all().values()
-#             serializer = ProductsSerializer(products, many=True)
-#             return Response({"status": "success", "data": serializer.data})
-#         else:
-#             return Response({"status": "error", "message": "user_id parameter is required"})
-        
-#     def post(self, request, *args, **kwargs):
-#         serializer = ProductsSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
-#         return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
+   
 
 @api_view(['GET'])
 def get_products(request,user_id):

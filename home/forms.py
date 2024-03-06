@@ -32,6 +32,7 @@ class UserForm(forms.ModelForm):
 		model = Users
 		fields = ['id','name', 'email', 'phone', 'password', 'user_type', 'address', 'company_name', 'company_size', 'manufacturer_category', 'adhaar_number', 'is_approved']
 
+
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		for field in self.fields.values():
@@ -119,7 +120,7 @@ class ReferrallForm(forms.ModelForm):
 class MyprofleForm(forms.ModelForm):
 	class Meta:
 		model = PanelUser
-		fields = "__all__"
+		exclude = ('is_staff',)
 
 
 

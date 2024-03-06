@@ -27,7 +27,21 @@ def panel_login(request):
             user = PanelUser.objects.filter(email=email, password=password).first()
             if user is not None:
                 login(request, user,backend='home.models.PanelUserAuthBackend')
-                return redirect('dashboard')
+                print("User found")
+
+                user_type = request.user.user_type
+                if user_type == 'Admin':
+                    return redirect('dashboard')
+                elif user_type == 'Execution':
+                    return redirect('execution_dashboard')
+                elif user_type == 'Service_support':
+                    return redirect('service_support_dashboard')
+                elif user_type == 'Freelancers':
+                    return redirect('freelancers_dashboard')
+                elif user_type == 'referral':
+                    return redirect('referral_dashboard')
+                
+                
             else:
                 print("User not found")
                 return render(request, 'login.html', {'form': form, 'error': 'Invalid credentials'})
@@ -41,7 +55,6 @@ def panel_login(request):
 def panel_logout(request):
 
     return redirect('panel_login')
-
 
 @login_required(login_url='panel_login')
 def dashboard(request):
@@ -80,7 +93,145 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
+@login_required(login_url='panel_login')
+def execution_dashboard(request):
+    print("user login",request.user.is_authenticated)
+    # Get the count of all users
+    user_count = Users.objects.count()
 
+    # Get the count of users based on user_type
+    supplier_count = Users.objects.filter(user_type='supplier').count()
+    manufacturer_count = Users.objects.filter(user_type='manufacturer').count()
+    referral_count = Users.objects.filter(user_type='referral').count()
+    service_provider_count = Users.objects.filter(user_type='service provider').count()
+
+    bid_count = Bids.objects.count()
+    on_going_bid_count= Bids.objects.filter(bid_status='on_going').count()
+    bid_finished_count = Bids.objects.filter(bid_status='finished').count()
+    bid_cancelled_count = Bids.objects.filter(bid_status='cancelled').count()
+
+
+    context = {
+        "manufacturer": "manufacturer",
+        "supplier": "supplier",
+        'user_count': user_count,
+        'bid_count': bid_count,
+        'supplier_count': supplier_count,
+        'service_provider_count':service_provider_count,
+        'manufacturer_count': manufacturer_count,
+        'referral_count': referral_count,
+        "bid_cancelled_count": bid_cancelled_count,
+        "on_going_bid_count": on_going_bid_count,
+        "bid_finished_count": bid_finished_count
+    }
+
+
+    return render(request, 'excution-team-dashboard.html',context)
+
+
+@login_required(login_url='panel_login')
+def service_support_dashboard(request):
+    print("user login",request.user.is_authenticated)
+    # Get the count of all users
+    user_count = Users.objects.count()
+
+    # Get the count of users based on user_type
+    supplier_count = Users.objects.filter(user_type='supplier').count()
+    manufacturer_count = Users.objects.filter(user_type='manufacturer').count()
+    referral_count = Users.objects.filter(user_type='referral').count()
+    service_provider_count = Users.objects.filter(user_type='service provider').count()
+
+    bid_count = Bids.objects.count()
+    on_going_bid_count= Bids.objects.filter(bid_status='on_going').count()
+    bid_finished_count = Bids.objects.filter(bid_status='finished').count()
+    bid_cancelled_count = Bids.objects.filter(bid_status='cancelled').count()
+
+
+    context = {
+        "manufacturer": "manufacturer",
+        "supplier": "supplier",
+        'user_count': user_count,
+        'bid_count': bid_count,
+        'supplier_count': supplier_count,
+        'service_provider_count':service_provider_count,
+        'manufacturer_count': manufacturer_count,
+        'referral_count': referral_count,
+        "bid_cancelled_count": bid_cancelled_count,
+        "on_going_bid_count": on_going_bid_count,
+        "bid_finished_count": bid_finished_count
+    }
+
+    return render(request, 'service-support-dashboard.html',context)
+
+
+@login_required(login_url='panel_login')
+def freelancers_dashboard(request):
+    print("user login",request.user.is_authenticated)
+    # Get the count of all users
+    user_count = Users.objects.count()
+
+    # Get the count of users based on user_type
+    supplier_count = Users.objects.filter(user_type='supplier').count()
+    manufacturer_count = Users.objects.filter(user_type='manufacturer').count()
+    referral_count = Users.objects.filter(user_type='referral').count()
+    service_provider_count = Users.objects.filter(user_type='service provider').count()
+
+    bid_count = Bids.objects.count()
+    on_going_bid_count= Bids.objects.filter(bid_status='on_going').count()
+    bid_finished_count = Bids.objects.filter(bid_status='finished').count()
+    bid_cancelled_count = Bids.objects.filter(bid_status='cancelled').count()
+
+
+    context = {
+        "manufacturer": "manufacturer",
+        "supplier": "supplier",
+        'user_count': user_count,
+        'bid_count': bid_count,
+        'supplier_count': supplier_count,
+        'service_provider_count':service_provider_count,
+        'manufacturer_count': manufacturer_count,
+        'referral_count': referral_count,
+        "bid_cancelled_count": bid_cancelled_count,
+        "on_going_bid_count": on_going_bid_count,
+        "bid_finished_count": bid_finished_count
+    }
+
+    return render(request, 'freelancers-dashboard.html',context)
+
+
+@login_required(login_url='panel_login')
+def referral_dashboard(request):
+    print("user login",request.user.is_authenticated)
+    # Get the count of all users
+    user_count = Users.objects.count()
+
+    # Get the count of users based on user_type
+    supplier_count = Users.objects.filter(user_type='supplier').count()
+    manufacturer_count = Users.objects.filter(user_type='manufacturer').count()
+    referral_count = Users.objects.filter(user_type='referral').count()
+    service_provider_count = Users.objects.filter(user_type='service provider').count()
+
+    bid_count = Bids.objects.count()
+    on_going_bid_count= Bids.objects.filter(bid_status='on_going').count()
+    bid_finished_count = Bids.objects.filter(bid_status='finished').count()
+    bid_cancelled_count = Bids.objects.filter(bid_status='cancelled').count()
+
+
+    context = {
+        "manufacturer": "manufacturer",
+        "supplier": "supplier",
+        'user_count': user_count,
+        'bid_count': bid_count,
+        'supplier_count': supplier_count,
+        'service_provider_count':service_provider_count,
+        'manufacturer_count': manufacturer_count,
+        'referral_count': referral_count,
+        "bid_cancelled_count": bid_cancelled_count,
+        "on_going_bid_count": on_going_bid_count,
+        "bid_finished_count": bid_finished_count
+    }
+
+    return render(request, 'referral-dashboard.html',context)
 
 
 def my_profile(request):
@@ -88,7 +239,6 @@ def my_profile(request):
 
     user = PanelUser.objects.filter(id=user_id).first()
 
-    print("Profile user",user)
     if user is None:
         print("User not found")
         messages.success(request, 'User not found')
@@ -111,8 +261,6 @@ def my_profile(request):
 
 def edit_user_profile(request, id):
     user = Users.objects.get(id=id)
-
-
 
     print("User type",user.user_type)
 
@@ -217,6 +365,8 @@ def bids_view(request):
 def bids_edit_view(request,bid_id):    
 
     bid = Bids.objects.filter(id=bid_id)
+    itemscategory=ItemsCategory.objects.all()
+    itemssubcategory=ItemsSubCategories.objects.all()
 
     if request.method == "POST":
             bid_id = request.POST.get('id')
@@ -229,18 +379,20 @@ def bids_edit_view(request,bid_id):
             bid.description = request.POST.get('description')
             bid.price = request.POST.get('price') 
             bid.bid_type = request.POST.get('bid_type')
+            bid.bid_win_type = request.POST.get('bid_win_type')
             bid.bid_category = request.POST.get('bid_category')
             bid.bid_sub_category = request.POST.get('bid_sub_category')
             bid.bid_opening_time = request.POST.get('bid_opening_time')
             bid.bid_closing_time = request.POST.get('bid_closing_time')
+            bid.bid_status = request.POST.get('bid_status')
 
             bid.save()  
 
             bid_id = request.POST.get('id')      
             bid = Bids.objects.filter(id=bid_id)
-            return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,})
+            return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,'itemscategory':itemscategory,'itemssubcategory':itemssubcategory})
 
-    return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,})
+    return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,'itemscategory':itemscategory,'itemssubcategory':itemssubcategory})
 
 
 
@@ -253,6 +405,22 @@ def toggle_approval(request, bid_id):
         return JsonResponse({'status': 'success', 'is_approved': bid.is_approved})
     except Bids.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Bid not found'}, status=404)
+    
+
+
+def toggle_user_approval(request, user_id):
+    try:
+        print("user found ", user_id)
+        user = Users.objects.get(id=user_id)
+        user.is_approved = 'no' if user.is_approved == 'yes' else 'yes'
+        user.save()
+        return JsonResponse({'status': 'success', 'is_approved': user.is_approved})
+    except Bids.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Bid not found'}, status=404)
+    
+
+
+
 
 def create_assessment(request):
     if request.method == 'POST':

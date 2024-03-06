@@ -215,8 +215,8 @@
                         <label class="labels">User Status</label>
                         <div class="d-flex align-items-center">
                             <span
-                                class="current-status {% if bid_data.0.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
-                                {% if bid_data.0.is_approved == 'yes' %}
+                                class="current-status {% if user.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
+                                {% if user.is_approved == 'yes' %}
                                 Approved
                                 {% else %}
                                 Not Approved
@@ -224,8 +224,8 @@
                             </span>
                             <div class="ml-auto"> <!-- Add this div with ml-auto -->
                                 <div class="ml-auto">
-                                    <button id="approvalButton" class="border px-3 p-1 add-experience" type="button"
-                                        onclick="toggleApproval({{ bid_id }})">
+                                    <button id="userapprovalButton" class="border px-3 p-1 add-experience" type="button"
+                                        onclick="toggleUserApproval({{ userid }})">
                                         Change Status
                                     </button>
                                 </div>

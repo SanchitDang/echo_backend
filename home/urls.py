@@ -7,6 +7,11 @@ from .import views
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),
+    path('execution-dashboard', views.execution_dashboard, name='execution_dashboard'),
+    path('service-support-dashboard', views.service_support_dashboard, name='service_support_dashboard'),
+    path('freelancers-dashboard', views.freelancers_dashboard, name='freelancers_dashboard'),
+    path('referral-dashboard', views.referral_dashboard, name='referral_dashboard'),
+
     path('panel-login/', views.panel_login, name='panel_login'),
     path('panel-logout/', views.panel_logout, name='panel_logout'),
 
