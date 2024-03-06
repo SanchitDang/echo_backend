@@ -1,10 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
 from apis.models import Users
-# Create your models here.
 
 class PanelUserAuthBackend(BaseBackend):
 	def authenticate(self, request, email=None, password=None, **kwargs):
@@ -22,11 +20,7 @@ class PanelUserAuthBackend(BaseBackend):
 		except ObjectDoesNotExist:
 			return None
 		
-
-
-
 class CustomUserManager(BaseUserManager):
-
 	def create_user(self, email, password=None, **extra_fields):
 		if not email:
 			raise ValueError('Users must have an email address')
@@ -48,7 +42,6 @@ class CustomUserManager(BaseUserManager):
 		except ObjectDoesNotExist:
 			return None
 
-
 class PanelUser(AbstractBaseUser):
 	id = models.AutoField(primary_key=True)
 	name = models.CharField(max_length=100)
@@ -61,22 +54,20 @@ class PanelUser(AbstractBaseUser):
 	objects = CustomUserManager()
 	USERNAME_FIELD = 'email'
 
-
 	def has_perm(self, perm, obj=None):
 		return self.is_staff
 
 	def has_module_perms(self, app_label):
 		return self.is_staff
-
-
-
-
 	
 class Assessments(models.Model):
 	id = models.AutoField(primary_key=True)
 	supplier_address = models.CharField(max_length=100, blank=True, null=True)
 	supplier_location = models.CharField(max_length=100, blank=True, null=True)
 	items = models.CharField(max_length=100,blank=True, null=True)
+	item_type = models.CharField(max_length=100,blank=True, null=True)
+	item_size = models.CharField(max_length=100,blank=True, null=True)
+	item_process = models.CharField(max_length=100,blank=True, null=True)
 	assessed_mode = models.CharField(max_length=1000,blank=True, null=True)
 	assessed_by = models.CharField(max_length=100,blank=True, null=True)
 	assessment_date = models.DateField(blank=True, null=True)
@@ -99,6 +90,3 @@ class Assessments(models.Model):
 	updated_at = models.DateTimeField(auto_now=True)
 	created_by = models.ForeignKey(Users, on_delete=models.CASCADE,blank=True, null=True,related_name='created_by')
 	updated_by = models.ForeignKey(Users, on_delete=models.CASCADE, blank=True, null=True,related_name='updated_by')
-	
-
-	

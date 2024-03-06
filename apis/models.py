@@ -3,7 +3,6 @@ from django.db import models
 # python manage.py makemigrations
 # python manage.py migrate 
 
-
 # application users
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
@@ -25,7 +24,6 @@ class Users(models.Model):
         return self.username 
 
 class Bids(models.Model):
-    
     id = models.AutoField(primary_key=True)
     item = models.CharField(max_length=200)
     price = models.CharField(max_length=20)
@@ -48,9 +46,6 @@ class Bids(models.Model):
     bid_material = models.CharField(max_length=20, null=True)
     percentage_inc_dec = models.CharField(max_length=20, null=True)
 
-
-
-
 class Products(models.Model):
     id = models.AutoField(primary_key=True)
     item = models.CharField(max_length=100,blank=True, null=True)
@@ -63,8 +58,6 @@ class Products(models.Model):
     item_sub_category = models.CharField(max_length=100,blank=True, null=True)
     img = models.FileField(blank=True, null=True)
 
-
-
 class Services(models.Model):
     id = models.AutoField(primary_key=True)
     item = models.CharField(max_length=100)
@@ -72,7 +65,6 @@ class Services(models.Model):
     user_id = models.CharField(max_length=10)
 
 class Scraps(models.Model):
-    
     id = models.AutoField(primary_key=True)
     item = models.CharField(max_length=100)
     description = models.CharField(max_length=1000)
@@ -81,7 +73,6 @@ class Scraps(models.Model):
     item_price = models.CharField(max_length=100)
     item_quantity = models.CharField(max_length=100)
 
-
 class Refers(models.Model):
     id = models.AutoField(primary_key=True)
     manufacturer_id = models.CharField(max_length=200, null=True)
@@ -89,8 +80,6 @@ class Refers(models.Model):
     seller_id = models.CharField(max_length=200, null=True)
     seller_username = models.CharField(max_length=200, null=True)
     referral_price = models.CharField(max_length=20, null=True)
-
-
 
 class ItemsCategory(models.Model):
     id = models.AutoField(primary_key=True)
@@ -107,7 +96,6 @@ class ItemsSubCategories(models.Model):
     def __str__(self) :
         return self.sub_category
 
-
 class Domains(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)  
@@ -115,7 +103,6 @@ class Domains(models.Model):
 class UserType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True) 
-
 
 class Assessment(models.Model):
     data = models.JSONField(default=dict)
