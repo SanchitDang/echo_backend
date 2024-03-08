@@ -1,8 +1,16 @@
-{% extends "base-execution.html" %}
+{% extends "base.html" %}
+
+
+
+
 {% block title %}<title> Dashboard</title>  {% endblock title %}
+
+
+
 {% block body %}
 
 <h1>Hello this is {{request.user.user_type}}</h1>
+
 
 <div class="container-fluid">
     <div class="card-group">
@@ -163,40 +171,45 @@
     </div>
 </div>
 
-<script>
-    
-    $(document).ready(function() {
-
-        document.querySelector('.btn-outline-secondary').addEventListener('click', function() {
-            window.history.back();
-        });
 
 
+    <script>
+        
+        $(document).ready(function() {
 
-        function toggleApproval(bidId) {
-            $.ajax({
-                type: 'GET',
-                url: `/api/toggle_approval/${bidId}/`,
-                success: function(response) {
-                    if (response.status === 'success') {
-                        const button = $('#approvalButton');
-                        if (response.is_approved === 'yes') {
-                            button.text('Approved').removeClass('btn-danger').addClass('btn-success');
-                        } else {
-                            button.text('Not Approved').removeClass('btn-success').addClass('btn-danger');
-                        }
-                    } else {
-                        console.error(response.message);
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                }
+            document.querySelector('.btn-outline-secondary').addEventListener('click', function() {
+                window.history.back();
             });
-        }
 
 
-});
-</script>
+
+            function toggleApproval(bidId) {
+                $.ajax({
+                    type: 'GET',
+                    url: `/api/toggle_approval/${bidId}/`,
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            const button = $('#approvalButton');
+                            if (response.is_approved === 'yes') {
+                                button.text('Approved').removeClass('btn-danger').addClass('btn-success');
+                            } else {
+                                button.text('Not Approved').removeClass('btn-success').addClass('btn-danger');
+                            }
+                        } else {
+                            console.error(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+            }
+
+
+    });
+
+    
+    </script>
+
 
 {% endblock body %}

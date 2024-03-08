@@ -1,0 +1,90 @@
+{% extends "base.html" %} {% block title %}<title>Assesments</title> {% endblock title %} {% block body %}
+
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            <div class="d-flex align-items-center">
+
+                <nav class="breadcrumb">
+                    <a class="breadcrumb-item" href="{% url 'dashboard' %}">Home</a>
+                    
+                    <span class="breadcrumb-item active">Assesments</span>
+        
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                  
+                    <h4 class="card-title">Assesments</h4>
+                    
+                    
+
+                    <h6 class="card-subtitle">List of all Assesments</h6>
+                    
+
+
+                    <!-- <div class="text-end">
+                        <a href="" class="btn btn-primary">Add Assesment</a>
+                        
+                    </div> -->
+                    <div class="table-responsive">
+                        <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                            <thead>
+                                <tr>
+                                    <th>Sr No.</th>
+                                    <th>Item</th>
+                                    <th>User</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                {% for data in datas %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    
+                                    <td>{{ data.items }}</td>
+                                    <td>{{ data.created_by }}</td>
+                                   
+                                    <td class="text-end">
+
+                                    
+                                        <a href="{% url 'user-assessment' id=data.id %}" class="btn btn-sm btn-square btn-neutral text-primary-hover">
+                                            <i class="bi bi-pencil">View</i>
+                                        </a>
+                                
+                                        <a href="" >
+                                        <button type="button"
+                                            class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            <a href="{% url 'delete_assessment' id=data.id %}"><i class="bi bi-trash"></i></a>
+                                           
+                                        </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock body %}

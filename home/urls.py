@@ -30,8 +30,8 @@ urlpatterns = [
     path('bids_by_type/', views.bids_by_type_view, name='bids-by-type'),
     path('bids/edit-bid/<str:bid_id>/', views.bids_edit_view, name='edit-bid'),
 
-    path('create_assessment/', views.create_assessment, name='create_assessment'),
-    path('edit_assessment/<int:assessment_id>/', views.edit_assessment, name='edit_assessment'),
+    # path('create_assessment/', views.create_assessment, name='create_assessment'),
+    # path('edit_assessment/<int:assessment_id>/', views.edit_assessment, name='edit_assessment'),
 
 
     path('category-list/', views.category_list, name='category_list'),
@@ -62,6 +62,15 @@ urlpatterns = [
 
     path('domains-list', views.domains_list, name='domains_list'),
     path('add-domani', views.add_domains, name='add_domains'),
+
+
+    path('products-list', views.products_list, name='products_list'),
+    path('edit-products/<str:id>', views.edit_product, name='edit_product'),
+    path('delete-product<str:id>', views.delete_product, name='delete_product'),
+
+
+    path('assement-list', views.assement_list, name='assement_list'),
+    path('delete-assessment/<str:id>', views.delete_assessment, name='delete_assessment'),
 
     path('user_type_list', views.user_type_list, name='user_type_list'),
     path('add-user-type', views.add_user_type, name='add_user_type'),

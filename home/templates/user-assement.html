@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}<title>Bids</title> {% endblock title %} 
+{% extends "base.html" %} {% block title %}<title>Assesment</title> {% endblock title %} 
 
 {% block style %}
 
@@ -29,6 +29,23 @@
                 <div class="d-flex justify-content-between align-items-center mb-12">
                     <button type="button" class="btn btn-outline-secondary btn-rounded"><i class="bi bi-arrow-left"></i> Back</button>
                     <h2 class="text-center">User Assesment</h2>
+                    
+                        <div class="d-flex align-items-center">
+                            <span class="current-status {% if bid_data.0.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
+                                {% if bid_data.0.is_approved == 'yes' %}
+                                    Approved
+                                {% else %}
+                                    Not Approved
+                                {% endif %}
+                            </span>
+                            <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                                <div class="ml-auto">
+                                    <button id="approvalButton" class="border px-3 p-1 add-experience" type="button" onclick="toggle_user_assessment_approval({{ assessment_id }})">
+                                        Change Status
+                                    </button>
+                                </div>
+                            </div>
+                        </div>  
                 </div>
                 <form method="POST">
                     {% csrf_token %}
@@ -38,7 +55,7 @@
 
                 
                 <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit">Save Profile</button>
+                    <button class="btn btn-primary profile-button" type="submit">Save Assessment</button>
                 </div>
                 </form>
             </div>

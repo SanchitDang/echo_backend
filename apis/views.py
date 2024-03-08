@@ -10,6 +10,7 @@ from .serializers import *
 from home.models import Assessments
 
 class UsersApiView(APIView):
+
     def get(self, request, *args, **kwargs):
         all_users = Users.objects.all().values()
         return Response({"status": "success", "data": all_users})
@@ -55,6 +56,8 @@ class UsersApiView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+   
+
 @api_view(['GET'])
 def get_products(request,user_id):
     if user_id == 'all':
@@ -73,6 +76,7 @@ def add_product(request):
     return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class ScrapsApiVIew(APIView):
+    
     def get(self, request, *args, **kwargs):
         user_id = request.query_params.get('user_id', None)
         if user_id is not None:
@@ -90,6 +94,7 @@ class ScrapsApiVIew(APIView):
         return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
 
 class ServicessApiVIew(APIView):
+    
     def get(self, request, *args, **kwargs):
         user_id = request.query_params.get('user_id', None)
         if user_id is not None:
@@ -107,6 +112,7 @@ class ServicessApiVIew(APIView):
         return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
 
 class UsersByTypeApiView(APIView):
+
     def get(self, request, *args, **kwargs):
         user_type = request.query_params.get('user_type', None)
         if user_type is not None:
@@ -117,6 +123,7 @@ class UsersByTypeApiView(APIView):
             return Response({"error": "user_type parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
 
 class BidsApiView(APIView):
+
     def get(self, request, *args, **kwargs):
             given_id = request.query_params.get('id', None)
             given_bid_id = request.query_params.get('bid_id', None)
@@ -170,6 +177,7 @@ class BidsApiView(APIView):
             return Response({"status": "error", "message": "Bid ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
 
 class RefersApiView(APIView):
+
     def get(self, request, *args, **kwargs):
         all_refers = Refers.objects.all().values()
         return Response({"status": "success", "data": all_refers})
@@ -305,6 +313,12 @@ def referral(request):
     else:
         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+# changeBidWinUser
+# "bid_id": bidId,
+#         "party2_id": user["loggedInId"],
+#         "party2_name": user["loggedInName"],
 @api_view(['POST'])
 def changeBidWinUser(request):
     bid_id = request.data.get('bid_id', None)
@@ -324,15 +338,20 @@ def changeBidWinUser(request):
     bid_instance.save()
 
     serializer = BidsSerializer(bid_instance)
+
     return Response(serializer.data, status=status.HTTP_200_OK)
 
+
+
 class AssessmentApiView(APIView):
+
     def get(self, request, *args, **kwargs):
         assessment_id = request.data.get('id', None)
         if assessment_id is None:
             return Response({"error": "Assessment ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
         assessments = Assessments.objects.get(id=assessment_id)
         return Response({"status": "success", "data": assessments})
+
 
     def post(self, request, *args, **kwargs):
         serializer = AssessmentsSerializer(data=request.data)
@@ -342,6 +361,7 @@ class AssessmentApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
     def put(self, request, *args, **kwargs):
         assessment_id = request.data.get('id', None)
@@ -360,11 +380,14 @@ class AssessmentApiView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+
 
 @api_view(['GET'])
 def get_domains(request):
     domains = Domains.objects.all().values()
     return Response({"status": "success", "data": domains})
+
 
 @api_view(['GET'])
 def get_users_types(request):

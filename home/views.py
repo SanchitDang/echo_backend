@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from apis.models import Users, Bids, Assessment
 from .models import PanelUser,Assessments
-from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm
+from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm
 from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Referral,Domains,UserType,Refers
 
 
@@ -300,7 +300,14 @@ def edit_user_assessment(request, id):
         else:
             print(form.errors)
 
-    return render(request, 'user-assement.html', {'form': form})
+    return render(request, 'user-assement.html', {'form': form, 'assessment_id': id})
+
+def delete_assessment(request, id):
+    assessment = Assessments.objects.get(id=id)
+    assessment.delete()
+    return redirect('assement_list')
+
+
 
 
 
@@ -371,8 +378,6 @@ def bids_edit_view(request,bid_id):
     if request.method == "POST":
             bid_id = request.POST.get('id')
 
-            print(">>>>>>>bid id is ", bid_id)
-
             bid = get_object_or_404(Bids, id=bid_id)
 
             bid.item = request.POST.get('item')
@@ -398,7 +403,7 @@ def bids_edit_view(request,bid_id):
 
 def toggle_approval(request, bid_id):
     try:
-        print("bid_id found ", bid_id)
+
         bid = Bids.objects.get(id=bid_id)
         bid.is_approved = 'no' if bid.is_approved == 'yes' else 'yes'
         bid.save()
@@ -410,7 +415,6 @@ def toggle_approval(request, bid_id):
 
 def toggle_user_approval(request, user_id):
     try:
-        print("user found ", user_id)
         user = Users.objects.get(id=user_id)
         user.is_approved = 'no' if user.is_approved == 'yes' else 'yes'
         user.save()
@@ -419,52 +423,69 @@ def toggle_user_approval(request, user_id):
         return JsonResponse({'status': 'error', 'message': 'Bid not found'}, status=404)
     
 
-
-
-
-def create_assessment(request):
-    if request.method == 'POST':
-        # Process dynamic data and convert it to JSON
-        dynamic_data = {}
-        for key, value in request.POST.items():
-            if key.startswith('data_key_') and value:
-                field_number = key.split('_')[-1]
-                data_key = value
-                data_value = request.POST.get(f'data_value_{field_number}')
-                dynamic_data[data_key] = data_value
-
-        Assessment.objects.create(data=dynamic_data)
-        return redirect('/')  # Redirect to the assessment list vie
-
-    return render(request, 'create_assessment.html',)
-
-
-
-
-
-def edit_assessment(request, assessment_id):
-    assessment = Assessment.objects.get(pk=assessment_id)
-    form_data = {}
-    for i, (key, value) in enumerate(assessment.data.items()):
-        form_data['data_key_{}'.format(i)] = key
-        form_data['data_value_{}'.format(i)] = value
-
-    form = DynamicAssessmentForm(initial=form_data)
-
-    if request.method == 'POST':
-        dynamic_data = {}
-        for key, value in request.POST.items():
-            if key.startswith('data_key_') and value:
-                field_number = key.split('_')[-1]
-                data_key = value
-                data_value = request.POST.get(f'data_value_{field_number}')
-                dynamic_data[data_key] = data_value
-
-        assessment.data = dynamic_data
+def toggle_user_assessment_approval(request, assessment_id):
+    try:
+        assessment = Assessments.objects.get(id=assessment_id)
+        assessment.is_approved = 'no' if assessment.is_approved == 'yes' else 'yes'
         assessment.save()
-        return redirect('/')  # Redirect to the assessment list view
+        return JsonResponse({'status': 'success', 'is_approved': assessment.is_approved})
+    except Bids.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Assessment not found'}, status=404)
 
-    return render(request, 'edit_assessment.html', {'data': form_data, 'form': form,})
+
+def toggle_product_approval(request, product_id):
+    try:
+        product = Products.objects.get(id=product_id)
+        product.is_approved = 'no' if product.is_approved == 'yes' else 'yes'
+        product.save()
+        return JsonResponse({'status': 'success', 'is_approved': product.is_approved})
+    except Bids.DoesNotExist:
+        return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
+
+
+# def create_assessment(request):
+#     if request.method == 'POST':
+#         # Process dynamic data and convert it to JSON
+#         dynamic_data = {}
+#         for key, value in request.POST.items():
+#             if key.startswith('data_key_') and value:
+#                 field_number = key.split('_')[-1]
+#                 data_key = value
+#                 data_value = request.POST.get(f'data_value_{field_number}')
+#                 dynamic_data[data_key] = data_value
+
+#         Assessment.objects.create(data=dynamic_data)
+#         return redirect('/')  # Redirect to the assessment list vie
+
+#     return render(request, 'create_assessment.html',)
+
+
+
+
+
+# def edit_assessment(request, assessment_id):
+#     assessment = Assessment.objects.get(pk=assessment_id)
+#     form_data = {}
+#     for i, (key, value) in enumerate(assessment.data.items()):
+#         form_data['data_key_{}'.format(i)] = key
+#         form_data['data_value_{}'.format(i)] = value
+
+#     form = DynamicAssessmentForm(initial=form_data)
+
+#     if request.method == 'POST':
+#         dynamic_data = {}
+#         for key, value in request.POST.items():
+#             if key.startswith('data_key_') and value:
+#                 field_number = key.split('_')[-1]
+#                 data_key = value
+#                 data_value = request.POST.get(f'data_value_{field_number}')
+#                 dynamic_data[data_key] = data_value
+
+#         assessment.data = dynamic_data
+#         assessment.save()
+#         return redirect('/')  # Redirect to the assessment list view
+
+#     return render(request, 'edit_assessment.html', {'data': form_data, 'form': form,})
 
 
 
@@ -644,6 +665,36 @@ def add_domains(request):
         return redirect('domains_list')
     
     return render(request, 'add-update-domanis-user-type.html', {'form': form})
+
+
+
+def products_list(request):
+    products = Products.objects.all()
+    return render(request, 'product-list.html',{"datas":products})
+
+
+
+def edit_product(request,id):
+    product = Products.objects.get(id=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid():
+        form.save()
+        return redirect('products_list')
+    
+    return render(request, 'edit-product.html', {'form': form, 'product_id': id,})
+
+
+def delete_product(request,id):
+    product = Products.objects.get(id=id)
+    product.delete()
+    return redirect('products_list')
+
+
+
+def assement_list(request):
+    assements = Assessments.objects.all()
+
+    return render(request, 'assessment-list.html',{"datas":assements})
 
 
 def user_type_list(request):

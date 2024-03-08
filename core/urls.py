@@ -13,13 +13,15 @@ urlpatterns = [
     path('api/toggle_approval/<int:bid_id>/', toggle_approval, name='toggle-approval'),
     path('api/toggle_user_approval/<int:user_id>/', toggle_user_approval, name='user-toggle-approval'),
     path('api/bids/<int:bid_id>/approval-status/', get_approval_status, name='get_approval_status'),
+    path('api/toggle-user-assessment-approval/<str:assessment_id>/', toggle_user_assessment_approval, name='toggle_user_assessment_approval'),
+    path('api/toggle-product-approval/<str:product_id>/', toggle_product_approval, name='toggle-product-approval'),
 
     # api urls
     path('api/users', views.UsersApiView.as_view()),
     path('api/getDashboardData/', DashboardDataAPIView.as_view(), name='dashboard-data'),
     path('api/bids', views.BidsApiView.as_view()),
     # path('api/products', views.ProductsApiVIew.as_view()),
-    path('api/products/<str:user_id>', get_products, name='get_users_type'),
+    path('api/products/<str:user_id>', get_products, name='get_products'),
     path('api/products', add_product, name='add_product'),
 
     path('api/scraps', views.ScrapsApiVIew.as_view()),
