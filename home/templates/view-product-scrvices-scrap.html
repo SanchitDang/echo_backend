@@ -1,4 +1,12 @@
-{% extends "base.html" %} {% block title %}<title>Category</title> {% endblock title %} {% block body %}
+{% extends "base.html" %} {% block title %}<title>{% if "product" in path.request %}
+  Product
+    {% elif "services" in path.request %}
+    services
+    {% elif "category" in path.request %}
+   Scraps
+    {% elif "bids" in path.request %}
+    Bids
+    {% endif %}</title> {% endblock title %} {% block body %}
 
 
 <div class="page-breadcrumb">

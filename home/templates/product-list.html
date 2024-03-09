@@ -41,8 +41,9 @@
                         <table id="zero_config" class="table table-striped table-bordered no-wrap">
                             <thead>
                                 <tr>
-                                    <th>Sr No.</th>
-                                    <th>Item</th>
+                                    <th>Sr No.  <i class="fa fa-fw fa-sort"></th>
+                                    <th>Item    <i class="fa fa-fw fa-sort"></th>
+                                    <th>Status  </th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,6 +55,13 @@
                                     <td>{{ forloop.counter }}</td>
                                     
                                     <td>{{ data.item }}</td>
+                                    <td>
+                                        <a class="text-heading font-semibold" href="{% url 'product_approve_disapprove' id=data.id %}"> {% if data.is_approved == 'yes' %}
+                                            Approved
+                                        {% else %}
+                                            Not Approved
+                                        {% endif %}</a>
+                                    </td>
                                    
                                     <td class="text-end">
 

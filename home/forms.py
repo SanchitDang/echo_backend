@@ -6,7 +6,7 @@ from django.db.models.base import Model
 from django.forms.utils import ErrorList
 from apis.models import Assessment
 from.models import PanelUser,Assessments
-from apis.models import Users,ItemsCategory,ItemsSubCategories,Referral,Domains,UserType,Products
+from apis.models import Users,ItemsCategory,ItemsSubCategories,Domains,UserType,Products
 from django.utils.html import format_html
 
 class DynamicAssessmentForm(forms.ModelForm):
@@ -47,21 +47,21 @@ class UserForm(forms.ModelForm):
 
 
 class AssessmentForm(forms.ModelForm):
+    file_field = forms.FileField(label='Upload File', required=False)
 
-	class Meta:
-		model = Assessments
-		exclude = ('is_approved','updated_by')
-	   
+    class Meta:
+        model = Assessments
+        exclude = ('is_approved','updated_by')
 
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		for field in self.fields.values():
-			field.label=field.label.title()
-			field.widget.attrs['Placeholder'] = ('Enter '+ field.label).title()
-			field.widget.attrs['class'] = 'form-control'
-			field.widget.attrs['autocomplete'] = 'off'
-			if field.required:
-				field.label = format_html('<span style="color:red">* </span> {}', field.label)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.label = field.label.title()
+            field.widget.attrs['placeholder'] = ('Enter '+ field.label).title()
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['autocomplete'] = 'off'
+            if field.required:
+                field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
 
 
@@ -98,22 +98,6 @@ class ItemsSubCategoriesForm(forms.ModelForm):
 		self.fields['category_id'].choices = [(i.id, i.category) for i in ItemsCategory.objects.all()]
 
 
-
-class ReferrallForm(forms.ModelForm):
-
-	class Meta:
-		model = Referral
-		fields = "__all__"
-
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		for field in self.fields.values():
-			field.label=field.label.title()
-			field.widget.attrs['Placeholder'] = ('Enter '+ field.label).title()
-			field.widget.attrs['class'] = 'form-control'
-			field.widget.attrs['autocomplete'] = 'off'
-			if field.required:
-				field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
 
 

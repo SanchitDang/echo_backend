@@ -38,5 +38,14 @@ urlpatterns = [
     path('api/referral/', referral, name='referral'),
     path('api/domains/', get_domains, name='get_domains'),
     path('api/users_types/', get_users_types, name='get_users_types'),
+
+    path('api/get-approve-users', get_approve_users, name='get_approve_users'),
+    path('api/get-unapprove-users', get_unapprove_users, name='get_unapprove_users'),
+
+    path('api/get-approved-domains', get_approved_domains, name='get_approved_domains'),
+    path('api/get-unapproved-domains', get_unapproved_domains, name='get_unapproved_domains'),
+
+    path('api/get-approved-products', get_approved_products, name='get_approved_products'),
+    path('api/get-unapproved-products', get_unapproved_products, name='get_unapproved_products'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

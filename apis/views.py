@@ -315,10 +315,7 @@ def referral(request):
 
 
 
-# changeBidWinUser
-# "bid_id": bidId,
-#         "party2_id": user["loggedInId"],
-#         "party2_name": user["loggedInName"],
+
 @api_view(['POST'])
 def changeBidWinUser(request):
     bid_id = request.data.get('bid_id', None)
@@ -393,3 +390,42 @@ def get_domains(request):
 def get_users_types(request):
     user_types = UserType.objects.all().values()
     return Response({"status": "success", "data": user_types})
+
+
+# TODO : Implement in app
+@api_view(['GET'])
+def get_approve_users(request):
+    users = Users.objects.filter(is_approved='yes').values()
+    return Response({"status": "success", "data": users})
+
+
+@api_view(['GET'])
+def get_unapprove_users(request):
+    users = Users.objects.filter(is_approved='no').values()
+    return Response({"status": "success", "data": users})
+
+
+
+@api_view(['GET'])
+def get_approved_domains(request):
+    domains = Domains.objects.filter(is_approved='yes').values()
+    return Response({"status": "success", "data": domains})
+
+
+@api_view(['GET'])
+def get_unapproved_domains(request):
+    domains = Domains.objects.filter(is_approved='no').values()
+    return Response({"status": "success", "data": domains})
+
+
+@api_view(['GET'])
+def get_approved_products(request):
+    products = Products.objects.filter(is_approved='yes').values()
+    return Response({"status": "success", "data": products})
+
+
+@api_view(['GET'])
+def get_unapproved_products(request):
+    products = Products.objects.filter(is_approved='no').values()
+    return Response({"status": "success", "data": products})
+

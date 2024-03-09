@@ -50,10 +50,6 @@ class ItemsSubCategoriesSerializer(serializers.ModelSerializer):
 
 
 
-class ReferralSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Referral
-        fields = '__all__'
 
 
 

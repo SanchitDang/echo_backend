@@ -29,6 +29,7 @@ urlpatterns = [
     path('bids/', views.bids_view, name='bids-list'),
     path('bids_by_type/', views.bids_by_type_view, name='bids-by-type'),
     path('bids/edit-bid/<str:bid_id>/', views.bids_edit_view, name='edit-bid'),
+    path('bids/bid_approve_disapprove/<str:bid_id>/', views.bid_approve_disapprove, name='bid_approve_disapprove'),
 
     # path('create_assessment/', views.create_assessment, name='create_assessment'),
     # path('edit_assessment/<int:assessment_id>/', views.edit_assessment, name='edit_assessment'),
@@ -50,6 +51,7 @@ urlpatterns = [
     path('user/scrvices/<str:user_id>', views.view_scrvices, name='user-scrvices'),
     path('user/scraps/<str:user_id>', views.view_scrap, name='user-scrap'),
     path('referral-list/', views.referral_list, name='referral_list'),
+    path('approve-disapprove-user/<int:user_id>/', views.approve_disapprove_user, name='approve_disapprove_user'),
 
 
     path('refers-list/', views.refers_list, name='refers_list'),
@@ -62,14 +64,17 @@ urlpatterns = [
 
     path('domains-list', views.domains_list, name='domains_list'),
     path('add-domani', views.add_domains, name='add_domains'),
+    path('domain-approve-disapprove/<str:id>', views.domain_approve_disapprove, name='domain_approve_disapprove'),
 
 
     path('products-list', views.products_list, name='products_list'),
     path('edit-products/<str:id>', views.edit_product, name='edit_product'),
     path('delete-product<str:id>', views.delete_product, name='delete_product'),
+    path('product-approve-disapprove/<str:id>', views.product_approve_disapprove, name='product_approve_disapprove'),
 
 
     path('assement-list', views.assement_list, name='assement_list'),
+    path('usertype-approve-disapprove/<str:id>', views.user_approve_disapprove, name='user_approve_disapprove'),
     path('delete-assessment/<str:id>', views.delete_assessment, name='delete_assessment'),
 
     path('user_type_list', views.user_type_list, name='user_type_list'),

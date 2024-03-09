@@ -16,68 +16,96 @@
     </div>
 </div>
 
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Bids</h4>
+                    <h4 class="card-title">Bids List</h4>
 
                     <div class="table-responsive">
-                        <table id="zero_config" class="table table-striped table-bordered no-wrap">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Item</th>
-                                    <th>Price</th>
-                                    <th>Party name</th>
-                                    <th>Is approved</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                        <div id="default_order_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
 
 
-                            <tbody>
-                                {% for bid in bids %}
-                                <tr>
-                                    <td>
-                                        <a class="text-heading font-semibold" href="#">{{ bid.id }}</a>
-                                    </td>
-                                    <td>{{ bid.item }}</td>
-                                    <td>{{ bid.price }}</td>
-                                    <td>{{ bid.party1_name }}</td>
-                                    <td>
-                                        {% if bid.is_approved == "yes" %}
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-success"></i> Approved
-                                        </span>
-                                        {% else %}
-                                        <span class="badge badge-lg badge-dot">
-                                            <i class="bg-warning"></i> Pending
-                                        </span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="text-end">
-                                        <a href="{% url 'edit-bid' bid_id=bid.id %}" class="btn btn-sm btn-neutral">View</a>
-                                        <button type="button"
-                                            class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                {% endfor %}
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="default_order"
+                                        class="table table-striped table-bordered display no-wrap dataTable"
+                                        style="width: 100%" role="grid" aria-describedby="default_order_info">
+                                        <thead>
+                                            <tr role="row">
+                                                <th class="sorting" tabindex="0" aria-controls="default_order"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Position: activate to sort column ascending">
+                                                    <b>Id</b>   <i class="fa fa-fw fa-sort"></i>
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="default_order"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Office: activate to sort column ascending">
+                                                    Item <i class="fa fa-fw fa-sort"></i>
+                                                </th>
 
-                            </tbody>
-                            
-                        </table>
+                                                <th class="sorting" tabindex="0" aria-controls="default_order"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Position: activate to sort column ascending">
+                                                    Price    <i class="fa fa-fw fa-sort"></i>
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="default_order"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Position: activate to sort column ascending">
+                                                    Party name  <i class="fa fa-fw fa-sort"></i>
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="default_order"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Position: activate to sort column ascending">
+                                                    Is approved
+                                                </th>
+                                                <th class="sorting" tabindex="0" aria-controls="default_order"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Position: activate to sort column ascending">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {% for bid in bids %}
+                                            <tr role="row" class="odd">
+                                                <td class="sorting_1">
+                                                    <a class="text-heading font-semibold" href="#">{{ bid.id }}</a>
+                                                </td>
+                                                <td>{{ bid.item }}</td>
+                                                <td>{{ bid.price }}</td>
+                                                <td>{{ bid.party1_name }}</td>
+                                                <td>
+                                                    <a class="text-heading font-semibold" href="{% url 'bid_approve_disapprove' bid_id=bid.id %}"> {% if bid.is_approved == 'yes' %}
+                                                        Approved
+                                                    {% else %}
+                                                        Not Approved
+                                                    {% endif %}</a>
+                                                </td>
+                                                <td class="text-end">
+                                                    <a href="{% url 'edit-bid' bid_id=bid.id %}"
+                                                        class="btn btn-sm btn-neutral">View</a>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
-
 
 {% endblock body %}

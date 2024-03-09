@@ -3,52 +3,6 @@
 {% block style %}
 
 
-<style>
-    body {
-        background: rgb(99, 39, 120);
-    }
-
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #BA68C8;
-    }
-
-    .profile-button {
-        background: rgb(99, 39, 120);
-        box-shadow: none;
-        border: none;
-    }
-
-    .profile-button:hover {
-        background: #682773;
-    }
-
-    .profile-button:focus {
-        background: #682773;
-        box-shadow: none;
-    }
-
-    .profile-button:active {
-        background: #682773;
-        box-shadow: none;
-    }
-
-    .back:hover {
-        color: #682773;
-        cursor: pointer;
-    }
-
-    .labels {
-        font-size: 11px;
-    }
-
-    .add-experience:hover {
-        background: #BA68C8;
-        color: #fff;
-        cursor: pointer;
-        border: solid 1px #BA68C8;
-    }
-</style>
 
 
 {% endblock style %}
@@ -117,7 +71,7 @@
 
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-6">
 
                             <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                             {{ form.phone }}
@@ -125,7 +79,17 @@
                             {% if form.phone.errors %}
                             <p class="mb-0 text-danger">{{ form.phone.errors.as_text }}</p>
                             {% endif %}
-
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Contact</label>
+                            <a href="https://api.whatsapp.com/send?phone={{ user.phone }}">
+                                <button id="approvalButton" class="border px-3 p-1 add-experience"
+                                    type="button">
+                                    Contact Whatsapp
+                                </button>
+                            </a>
+                            
                         </div>
                     </div>
                     <div class="row mt-3">

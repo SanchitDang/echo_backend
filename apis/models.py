@@ -34,6 +34,8 @@ class Bids(models.Model):
     party1_name = models.CharField(max_length=100)
     party2_id = models.CharField(max_length=100, default="x")
     party2_name = models.CharField(max_length=100, default="x")
+    reffered_by_id = models.CharField(max_length=200, null=True)
+    reffered_by_name = models.CharField(max_length=200, null=True)
     other_parties = models.TextField(default="[]")
     bid_category = models.CharField(max_length=100, null=True)
     bid_sub_category = models.CharField(max_length=100, null=True)
@@ -47,6 +49,7 @@ class Bids(models.Model):
     bid_delivery_time = models.CharField(max_length=20, null=True)
     bid_material = models.CharField(max_length=20, null=True)
     percentage_inc_dec = models.CharField(max_length=20, null=True)
+
 
 
 
@@ -90,6 +93,8 @@ class Refers(models.Model):
     seller_id = models.CharField(max_length=200, null=True)
     seller_username = models.CharField(max_length=200, null=True)
     referral_price = models.CharField(max_length=20, null=True)
+    reffered_by_id = models.CharField(max_length=10, null=True)
+    reffered_by_name = models.CharField(max_length=200, null=True)
 
 
 
@@ -112,10 +117,13 @@ class ItemsSubCategories(models.Model):
 class Domains(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)  
+    is_approved = models.CharField(max_length=5, default="no", blank=True, null=True)
+    
 
 class UserType(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True) 
+    is_approved = models.CharField(max_length=5, default="no", blank=True, null=True)
 
 
 class Assessment(models.Model):
@@ -125,9 +133,3 @@ class Assessment(models.Model):
         return f"Assessment {self.pk}"
 
 
-class Referral (models.Model):
-    id = models.AutoField(primary_key=True)
-    party1_id = models.CharField(max_length=100)  
-    party1_name = models.CharField(max_length=100)
-    party2_id = models.CharField(max_length=100)
-    party2_name = models.CharField(max_length=100)

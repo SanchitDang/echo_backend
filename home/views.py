@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from apis.models import Users, Bids, Assessment
 from .models import PanelUser,Assessments
 from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm
-from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Referral,Domains,UserType,Refers
+from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Domains,UserType,Refers
 
 
 
@@ -355,6 +355,20 @@ def referral_list(request):
 
 
 
+def approve_disapprove_user(request, user_id):
+    try:
+        user = Users.objects.get(id=user_id)
+        user.is_approved = 'no' if user.is_approved == 'yes' else 'yes'
+        user.save()
+        # return  on same page
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+    except Users.DoesNotExist:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+
+
+
 def bids_by_type_view(request):
     bid_type = request.GET.get('bid_type', '')  # Assuming bid_type is a field in your Bids model
     bids = Bids.objects.filter(bid_type=bid_type)
@@ -367,6 +381,18 @@ def bids_view(request):
     bids = Bids.objects.all()
 
     return render(request, 'bid-list.html', {'bids': bids,})
+
+def bid_approve_disapprove(request, bid_id):
+    try:
+        bid = Bids.objects.get(id=bid_id)
+        bid.is_approved = 'no' if bid.is_approved == 'yes' else 'yes'
+        bid.save()
+        # return  on same page
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+    except Bids.DoesNotExist:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 
 def bids_edit_view(request,bid_id):    
@@ -611,7 +637,7 @@ def refers_list(request):
     return render(request, 'refer-list.html',{"refers":refers})
 
 def delete_referral(request,referral_id):
-    referral = Referral.objects.get(id=referral_id)
+    referral = Refers.objects.get(id=referral_id)
     referral.delete()
     return redirect('referral_list')
 
@@ -666,7 +692,11 @@ def add_domains(request):
     
     return render(request, 'add-update-domanis-user-type.html', {'form': form})
 
-
+def domain_approve_disapprove(request,id):
+    domain = Domains.objects.get(id=id)
+    domain.is_approved = 'no' if domain.is_approved == 'yes' else 'yes'
+    domain.save()
+    return redirect('domains_list')
 
 def products_list(request):
     products = Products.objects.all()
@@ -690,6 +720,14 @@ def delete_product(request,id):
     return redirect('products_list')
 
 
+def product_approve_disapprove(request,id):
+    product = Products.objects.get(id=id)
+
+    product.is_approved = 'no' if product.is_approved == 'yes' else 'yes'
+    product.save()
+    print ("Product Approve Disapprove",product.is_approved)
+    return redirect('products_list')
+
 
 def assement_list(request):
     assements = Assessments.objects.all()
@@ -699,9 +737,15 @@ def assement_list(request):
 
 def user_type_list(request):
     user_type = UserType.objects.all()
+    types="user_type"
+    return render(request, 'user-domanis-list.html',{"datas":user_type, "types":types})
 
-    return render(request, 'user-domanis-list.html',{"datas":user_type})
+def user_approve_disapprove(request,id):
+    usertype = UserType.objects.get(id=id)
 
+    usertype.is_approved = 'no' if usertype.is_approved == 'yes' else 'yes'
+    usertype.save()
+    return redirect('user_type_list')
 
 def add_user_type(request):
     form = UserTypeForm(request.POST or None)
@@ -710,4 +754,5 @@ def add_user_type(request):
         return redirect('user_type_list')
     
     return render(request, 'add-update-domanis-user-type.html', {'form': form})
+
 
