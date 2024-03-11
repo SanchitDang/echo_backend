@@ -25,7 +25,6 @@ class Users(models.Model):
         return self.username 
 
 class Bids(models.Model):
-    
     id = models.AutoField(primary_key=True)
     item = models.CharField(max_length=200)
     price = models.CharField(max_length=20)
@@ -49,6 +48,7 @@ class Bids(models.Model):
     bid_delivery_time = models.CharField(max_length=20, null=True)
     bid_material = models.CharField(max_length=20, null=True)
     percentage_inc_dec = models.CharField(max_length=20, null=True)
+    img = models.FileField(blank=True, null=True, default="")
 
 
 
@@ -94,8 +94,8 @@ class Refers(models.Model):
     seller_username = models.CharField(max_length=200, null=True)
     referral_price = models.CharField(max_length=20, null=True)
     reffered_by_id = models.CharField(max_length=10, null=True)
-    reffered_by_name = models.CharField(max_length=200, null=True)
-
+    reffered_by_username = models.CharField(max_length=200, null=True)
+    reffered_req_id = models.CharField(max_length=200, default = '')
 
 
 class ItemsCategory(models.Model):

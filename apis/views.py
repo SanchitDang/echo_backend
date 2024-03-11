@@ -391,6 +391,16 @@ def get_users_types(request):
     user_types = UserType.objects.all().values()
     return Response({"status": "success", "data": user_types})
 
+@api_view(['GET'])
+def get_approve_users_types(request):
+    user_types = UserType.objects.filter(is_approved='yes').values()
+
+    final_list=[]
+    for i in user_types:
+        final_list.append(i.get('name'))
+        
+    return Response({"status": "success", "data": final_list})
+
 
 # TODO : Implement in app
 @api_view(['GET'])
@@ -409,7 +419,13 @@ def get_unapprove_users(request):
 @api_view(['GET'])
 def get_approved_domains(request):
     domains = Domains.objects.filter(is_approved='yes').values()
-    return Response({"status": "success", "data": domains})
+
+    print(domains)
+    final_list=[]
+    for i in domains:
+        final_list.append(i.get('name'))
+
+    return Response({"status": "success", "data": final_list})
 
 
 @api_view(['GET'])

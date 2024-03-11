@@ -37,7 +37,9 @@ urlpatterns = [
     path('api/changeBidWinUser', changeBidWinUser, name='change-bid-win-user'), 
     path('api/referral/', referral, name='referral'),
     path('api/domains/', get_domains, name='get_domains'),
+
     path('api/users_types/', get_users_types, name='get_users_types'),
+    path('api/get-approve-users-types', get_approve_users_types, name='get_approve_users_types'),
 
     path('api/get-approve-users', get_approve_users, name='get_approve_users'),
     path('api/get-unapprove-users', get_unapprove_users, name='get_unapprove_users'),

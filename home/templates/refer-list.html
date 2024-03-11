@@ -18,57 +18,73 @@
 
 
 
-    <!-- Main -->
-    <main class="py-6 bg-surface-secondary">
-        <div class="container-fluid">
-            <div class="card shadow border-0 mb-7">
-                <div class="card-header">
-                    <h3 class="mb-0">Referral List</h3>
-                </div>
-                <div class="table-responsive">
-                    <table table id="zero_config" class="table table-striped table-bordered no-wrap">
-                        <thead class="thead-light">
-                            <tr>
-                                <th scope="col">SR No. <i class="fa fa-fw fa-sort"></th>
-                                <th scope="col">party1 name <i class="fa fa-fw fa-sort"></th>
-                                <th scope="col">party2 name <i class="fa fa-fw fa-sort"></th>
-                                <th scope="col">Reffered By Name <i class="fa fa-fw fa-sort"></th>
-                                <th scope="col">Referral Price  <i class="fa fa-fw fa-sort"></th>
-                                <th scope="col">Action</th>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Bids List</h4>
 
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for refer in refers %}
-                                <tr>
-                                    <td>{{ forloop.counter}}</td>
-                                    <td>
-                                        <a class="text-heading font-semibold" href="#">{{ refer.manufacturer_username }}</a>
-                                    </td>
-                                    <td>
-                                        <a class="text-heading font-semibold" href="#">{{ refer.seller_username }}</a>
-                                    </td>
+                    <div class="table-responsive">
+                        <div id="default_order_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                            <div class="row">
 
-                                    <td>
-                                        <a class="text-heading font-semibold" href="#">{{ refer.reffered_by_name }}</a>
-                                    </td>
-                                    <td>{{ refer.referral_price }}</td>
-                                    <td class="text-end">
-                                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <a href="{% url 'delete_referral' referral_id=refer.id %}">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="default_order"
+                                        class="table table-striped table-bordered display no-wrap dataTable"
+                                        style="width: 100%" role="grid" aria-describedby="default_order_info">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">SR No. <i class="fa fa-fw fa-sort"></th>
+                                                <th scope="col">party1 name <i class="fa fa-fw fa-sort"></th>
+                                                <th scope="col">party2 name <i class="fa fa-fw fa-sort"></th>
+                                                <th scope="col">Reffered By Name <i class="fa fa-fw fa-sort"></th>
+                                                <th scope="col">Referral Price  <i class="fa fa-fw fa-sort"></th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
                                             
-                                            <i class="bi bi-trash"></i>
-                                            </a>
-                                        </button>
-                                    </td>
-                                </tr>
+                                        {% for refer in refers %}
+                                        <tr>
+                                            <td>{{ forloop.counter}}</td>
+                                            <td>
+                                                <a class="text-heading font-semibold" href="#">{{ refer.manufacturer_username }}</a>
+                                            </td>
+                                            <td>
+                                                <a class="text-heading font-semibold" href="#">{{ refer.seller_username }}</a>
+                                            </td>
+
+                                            <td>
+                                                <a class="text-heading font-semibold" href="#">{{ refer.reffered_by_name }}</a>
+                                            </td>
+                                            <td>{{ refer.referral_price }}</td>
+                                            <td class="text-end">
+                                                <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                    <a href="{% url 'delete_referral' referral_id=refer.id %}">
+                                                    
+                                                    <i class="bi bi-trash"></i>
+                                                    </a>
+                                                </button>
+                                            </td>
+                                        </tr>
                             {% endfor %}
-                        </tbody>
-                    </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</div>
     
 </div>
 
