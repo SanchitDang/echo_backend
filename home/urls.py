@@ -15,7 +15,6 @@ urlpatterns = [
     path('panel-login/', views.panel_login, name='panel_login'),
     path('panel-logout/', views.panel_logout, name='panel_logout'),
 
-
     path('my-profile', views.my_profile, name='my_profile'),
 
     path('users-by-type/manufacturers', views.manufacturers_list, name='manufacturers-users-by-type'),
