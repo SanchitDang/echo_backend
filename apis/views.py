@@ -34,7 +34,7 @@ class UsersApiView(APIView):
             user = None
 
         if user is not None and user.password == password:
-            return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "username": user.username, "email": user.email, "phone": user.phone ,"id": user.id})
+            return Response({"status": "success", "message": "Login successful", "user_type": user.user_type, "name": user.name, "username": user.username, "email": user.email, "phone": user.phone, "is_approved":user.is_approved, "id": user.id})
         else:
             return Response({"error": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
     
