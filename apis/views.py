@@ -7,7 +7,7 @@ from django.db.models import Q
 import json
 from .models import *
 from .serializers import *
-from home.models import Assessments
+from home.models import Assessments,Banner
 
 class UsersApiView(APIView):
 
@@ -444,4 +444,11 @@ def get_approved_products(request):
 def get_unapproved_products(request):
     products = Products.objects.filter(is_approved='no').values()
     return Response({"status": "success", "data": products})
+
+
+
+@api_view(['GET'])
+def get_banner(request):
+    banners = Banner.objects.all()
+    return Response({"status": "success", "data": banners})
 

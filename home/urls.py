@@ -1,6 +1,7 @@
 from django.urls import path
 from .import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 # admin creds for django panel
 # admin@admin.com
 # admin
@@ -12,8 +13,8 @@ urlpatterns = [
     path('freelancers-dashboard', views.freelancers_dashboard, name='freelancers_dashboard'),
     path('referral-dashboard', views.referral_dashboard, name='referral_dashboard'),
 
-    path('panel-login/', views.panel_login, name='panel_login'),
-    path('panel-logout/', views.panel_logout, name='panel_logout'),
+    path('panel-login', views.panel_login, name='panel_login'),
+    path('panel-logout', views.panel_logout, name='panel_logout'),
 
     path('my-profile', views.my_profile, name='my_profile'),
 
@@ -36,11 +37,13 @@ urlpatterns = [
 
     path('category-list/', views.category_list, name='category_list'),
     path('add-category/', views.add_category, name='add_category'),
+    path('category-approve-disapprove/<str:id>', views.category_approve_disapprove, name='category_approve_disapprove'),
     path('edit-category/<int:category_id>/', views.update_category, name='edit_category'),
     path('delete-category/<int:category_id>/', views.delete_category, name='delete_category'),
 
 
     path('sub-category-list/', views.sub_category_list, name='sub_category_list'),
+    path('subcategory-approve-disapprove/<str:id>', views.subcategory_approve_disapprove, name='subcategory_approve_disapprove'),
     path('add-sub-category/', views.add_sub_category, name='add_sub_category'),
     path('edit-sub-category/<int:sub_category_id>/', views.update_sub_category, name='edit_sub_category'),
     path('delete-sub-category/<int:id>/', views.delete_subcategory, name='delete_sub_category'),    
@@ -80,4 +83,11 @@ urlpatterns = [
     path('add-user-type', views.add_user_type, name='add_user_type'),
 
 
-]   
+
+    path('banner-list', views.banner_list, name='banner_list'),
+    path('add-banner', views.add_banner, name='add_banner'),
+    path('update-banner/<str:id>', views.update_banner, name='update_banner'),
+    path('delete-banner/<str:id>', views.delete_banner, name='delete_banner'),
+
+
+]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

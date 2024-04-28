@@ -7,8 +7,8 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from apis.models import Users, Bids, Assessment
-from .models import PanelUser,Assessments
-from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm
+from .models import PanelUser,Assessments,Banner
+from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm,BannerForm
 from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Domains,UserType,Refers
 
 
@@ -27,7 +27,6 @@ def panel_login(request):
             user = PanelUser.objects.filter(email=email, password=password).first()
             if user is not None:
                 login(request, user,backend='home.models.PanelUserAuthBackend')
-                print("User found")
 
                 user_type = request.user.user_type
                 if user_type == 'Admin':
@@ -43,7 +42,6 @@ def panel_login(request):
                 
                 
             else:
-                print("User not found")
                 return render(request, 'login.html', {'form': form, 'error': 'Invalid credentials'})
         else:
             return render(request, 'login.html', {'form': form, 'error': 'Invalid form data'})
@@ -58,7 +56,6 @@ def panel_logout(request):
 
 @login_required(login_url='panel_login')
 def dashboard(request):
-    print("user login",request.user.is_authenticated)
     # Get the count of all users
     user_count = Users.objects.count()
 
@@ -95,7 +92,6 @@ def dashboard(request):
 
 @login_required(login_url='panel_login')
 def execution_dashboard(request):
-    print("user login",request.user.is_authenticated)
     # Get the count of all users
     user_count = Users.objects.count()
 
@@ -131,7 +127,6 @@ def execution_dashboard(request):
 
 @login_required(login_url='panel_login')
 def service_support_dashboard(request):
-    print("user login",request.user.is_authenticated)
     # Get the count of all users
     user_count = Users.objects.count()
 
@@ -166,7 +161,6 @@ def service_support_dashboard(request):
 
 @login_required(login_url='panel_login')
 def freelancers_dashboard(request):
-    print("user login",request.user.is_authenticated)
     # Get the count of all users
     user_count = Users.objects.count()
 
@@ -201,7 +195,7 @@ def freelancers_dashboard(request):
 
 @login_required(login_url='panel_login')
 def referral_dashboard(request):
-    print("user login",request.user.is_authenticated)
+
     # Get the count of all users
     user_count = Users.objects.count()
 
@@ -240,7 +234,6 @@ def my_profile(request):
     user = PanelUser.objects.filter(id=user_id).first()
 
     if user is None:
-        print("User not found")
         messages.success(request, 'User not found')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -249,11 +242,9 @@ def my_profile(request):
         form = MyprofleForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            print("User saved")
+
             messages.success(request, 'Profile updated successfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            print(form.errors)
 
     return render(request, 'my-profile.html', {'form': form, 'user_id': user_id})
 
@@ -262,43 +253,32 @@ def my_profile(request):
 def edit_user_profile(request, id):
     user = Users.objects.get(id=id)
 
-    print("User type",user.user_type)
 
     form = UserForm(instance=user)
     if request.method == 'POST':
         form = UserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            print("User saved")
             messages.success(request, 'Profile updated successfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            print(form.errors)
-        
+
 
     return render(request, 'user-profile.html', {'form': form,'userid': id,"user":user})
 
 
 
 def edit_user_assessment(request, id):
-    print("Assessment id",id)
     assessment = Assessments.objects.filter(created_by=id).first()
     if assessment is None:
-        print("Assessment not found")
         messages.success(request, 'Assessment not found')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    else:
-        print("Assessment found")
     form = AssessmentForm(instance=assessment)
     if request.method == 'POST':
         form = AssessmentForm(request.POST, instance=assessment)
         if form.is_valid():
             form.save()
-            print("Assessment saved")
             messages.success(request, 'Assessment updated successfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        else:
-            print(form.errors)
 
     return render(request, 'user-assement.html', {'form': form, 'assessment_id': id})
 
@@ -537,6 +517,14 @@ def add_category(request):
     return render(request, 'add-update-category.html', {'form': form,})
 
 
+def category_approve_disapprove(request,id):
+    SubCategories = ItemsCategory.objects.get(id=id)
+    SubCategories.is_approved = 'no' if SubCategories.is_approved == 'yes' else 'yes'
+    SubCategories.save()
+    return redirect('category_list')
+
+
+
 
 def update_category(request, category_id):
     category = ItemsCategory.objects.get(id=category_id)
@@ -567,7 +555,6 @@ def sub_category_list(request):
 
 
     for category in sub_categories:
-        print(category.category_id)
         category_name = ItemsCategory.objects.get(id=category.category_id)
         category.category_id = category_name.category
     
@@ -589,6 +576,18 @@ def add_sub_category(request):
         return redirect('sub_category_list')
     
     return render(request, 'add-update-sub-category.html', {'form': form})
+
+
+
+def subcategory_approve_disapprove(request,id):
+    SubCategories = ItemsSubCategories.objects.get(id=id)
+
+    SubCategories.is_approved = 'no' if SubCategories.is_approved == 'yes' else 'yes'
+    SubCategories.save()
+    return redirect('sub_category_list')
+
+
+
 
 
 def update_sub_category(request, sub_category_id):
@@ -725,7 +724,6 @@ def product_approve_disapprove(request,id):
 
     product.is_approved = 'no' if product.is_approved == 'yes' else 'yes'
     product.save()
-    print ("Product Approve Disapprove",product.is_approved)
     return redirect('products_list')
 
 
@@ -756,3 +754,34 @@ def add_user_type(request):
     return render(request, 'add-update-domanis-user-type.html', {'form': form})
 
 
+def banner_list(request):
+    banners = Banner.objects.all()
+    return render(request, 'banner-list.html',{"datas":banners})
+
+def add_banner(request):
+    form = BannerForm(request.POST or None,request.FILES)
+    if form.is_valid():
+        form.save()
+        return redirect('banner_list')
+    
+    return render(request, 'add-update-banner.html', {'form': form})
+
+def update_banner(request,id) :
+    banner = Banner.objects.get(id=id)
+    form = BannerForm(request.POST or None, instance=banner)
+    if form.is_valid(): 
+        form.save()
+        return redirect('banner_list')
+    
+    return render(request, 'add-update-banner.html', {'form': form})
+
+
+
+def delete_banner(request,id) :
+
+    banner = Banner.objects.get(id=id)
+
+    banner.delete()
+    
+    return redirect('banner_list')
+    

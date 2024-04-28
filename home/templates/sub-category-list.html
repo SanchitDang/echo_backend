@@ -35,6 +35,7 @@
                                     <th>Sr No. <i class="fa fa-fw fa-sort"></th>
                                     <th>Category    <i class="fa fa-fw fa-sort"></th>
                                     <th>Sub Category    <i class="fa fa-fw fa-sort"></th>
+                                    <th scope="col">Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,6 +49,13 @@
                                     
                                     <td>{{ sub_categorie.category_id }}</td>
                                     <td>{{ sub_categorie.sub_category }}</td>
+                                    <td>
+                                        <a class="text-heading font-semibold" href="{% url 'subcategory_approve_disapprove' id=sub_categorie.id %}"> {% if sub_categorie.is_approved == 'yes' %}
+                                            Approved
+                                        {% else %}
+                                            Unapproved
+                                        {% endif %}</a>
+                                    </td>
                                    
                                     <td class="text-end">
                                         <a href="" class="btn btn-sm btn-neutral">View</a>

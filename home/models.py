@@ -104,3 +104,9 @@ class Assessments(models.Model):
 	
 
 	
+
+class Banner(models.Model):
+	id = models.AutoField(primary_key=True)
+	Name = models.CharField(max_length=250 )
+	banner = models.ImageField(null=True,blank=True)
+	

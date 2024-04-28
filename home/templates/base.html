@@ -205,9 +205,10 @@
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
                                     class="hide-menu">UserType</span></a></li>
 
-                        
-                               
-                       
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'banner_list' %}"
+                                aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
+                                    class="hide-menu">Add Banner</span></a></li>
                         
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
@@ -255,6 +256,9 @@
     <script src="{% static 'dist/js/sidebarmenu.js' %}"></script>
     <!--Custom JavaScript -->
     <script src="{% static 'dist/js/custom.min.js' %}"></script>
+    <script src="{% static 'dist/js/enable.js' %}"></script>
+
+    
 
     <!--This page plugins -->
     <script src="{% static 'assets/extra-libs/datatables.net/js/jquery.dataTables.min.js' %}"></script>
@@ -277,114 +281,7 @@
     });
 
 
-    function toggleApproval(bidId) {
-        $.ajax({
-            type: 'GET',
-            url: `/api/toggle_approval/${bidId}/`,
-            success: function(response) {
-                if (response.status === 'success') {
-                    const bidStatusElement = $('.current-status');
-                    const button = $('#approvalButton');
-
-                    if (response.is_approved === 'yes') {
-                        bidStatusElement.text('Approved').removeClass('text-danger').addClass('text-success');
-                        button.text('Change Status');
-                    } else {
-                        bidStatusElement.text('Not Approved').removeClass('text-success').addClass('text-danger');
-                        button.text('Change Status');
-                    }
-                } else {
-                    console.error(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-
-    function toggleUserApproval(userId) {
-        $.ajax({
-            type: 'GET',
-            
-            url: `/api/toggle_user_approval/${userId}/`,
-            success: function(response) {
-                if (response.status === 'success') {
-                    const bidStatusElement = $('.current-status');
-                    const button = $('#userapprovalButton');
-
-                    if (response.is_approved === 'yes') {
-                        bidStatusElement.text('Approved').removeClass('text-danger').addClass('text-success');
-                        button.text('Change Status');
-                    } else {
-                        bidStatusElement.text('Not Approved').removeClass('text-success').addClass('text-danger');
-                        button.text('Change Status');
-                    }
-                } else {
-                    console.error(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-    function toggle_user_assessment_approval(assissment_id) {
-        $.ajax({
-            type: 'GET',
-            
-            url: `/api/toggle-user-assessment-approval/${assissment_id}/`,
-            success: function(response) {
-                if (response.status === 'success') {
-                    const bidStatusElement = $('.current-status');
-                    const button = $('#assessment-approval');
-
-                    if (response.is_approved === 'yes') {
-                        bidStatusElement.text('Approved').removeClass('text-danger').addClass('text-success');
-                        button.text('Change Status');
-                    } else {
-                        bidStatusElement.text('Not Approved').removeClass('text-success').addClass('text-danger');
-                        button.text('Change Status');
-                    }
-                } else {
-                    console.error(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
-
-
-    function toggle_product_approval(product_id) {
-        $.ajax({
-            type: 'GET',
-            
-            url: `/api/toggle-product-approval/${product_id}/`,
-            success: function(response) {
-                if (response.status === 'success') {
-                    const bidStatusElement = $('.current-status');
-                    const button = $('#product-approval');
-
-                    if (response.is_approved === 'yes') {
-                        bidStatusElement.text('Approved').removeClass('text-danger').addClass('text-success');
-                        button.text('Change Status');
-                    } else {
-                        bidStatusElement.text('Not Approved').removeClass('text-success').addClass('text-danger');
-                        button.text('Change Status');
-                    }
-                } else {
-                    console.error(response.message);
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
+    
 
 
     document.querySelector('input[type=file]').addEventListener('change', function() {

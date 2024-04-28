@@ -5,7 +5,7 @@ from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms.utils import ErrorList
 from apis.models import Assessment
-from.models import PanelUser,Assessments
+from.models import PanelUser,Assessments,Banner
 from apis.models import Users,ItemsCategory,ItemsSubCategories,Domains,UserType,Products
 from django.utils.html import format_html
 
@@ -171,4 +171,24 @@ class ProductForm(forms.ModelForm):
 			field.widget.attrs['autocomplete'] = 'off'
 			if field.required:
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
+
+
+class BannerForm(forms.ModelForm):
+
+	class Meta:
+		model = Banner
+		fields = "__all__"
+	
+	   
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		for field in self.fields.values():
+			field.label=field.label.title()
+			field.widget.attrs['Placeholder'] = ('Enter '+ field.label).title()
+			field.widget.attrs['class'] = 'form-control'
+			field.widget.attrs['autocomplete'] = 'off'
+			if field.required:
+				field.label = format_html('<span style="color:red">* </span> {}', field.label)
+
 

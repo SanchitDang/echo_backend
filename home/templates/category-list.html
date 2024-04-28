@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>Sr No.  <i class="fa fa-fw fa-sort"></th>
                                     <th>name    <i class="fa fa-fw fa-sort"></th>
+                                        <th scope="col">Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -46,6 +47,13 @@
                                     <td>{{ forloop.counter }}</td>
                                     
                                     <td>{{ categorie.category }}</td>
+                                    <td>
+                                        <a class="text-heading font-semibold" href="{% url 'category_approve_disapprove' id=categorie.id %}"> {% if categorie.is_approved == 'yes' %}
+                                            Approved
+                                        {% else %}
+                                            Unapproved
+                                        {% endif %}</a>
+                                    </td>
                                    
                                     <td class="text-end">
                                         <a href="{% url 'delete_category' categorie.id  %}" >
