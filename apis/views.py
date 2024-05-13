@@ -449,6 +449,6 @@ def get_unapproved_products(request):
 
 @api_view(['GET'])
 def get_banner(request):
-    banners = Banner.objects.all()
+    banners = Banner.objects.all().values()
     return Response({"status": "success", "data": banners})
 
