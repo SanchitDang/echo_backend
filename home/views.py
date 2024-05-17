@@ -266,6 +266,31 @@ def edit_user_profile(request, id):
     return render(request, 'user-profile.html', {'form': form,'userid': id,"user":user})
 
 
+def delete_user(request, id):
+    user = Users.objects.get(id=id)
+    user.delete()
+    # delete the user  Assessments
+    assessment = Assessments.objects.filter(created_by=id).first()
+    if assessment:
+        assessment.delete()
+
+    # delete the user  Bids
+    # bid = Bids.objects.filter(party1_id=id).first()
+    # if bid:
+    #     bid.delete()
+
+    # delete the user  Products
+    product = Products.objects.filter(user_id=id).first()
+    if product:
+        product.delete()
+
+    # delete the user  Services
+    service = Services.objects.filter(user_id=id).first()
+    if service:
+        service.delete()
+        
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))  
+
 
 def edit_user_assessment(request, id):
     assessment = Assessments.objects.filter(created_by=id).first()
@@ -396,6 +421,8 @@ def bids_edit_view(request,bid_id):
             bid.bid_opening_time = request.POST.get('bid_opening_time')
             bid.bid_closing_time = request.POST.get('bid_closing_time')
             bid.bid_status = request.POST.get('bid_status')
+            bid.percentage_inc_dec = request.POST.get('percentage_inc_dec')
+            bid.bid_quantity = request.POST.get('bid_quantity')
 
             bid.save()  
 
@@ -404,6 +431,13 @@ def bids_edit_view(request,bid_id):
             return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,'itemscategory':itemscategory,'itemssubcategory':itemssubcategory})
 
     return render(request, 'edit-bid.html', {'bid_data': bid, 'bid_id': bid_id,'itemscategory':itemscategory,'itemssubcategory':itemssubcategory})
+
+
+
+def bids_delete_view(request,bid_id):
+    bid = Bids.objects.get(id=bid_id)
+    bid.delete()
+    return redirect('bids_view')
 
 
 
@@ -638,7 +672,7 @@ def refers_list(request):
 def delete_referral(request,referral_id):
     referral = Refers.objects.get(id=referral_id)
     referral.delete()
-    return redirect('referral_list')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 

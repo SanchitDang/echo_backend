@@ -23,12 +23,14 @@ urlpatterns = [
     path('users-by-type/service-provider', views.service_provider_list, name='service-provider-users-by-type'),
 
     path('user-profile/<int:id>/', views.edit_user_profile, name='user-profile'),
+    path('delete-user/<int:id>/', views.delete_user, name='delete-user'),
     path('user-assessment/<int:id>/', views.edit_user_assessment, name='user-assessment'),
 
 
     path('bids/', views.bids_view, name='bids-list'),
     path('bids_by_type/', views.bids_by_type_view, name='bids-by-type'),
     path('bids/edit-bid/<str:bid_id>/', views.bids_edit_view, name='edit-bid'),
+    path('bids/delete-bid/<str:bid_id>/', views.bids_delete_view, name='delete-bid'),
     path('bids/bid_approve_disapprove/<str:bid_id>/', views.bid_approve_disapprove, name='bid_approve_disapprove'),
 
     # path('create_assessment/', views.create_assessment, name='create_assessment'),

@@ -1,4 +1,5 @@
 {% extends "base.html" %} 
+{% load custom_tags %}
     {% block title %}<title>
     Banners
     </title> {% endblock title %} 
@@ -51,24 +52,32 @@
                                 {% for data in datas %}
                                     <tr>
                                         <td>
-                                            <a class="text-heading font-semibold">{{ user.id }}</a>
+                                            <a class="text-heading font-semibold"> {{ forloop.counter}}</a>
                                         </td>
                                         <td>{{ data.Name }}</td>
                                         <td>
-                                            <a class="text-heading font-semibold" href="{{ data.banner.url }}">View Banner</a>
+                                            {% if data.banner|is_url_valid %}
+                                                <a class="text-heading font-semibold" href="{{ data.banner.url }}" target="_blank">View Banner</a>
+                                            {% else %}
+                                                <span class="text-muted">Banner not available</span>
+                                            {% endif %}
 
-                                            
                                         </td>
                                         <td class="text-end">
                                             <button type="button"
+                                            class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                        <a href="{% url 'update_banner' id=data.id %}" class="btn btn-sm btn-square btn-neutral text-primary-hover">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        </button>
+
+                                        <button type="button"
                                             class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                             <a href="{% url 'delete_banner' id=data.id %}"> 
                                                 <i class="bi bi-trash"></i>
                                             </a>
                                         </button>
-                                        <a href="{% url 'update_banner' id=data.id %}" class="btn btn-sm btn-square btn-neutral text-primary-hover">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
+
                                         </td>
                                     </tr>
                                 {% endfor %}

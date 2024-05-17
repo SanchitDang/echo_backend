@@ -20,7 +20,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'home',
     'apis',
-    'landingpage'
+    'landingpage',
+    
+
 ]
 
 MIDDLEWARE = [

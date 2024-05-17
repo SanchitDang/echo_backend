@@ -102,9 +102,14 @@
                                         </td>
                                         <td class="text-end">
                                             <a href="{% url 'user-profile' id=user.id %}" class="btn btn-sm btn-neutral">View</a>
-                                            <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                            {% comment %} <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                                 <i class="bi bi-trash"></i>
-                                            </button>
+                                            </button> {% endcomment %}
+
+                                            <a href="{% url 'delete-user' id=user.id %}" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                <i class="bi bi-trash"></i>  
+                                            </a>
+
                                         </td>
                                     </tr>
                                 {% endfor %}
