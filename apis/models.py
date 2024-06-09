@@ -28,6 +28,7 @@ class Bids(models.Model):
     id = models.AutoField(primary_key=True)
     item = models.CharField(max_length=200)
     price = models.CharField(max_length=20)
+    start_bid_price = models.CharField(max_length=20, default=0)
     description = models.CharField(max_length=1000)
     party1_id = models.CharField(max_length=100)
     party1_name = models.CharField(max_length=100)

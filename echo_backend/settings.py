@@ -1,6 +1,10 @@
 from pathlib import Path
 import os
 
+parent_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+firebase_json_path = os.path.join(parent_directory, 'firebase.json')
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = firebase_json_path
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-8s*+6n7l%42)(2h1(9!fd@t85mn1ypqgv&*t%u!pm9il+%2(l1'

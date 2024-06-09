@@ -10,8 +10,47 @@ from apis.models import Users, Bids, Assessment
 from .models import PanelUser,Assessments,Banner
 from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm,BannerForm
 from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Domains,UserType,Refers
+import os
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
+import logging
 
 
+parent_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+firebase_json_path = os.path.join(parent_directory, 'firebase.json')
+cred = credentials.Certificate(firebase_json_path)
+firebase_admin.initialize_app(cred)
+
+def update_current_bid(group_id, new_bid):
+    # Initialize Firestore client
+    db = firestore.Client()
+
+    try:
+        logging.info(f"Updating current bid for group ID: {group_id}, New bid: {new_bid}")
+
+        # Query the Firestore collection to find the first document where 'bidId' matches 'group_id'
+        query = db.collection('groups').where('bidId', '==', int(group_id)).limit(1)
+        docs = query.stream()
+
+        # Update only the first document found (if any)
+        for doc in docs:
+            logging.info("Document found. Updating currentBid field.")
+            # Get the reference to the document
+            group_ref = doc.reference
+
+            # Update the currentBid field of the document
+            group_ref.update({'currentBid': int(new_bid)})
+            
+            return JsonResponse({'success': True, 'message': f'Current bid updated to {new_bid} for group {group_id}'})
+        
+        # If no document is found with matching bidId, return error response
+        logging.warning(f"No document found with bidId {group_id}")
+        return JsonResponse({'success': False, 'message': f'No document found with bidId {group_id}'})
+    
+    except Exception as e:
+        logging.error(f"Error occurred: {e}")
+        return JsonResponse({'success': False, 'message': str(e)})
 
 
 def panel_login(request):
@@ -414,6 +453,7 @@ def bids_edit_view(request,bid_id):
             bid.item = request.POST.get('item')
             bid.description = request.POST.get('description')
             bid.price = request.POST.get('price') 
+            bid.start_bid_price = request.POST.get('start_bid_price') 
             bid.bid_type = request.POST.get('bid_type')
             bid.bid_win_type = request.POST.get('bid_win_type')
             bid.bid_category = request.POST.get('bid_category')
@@ -425,6 +465,8 @@ def bids_edit_view(request,bid_id):
             bid.bid_quantity = request.POST.get('bid_quantity')
 
             bid.save()  
+
+            update_current_bid(bid_id, request.POST.get('start_bid_price'))
 
             bid_id = request.POST.get('id')      
             bid = Bids.objects.filter(id=bid_id)
