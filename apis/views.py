@@ -8,7 +8,10 @@ import json
 from .models import *
 from .serializers import *
 from home.models import Assessments,Banner
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
+@method_decorator(csrf_exempt, name='dispatch')
 class UsersApiView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -56,25 +59,8 @@ class UsersApiView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-   
 
-@api_view(['GET'])
-def get_products(request,user_id):
-    if user_id == 'all':
-        products = Products.objects.all().values()
-        return Response({"status": "success", "data": products})
-    products = Products.objects.filter(user_id=user_id)
-    serializer = ProductsSerializer(products, many=True)
-    return Response({"status": "success", "data": serializer.data})
-
-@api_view(['POST'])
-def add_product(request):
-    serializer = ProductsSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
-    return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
+@method_decorator(csrf_exempt, name='dispatch')
 class ScrapsApiVIew(APIView):
     
     def get(self, request, *args, **kwargs):
@@ -93,6 +79,8 @@ class ScrapsApiVIew(APIView):
             return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
         return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class ServicessApiVIew(APIView):
     
     def get(self, request, *args, **kwargs):
@@ -111,6 +99,8 @@ class ServicessApiVIew(APIView):
             return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
         return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)    
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class UsersByTypeApiView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -122,6 +112,8 @@ class UsersByTypeApiView(APIView):
         else:
             return Response({"error": "user_type parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class BidsApiView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -176,6 +168,8 @@ class BidsApiView(APIView):
         else:
             return Response({"status": "error", "message": "Bid ID not provided"}, status=status.HTTP_400_BAD_REQUEST)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class RefersApiView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -190,7 +184,9 @@ class RefersApiView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
+
+
+@method_decorator(csrf_exempt, name='dispatch')        
 class ItemsCategoryListCreateView(generics.ListCreateAPIView):
     queryset = ItemsCategory.objects.all()
     serializer_class = ItemsCategorySerializer
@@ -209,6 +205,8 @@ class ItemsCategoryListCreateView(generics.ListCreateAPIView):
         data = {'status': 'success', 'data': serializer.data}
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
 
+
+@method_decorator(csrf_exempt, name='dispatch')
 class ItemsSubCategoriesListCreateView(generics.ListCreateAPIView):
     queryset = ItemsSubCategories.objects.all()
     serializer_class = ItemsSubCategoriesSerializer
@@ -226,7 +224,9 @@ class ItemsSubCategoriesListCreateView(generics.ListCreateAPIView):
         headers = self.get_success_headers(serializer.data)
         data = {'status': 'success', 'data': serializer.data}
         return Response(data, status=status.HTTP_201_CREATED, headers=headers)
+    
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ItemsSubCategoriesByCategoryView(generics.ListAPIView):
     serializer_class = ItemsSubCategoriesSerializer
 
@@ -240,7 +240,9 @@ class ItemsSubCategoriesByCategoryView(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         data = {'status': 'success', 'data': serializer.data}
         return Response(data)
-  
+
+
+@method_decorator(csrf_exempt, name='dispatch')  
 class DashboardDataAPIView(APIView):
     def get(self, request, *args, **kwargs):
         # Count users
@@ -283,63 +285,8 @@ class DashboardDataAPIView(APIView):
 
         return Response(data)
 
-@api_view(['GET'])
-def get_approval_status(request, bid_id):
-    try:
-        bid = Bids.objects.get(id=bid_id)
-        serializer = BidsSerializer(bid)
-        return Response({'status': serializer.data['is_approved'] == 'yes'})
-    except Bids.DoesNotExist:
-        return Response({'status': False, 'error': 'Bid not found'}, status=status.HTTP_404_NOT_FOUND)
-    
-@api_view(['GET'])
-def get_user_types_list(request, user_id):
-    try:
-        user_instance = Users.objects.get(id=user_id)
-        serializer = UsersSerializer(user_instance)
-        return Response({"status": "success", "data": serializer.data['user_types']})
-    except Users.DoesNotExist:
-        return Response({"status": "error", "message": f"User with id {user_id} does not exist"}, status=404)
-    
 
-
-@api_view(['POST'])
-def referral(request):
-    
-    serializers = ReferralSerializer(data=request.data)
-    if serializers.is_valid():
-        serializers.save()
-        return Response(serializers.data, status=status.HTTP_201_CREATED)
-    else:
-        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-@api_view(['POST'])
-def changeBidWinUser(request):
-    bid_id = request.data.get('bid_id', None)
-    party2_id = request.data.get('party2_id', None)
-    party2_name = request.data.get('party2_name', None)
-
-    if not bid_id or not party2_id or not party2_name:
-        return Response({"error": "bid_id, party2_id and party2_name are required"}, status=status.HTTP_400_BAD_REQUEST)
-
-    try:
-        bid_instance = Bids.objects.get(id=bid_id)
-    except Bids.DoesNotExist:
-        return Response({"error": "Bid not found"}, status=status.HTTP_404_NOT_FOUND)
-
-    bid_instance.party2_id = party2_id
-    bid_instance.party2_name = party2_name
-    bid_instance.save()
-
-    serializer = BidsSerializer(bid_instance)
-
-    return Response(serializer.data, status=status.HTTP_200_OK)
-
-
-
+@method_decorator(csrf_exempt, name='dispatch')
 class AssessmentApiView(APIView):
 
     def get(self, request, *args, **kwargs):
@@ -377,21 +324,103 @@ class AssessmentApiView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
 
 
 @api_view(['GET'])
+@csrf_exempt
+def get_products(request,user_id):
+    if user_id == 'all':
+        products = Products.objects.all().values()
+        return Response({"status": "success", "data": products})
+    products = Products.objects.filter(user_id=user_id)
+    serializer = ProductsSerializer(products, many=True)
+    return Response({"status": "success", "data": serializer.data})
+
+
+@api_view(['POST'])
+@csrf_exempt
+def add_product(request):
+    serializer = ProductsSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_201_CREATED)
+    return Response({"status": "error", "message": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@csrf_exempt
+def get_approval_status(request, bid_id):
+    try:
+        bid = Bids.objects.get(id=bid_id)
+        serializer = BidsSerializer(bid)
+        return Response({'status': serializer.data['is_approved'] == 'yes'})
+    except Bids.DoesNotExist:
+        return Response({'status': False, 'error': 'Bid not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+
+@api_view(['GET'])
+@csrf_exempt
+def get_user_types_list(request, user_id):
+    try:
+        user_instance = Users.objects.get(id=user_id)
+        serializer = UsersSerializer(user_instance)
+        return Response({"status": "success", "data": serializer.data['user_types']})
+    except Users.DoesNotExist:
+        return Response({"status": "error", "message": f"User with id {user_id} does not exist"}, status=404)
+    
+
+@api_view(['POST'])
+@csrf_exempt
+def referral(request):
+    
+    serializers = ReferralSerializer(data=request.data)
+    if serializers.is_valid():
+        serializers.save()
+        return Response(serializers.data, status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@csrf_exempt
+def changeBidWinUser(request):
+    bid_id = request.data.get('bid_id', None)
+    party2_id = request.data.get('party2_id', None)
+    party2_name = request.data.get('party2_name', None)
+
+    if not bid_id or not party2_id or not party2_name:
+        return Response({"error": "bid_id, party2_id and party2_name are required"}, status=status.HTTP_400_BAD_REQUEST)
+
+    try:
+        bid_instance = Bids.objects.get(id=bid_id)
+    except Bids.DoesNotExist:
+        return Response({"error": "Bid not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    bid_instance.party2_id = party2_id
+    bid_instance.party2_name = party2_name
+    bid_instance.save()
+
+    serializer = BidsSerializer(bid_instance)
+
+    return Response(serializer.data, status=status.HTTP_200_OK)
+      
+
+@api_view(['GET'])
+@csrf_exempt
 def get_domains(request):
     domains = Domains.objects.all().values()
     return Response({"status": "success", "data": domains})
 
 
 @api_view(['GET'])
+@csrf_exempt
 def get_users_types(request):
     user_types = UserType.objects.all().values()
     return Response({"status": "success", "data": user_types})
 
+
 @api_view(['GET'])
+@csrf_exempt
 def get_approve_users_types(request):
     user_types = UserType.objects.filter(is_approved='yes').values()
 
@@ -402,21 +431,22 @@ def get_approve_users_types(request):
     return Response({"status": "success", "data": final_list})
 
 
-# TODO : Implement in app
 @api_view(['GET'])
+@csrf_exempt
 def get_approve_users(request):
     users = Users.objects.filter(is_approved='yes').values()
     return Response({"status": "success", "data": users})
 
 
 @api_view(['GET'])
+@csrf_exempt
 def get_unapprove_users(request):
     users = Users.objects.filter(is_approved='no').values()
     return Response({"status": "success", "data": users})
 
 
-
 @api_view(['GET'])
+@csrf_exempt
 def get_approved_domains(request):
     domains = Domains.objects.filter(is_approved='yes').values()
 
@@ -429,26 +459,28 @@ def get_approved_domains(request):
 
 
 @api_view(['GET'])
+@csrf_exempt
 def get_unapproved_domains(request):
     domains = Domains.objects.filter(is_approved='no').values()
     return Response({"status": "success", "data": domains})
 
 
 @api_view(['GET'])
+@csrf_exempt
 def get_approved_products(request):
     products = Products.objects.filter(is_approved='yes').values()
     return Response({"status": "success", "data": products})
 
 
 @api_view(['GET'])
+@csrf_exempt
 def get_unapproved_products(request):
     products = Products.objects.filter(is_approved='no').values()
     return Response({"status": "success", "data": products})
 
 
-
 @api_view(['GET'])
+@csrf_exempt
 def get_banner(request):
     banners = Banner.objects.all().values()
     return Response({"status": "success", "data": banners})
-
