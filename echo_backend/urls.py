@@ -3,14 +3,25 @@ from django.urls import path, include
 from home.views import *
 from apis import views
 from apis.views import *
+from django.views.static import serve
 from django.conf import settings
 from django.conf.urls.static import static
 
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# FLUTTER_WEB_APP = os.path.join(BASE_DIR, 'echo_web_app')
+
+# def flutter_redirect(request, resource):
+#     return serve(request, resource, FLUTTER_WEB_APP)
+
 urlpatterns = [
     
+    # path('echo_web_app/', lambda r: flutter_redirect(r, 'index.html')),
+    # path('echo_web_app/<path:resource>', flutter_redirect),
+
     path('master-admin/', admin.site.urls),
-    path('admin/',include('home.urls')),
-    path('',include('landingpage.urls')),
+    path('', include('landingpage.urls')),
+    path('admin/', include('home.urls')),
+
     path('api/toggle_approval/<int:bid_id>/', toggle_approval, name='toggle-approval'),
     path('api/toggle_user_approval/<int:user_id>/', toggle_user_approval, name='user-toggle-approval'),
     path('api/bids/<int:bid_id>/approval-status/', get_approval_status, name='get_approval_status'),
@@ -21,7 +32,6 @@ urlpatterns = [
     path('api/users', views.UsersApiView.as_view()),
     path('api/getDashboardData/', DashboardDataAPIView.as_view(), name='dashboard-data'),
     path('api/bids', views.BidsApiView.as_view()),
-    # path('api/products', views.ProductsApiVIew.as_view()),
     path('api/products/<str:user_id>', get_products, name='get_products'),
     path('api/products', add_product, name='add_product'),
 
@@ -50,7 +60,6 @@ urlpatterns = [
 
     path('api/get-approved-products', get_approved_products, name='get_approved_products'),
     path('api/get-unapproved-products', get_unapproved_products, name='get_unapproved_products'),
-
 
     path('api/get-banner', get_banner, name='get_banner'),
     
