@@ -58,7 +58,7 @@
                                     </td>
                                    
                                     <td class="text-end">
-                                        <a href="" class="btn btn-sm btn-neutral">View</a>
+                                        <a href="{% url 'edit_sub_category' sub_category_id=sub_categorie.id %}" class="btn btn-sm btn-neutral">View</a>
                                         <button type="button"
                                             class="btn btn-sm btn-square btn-neutral text-danger-hover">
                                             <a href="{% url 'delete_sub_category' id=sub_categorie.id %}" 

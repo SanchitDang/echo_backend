@@ -56,6 +56,8 @@
                                     </td>
                                    
                                     <td class="text-end">
+                                        <a href="{% url 'edit_category' category_id=categorie.id %}" class="btn btn-sm btn-neutral">View</a>
+
                                         <a href="{% url 'delete_category' categorie.id  %}" >
                                         <button type="button"
                                             class="btn btn-sm btn-square btn-neutral text-danger-hover">

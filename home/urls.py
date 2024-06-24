@@ -85,7 +85,6 @@ urlpatterns = [
     path('add-user-type', views.add_user_type, name='add_user_type'),
 
 
-
     path('banner-list', views.banner_list, name='banner_list'),
     path('add-banner', views.add_banner, name='add_banner'),
     path('update-banner/<str:id>', views.update_banner, name='update_banner'),

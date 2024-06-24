@@ -3,8 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
-from apis.models import Users
-# Create your models here.
+
 
 class PanelUserAuthBackend(BaseBackend):
 	def authenticate(self, request, email=None, password=None, **kwargs):
@@ -23,10 +22,7 @@ class PanelUserAuthBackend(BaseBackend):
 			return None
 		
 
-
-
 class CustomUserManager(BaseUserManager):
-
 	def create_user(self, email, password=None, **extra_fields):
 		if not email:
 			raise ValueError('Users must have an email address')
@@ -69,9 +65,6 @@ class PanelUser(AbstractBaseUser):
 		return self.is_staff
 
 
-
-
-	
 class Assessments(models.Model):
 	id = models.AutoField(primary_key=True)
 	supplier_address = models.CharField(max_length=100, blank=True, null=True)
@@ -103,10 +96,9 @@ class Assessments(models.Model):
 	# is_approved = models.CharField(max_length=100, choices=[('Yes', 'Yes'), ('No', 'No')],blank=True, null=True)
 	
 
-	
-
 class Banner(models.Model):
 	id = models.AutoField(primary_key=True)
 	Name = models.CharField(max_length=250 )
+	description = models.CharField(max_length=500, null=True)
 	banner = models.ImageField(null=True,blank=True)
 	

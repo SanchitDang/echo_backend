@@ -27,22 +27,33 @@
 
                 <form method="POST">
                     {% csrf_token %}
-                    
-                <div class="row mt-1">
-                    <div class="col-md-12">
-                        <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
-                        {{ form.category }}
-                        {% if form.category.errors %}
-                        <p class="mb-0 text-danger">{{ form.category.errors.as_text }}</p>
-                        {% endif %}
+                                    
+                    <div class="row mt-1">
+                        <div class="col-md-12">
+                            <label for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
+                            {{ form.category }}
+                            {% if form.category.errors %}
+                                <p class="mb-0 text-danger">{{ form.category.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
                     </div>
-                    
-                </div>
 
-                <div class="mt-5 text-center">
-                    <button class="btn btn-primary profile-button" type="submit">Add</button>
-                </div>
+                    <div class="row mt-1">
+                        <div class="col-md-12">
+                            <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}
+                                <p class="mb-0 text-danger">{{ form.description.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="submit">Add</button>
+                    </div>
                 </form>
+
+
             </div>
         </div>
         

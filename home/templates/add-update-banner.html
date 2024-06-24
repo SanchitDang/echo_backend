@@ -29,18 +29,42 @@
                     {% csrf_token %}
                     
                 <div class="row mt-1">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <label for="{{ form.Name.id_for_label }}">{{ form.Name.label }}</label>
                         {{ form.Name }}
                         {% if form.Name.errors %}
                         <p class="mb-0 text-danger">{{ form.category.Name.as_text }}</p>
                         {% endif %}
                     </div>
-
-                    <div class="col-md-6">
-                        <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
-                        {{ form.banner }}                    
+                   
                 </div>
+
+            
+                <div class="row mt-1">
+                   
+                    <div class="col-md-12">
+                        <label for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                        <p class="mb-0 text-danger">{{ form.category.description.as_text }}</p>
+                        {% endif %}
+                    </div>
+
+                           
+                </div>
+
+
+            
+                <div class="row mt-1">
+                   
+                   
+
+                    <div class="col-md-12">
+                        <label for="{{ form.banner.id_for_label }}">{{ form.banner.label }}</label>
+                        {{ form.banner }}          
+                    </div>          
+                </div>
+
 
                 <div class="mt-5 text-center">
                     <button class="btn btn-primary profile-button" type="submit">Save</button>

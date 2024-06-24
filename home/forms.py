@@ -1,9 +1,4 @@
-# forms.py
-from typing import Any, Mapping
 from django import forms
-from django.core.files.base import File
-from django.db.models.base import Model
-from django.forms.utils import ErrorList
 from apis.models import Assessment
 from.models import PanelUser,Assessments,Banner
 from apis.models import Users,ItemsCategory,ItemsSubCategories,Domains,UserType,Products
@@ -15,23 +10,16 @@ class DynamicAssessmentForm(forms.ModelForm):
 		fields = ['data']
 
 
-
-
 class LoginForm(forms.ModelForm):
 	class Meta:
 		model = PanelUser
 		fields = ['email', 'password','user_type']
 
 
-
-
-
-
 class UserForm(forms.ModelForm):
 	class Meta:
 		model = Users
 		fields = ['id','name', 'email', 'phone', 'password', 'user_type', 'address', 'company_name', 'company_size', 'manufacturer_category', 'adhaar_number', 'is_approved']
-
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -42,8 +30,6 @@ class UserForm(forms.ModelForm):
 			field.widget.attrs['autocomplete'] = 'off'
 			if field.required:
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
-
-
 
 
 class AssessmentForm(forms.ModelForm):
@@ -64,41 +50,42 @@ class AssessmentForm(forms.ModelForm):
                 field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
 
-
-
-
 class ItemsCategoryForm(forms.ModelForm):
-	class Meta:
-		model = ItemsCategory
-		fields = "__all__"
+    class Meta:
+        model = ItemsCategory
+        fields = ['category', 'description'] 
 
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		for field in self.fields.values():
-			field.label=field.label.title()
-			field.widget.attrs['Placeholder'] = ('Enter '+ field.label).title()
-			field.widget.attrs['class'] = 'form-control'
-			field.widget.attrs['autocomplete'] = 'off'
-			if field.required:
-				field.label = format_html('<span style="color:red">* </span> {}', field.label)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            # Capitalize the first letter of the label
+            field.label = field.label.capitalize()
 
+            # Set placeholder attribute
+            field.widget.attrs['placeholder'] = f'Enter {field.label}'
+
+            # Set class attribute for styling
+            field.widget.attrs['class'] = 'form-control'
+
+            # Disable autocomplete
+            field.widget.attrs['autocomplete'] = 'off'
+
+            # Add asterisk (*) for required fields
+            if field.required:
+                field.label = format_html('<span style="color:red">* </span>{}', field.label)
 
 
 class ItemsSubCategoriesForm(forms.ModelForm):
-
-	category_id = forms.ChoiceField(choices=[])
-	class Meta:
-		model = ItemsSubCategories
-		fields = "__all__"
-
-	
-	def __init__(self, *args, **kwargs):
-		super().__init__(*args, **kwargs)
-		# Fetch choices for the category_id field
-		self.fields['category_id'].choices = [(i.id, i.category) for i in ItemsCategory.objects.all()]
-
-
-
+    category_id = forms.ChoiceField(choices=[])
+    
+    class Meta:
+        model = ItemsSubCategories
+        fields = ['category_id', 'sub_category', 'description', 'is_approved']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Fetch choices for the category_id field
+        self.fields['category_id'].choices = [(i.id, i.category) for i in ItemsCategory.objects.all()]
 
 
 class MyprofleForm(forms.ModelForm):
@@ -106,8 +93,6 @@ class MyprofleForm(forms.ModelForm):
 		model = PanelUser
 		exclude = ('is_staff',)
 
-
-
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		for field in self.fields.values():
@@ -117,7 +102,6 @@ class MyprofleForm(forms.ModelForm):
 			field.widget.attrs['autocomplete'] = 'off'
 			if field.required:
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
-
 
 
 class DomainsForm(forms.ModelForm):
@@ -136,7 +120,6 @@ class DomainsForm(forms.ModelForm):
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
 
-
 class UserTypeForm(forms.ModelForm):
 	class Meta:
 		model = UserType
@@ -153,15 +136,12 @@ class UserTypeForm(forms.ModelForm):
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
 
-
 class ProductForm(forms.ModelForm):
 
 	class Meta:
 		model = Products
 		exclude = ('is_approved',)
 	
-	   
-
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		for field in self.fields.values():
@@ -178,8 +158,6 @@ class BannerForm(forms.ModelForm):
 	class Meta:
 		model = Banner
 		fields = "__all__"
-	
-	   
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -190,5 +168,3 @@ class BannerForm(forms.ModelForm):
 			field.widget.attrs['autocomplete'] = 'off'
 			if field.required:
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
-
-
