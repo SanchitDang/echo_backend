@@ -767,6 +767,12 @@ def add_domains(request):
     
     return render(request, 'add-update-domanis-user-type.html', {'form': form})
 
+def delete_domains(request,id):
+    domain = Domains.objects.get(id=id)
+    domain.delete()
+    
+    return redirect('domains_list')
+
 def domain_approve_disapprove(request,id):
     domain = Domains.objects.get(id=id)
     domain.is_approved = 'no' if domain.is_approved == 'yes' else 'yes'

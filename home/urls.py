@@ -68,6 +68,7 @@ urlpatterns = [
 
     path('domains-list', views.domains_list, name='domains_list'),
     path('add-domani', views.add_domains, name='add_domains'),
+    path('delete-domanin/<int:id>', views.delete_domains, name='delete_domain'),
     path('domain-approve-disapprove/<str:id>', views.domain_approve_disapprove, name='domain_approve_disapprove'),
 
 
