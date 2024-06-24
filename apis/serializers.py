@@ -27,7 +27,6 @@ class ProductsSerializer(serializers.ModelSerializer):
         model = Products
         fields = '__all__'
 
-
 class BidsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bids
@@ -48,14 +47,7 @@ class ItemsSubCategoriesSerializer(serializers.ModelSerializer):
         model = ItemsSubCategories
         fields = '__all__'
 
-
-
-
-
-
 class AssessmentsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Assessments
         fields = '__all__'
-
-

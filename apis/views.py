@@ -298,6 +298,12 @@ class AssessmentApiView(APIView):
 
 
     def post(self, request, *args, **kwargs):
+        created_by = request.data.get('created_by')
+
+        # Check if `created_by` already exists in Assessments
+        if Assessments.objects.filter(created_by=created_by).exists():
+            return Response({"Assessment Already submitted."}, status=status.HTTP_400_BAD_REQUEST)
+
         serializer = AssessmentsSerializer(data=request.data)
 
         if serializer.is_valid():
@@ -438,10 +444,23 @@ def get_approve_users(request):
     return Response({"status": "success", "data": users})
 
 
+
 @api_view(['GET'])
 @csrf_exempt
 def get_unapprove_users(request):
     users = Users.objects.filter(is_approved='no').values()
+    return Response({"status": "success", "data": users})
+
+@api_view(['GET'])
+@csrf_exempt
+def get_approve_categories(request):
+    users = ItemsCategory.objects.filter(is_approved='yes').values()
+    return Response({"status": "success", "data": users})
+
+@api_view(['GET'])
+@csrf_exempt
+def get_approve_subcategories(request, category_id):
+    users = ItemsSubCategories.objects.filter(category_id=category_id, is_approved='yes').values()
     return Response({"status": "success", "data": users})
 
 
