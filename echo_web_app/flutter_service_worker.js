@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "assets/AssetManifest.json": "ef116f7d627d09dacd7b8b04d7b44bbc",
+  "assets/AssetManifest.json": "fd16413fb2ef65e0a09cffc634dcdb7f",
 "assets/assets/images/box/box1.png": "65b00f7a1502f9f540a727fd479a0621",
 "assets/assets/images/box/box2.png": "85f8288ab0aeb79de822a80b5eba8d80",
 "assets/assets/images/box/box3.png": "588a62d37258d144780101abde44918e",
@@ -14,13 +14,14 @@ const RESOURCES = {
 "assets/assets/images/whatsapp_icon.png": "c73eb2b3fd773601e53a3b76f5c251c3",
 "assets/FontManifest.json": "621fbcecab18dde56d37ea315e31e8af",
 "assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
-"assets/NOTICES": "f110d7a84f41c799911df8ce8afe38a6",
+"assets/NOTICES": "f9d508ec6bb4b356ad6c5b8b3f56b0e0",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
 "assets/packages/fluttertoast/assets/toastify.css": "910ddaaf9712a0b0392cf7975a3b7fb5",
 "assets/packages/fluttertoast/assets/toastify.js": "18cfdd77033aa55d215e8a78c090ba89",
 "assets/packages/ternav_icons/fonts/TernavIconsBold.ttf": "0fb97d0a79ba0e141c228c8c202a5451",
 "assets/packages/ternav_icons/fonts/TernavIconsLight.ttf": "3fe5f8d866e70b33b4cfcc4203d19066",
 "assets/packages/ternav_icons/fonts/TernavIconsLightOutline.ttf": "29357d564e7997dbe71d1319097c43fb",
+"assets/packages/wakelock_web/assets/no_sleep.js": "7748a45cd593f33280669b29c2c8919a",
 "canvaskit/canvaskit.js": "97937cb4c2c2073c968525a3e08c86a3",
 "canvaskit/canvaskit.wasm": "3de12d898ec208a5f31362cc00f09b9e",
 "canvaskit/profiling/canvaskit.js": "c21852696bc1cc82e8894d851c01921a",
@@ -31,9 +32,9 @@ const RESOURCES = {
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "4b057212772d62f635b48b268096b7bb",
-"/": "4b057212772d62f635b48b268096b7bb",
-"main.dart.js": "352eab2b38f31b2f90cdf324113aef86",
+"index.html": "c358d5e08dc615e29565cee6f88a8110",
+"/": "c358d5e08dc615e29565cee6f88a8110",
+"main.dart.js": "2d9a25c1cf473cdde004f3dc41ffa601",
 "manifest.json": "7eab6b2ceffb97a1e29ce7fa3e7b12df",
 "version.json": "9a0e84e4291a5f09155b2e151784a8d7"
 };
