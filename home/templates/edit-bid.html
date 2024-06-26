@@ -135,7 +135,7 @@
 
                         <select class="form-control" name="bid_win_type" id="bid_win_type">
                             <option value="highest" {% if bid_data.0.bid_win_type == "highest" %} selected {% endif %}>Higest</option>
-                            <option value="lowest" {% if  bid_data.0.bid_win_type == "lowest" %} selected {% endif %}>Lowest</option>
+                            {% comment %} <option value="lowest" {% if  bid_data.0.bid_win_type == "lowest" %} selected {% endif %}>Lowest</option> {% endcomment %}
                         </select>
 
                         <!-- <input type="text" class="form-control" placeholder="bid win type" name="bid_win_type" id="bid_win_type" value="{{ bid_data.0.bid_win_type }}"> -->
