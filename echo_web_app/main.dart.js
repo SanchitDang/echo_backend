@@ -46557,7 +46557,7 @@ var $async$iU=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$iU)
 case 3:g=b
-f=new A.cb("http://192.168.0.107:8000/api")
+f=new A.cb("http://65.2.153.140:8000/api")
 p=5
 s=8
 return A.p(J.dF(f,"get_user_types_list/"+A.f(J.o(g,"loggedInId"))),$async$iU)
@@ -46587,7 +46587,7 @@ case 2:return A.t(o,r)}})
 return A.v($async$iU,r)},
 wm(){var s=0,r=A.w(t.yp),q,p=2,o,n,m,l,k,j,i,h
 var $async$wm=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"get-approve-users-types"),$async$wm)
@@ -46615,7 +46615,7 @@ case 2:return A.t(o,r)}})
 return A.v($async$wm,r)},
 wc(){var s=0,r=A.w(t.yp),q,p=2,o,n,m,l,k,j,i,h
 var $async$wc=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"get-approved-domains"),$async$wc)
@@ -46784,7 +46784,7 @@ return A.cq(m,r,A.db(A.hr(new A.aM(B.a_,A.ca(A.b4(A.a([A.jb(new A.aM(B.cs,A.b4(A
 ez(b8){var s=0,r=A.w(t.H),q=1,p,o=this,n,m,l,k,j,i,h,g,f,e,d,c,b,a,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,b0,b1,b2,b3,b4,b5,b6,b7
 var $async$ez=A.r(function(b9,c0){if(b9===1){p=c0
 s=q}while(true)switch(s){case 0:q=3
-n=A.hA("http://192.168.0.107:8000/api/assessment/",0,null)
+n=A.hA("http://65.2.153.140:8000/api/assessment/",0,null)
 m=A.aFM("POST",n)
 b4=t.N
 l=A.a3(["created_by",o.fy,"items",o.e.a.a,"supplier_location",o.r.a.a,"supplier_address",o.f.a.a,"established_year",o.w.a.a,"item_type",o.x.a.a,"item_size",o.y.a.a,"item_process",o.z.a.a,"assessment_for",J.bd(o.dy)],b4,b4)
@@ -47221,7 +47221,7 @@ H(a){var s=null,r=a.C(t.w).f.a.a<850?s:700,q=t.p
 return A.cq(s,B.n,A.db(A.ca(A.b4(A.a([B.FS,B.b5,A.a4("Welcome back you've been missed",s,s,s,s,A.bB(s,s,B.bf,s,s,s,s,s,s,s,s,15,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),B.zq,new A.kK(this.d,"Username",!1,s),B.cc,new A.kK(this.e,"Password",!0,s),B.cc,new A.fW(new A.avM(this),"Sign In",s),B.zo,A.ar(A.a([A.a4("Not a member? ",s,s,s,s,A.bB(s,s,B.cp,s,s,s,s,s,s,s,s,15,s,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),A.hd(s,B.TA,B.aa,!1,s,s,s,s,s,s,s,s,s,s,s,new A.avN(a),s,s,s,s,s,s)],q),B.l,B.b9,B.h)],q),B.l,B.b9,B.h),s,r),s,s),s,s,!1,s,!0)},
 mJ(){var s=0,r=A.w(t.H),q=1,p,o=this,n,m,l,k,j,i
 var $async$mJ=A.r(function(a,b){if(a===1){p=b
-s=q}while(true)switch(s){case 0:j=new A.cb("http://192.168.0.107:8000/api")
+s=q}while(true)switch(s){case 0:j=new A.cb("http://65.2.153.140:8000/api")
 q=3
 l=o.e
 s=6
@@ -47330,7 +47330,7 @@ kV(){var s=0,r=A.w(t.H),q=1,p,o=this,n,m,l,k,j,i,h,g
 var $async$kV=A.r(function(a,b){if(a===1){p=b
 s=q}while(true)switch(s){case 0:s=o.at?2:4
 break
-case 2:n=new A.cb("http://192.168.0.107:8000/api")
+case 2:n=new A.cb("http://65.2.153.140:8000/api")
 q=6
 k=o.d
 j=k.a.a
@@ -47538,7 +47538,7 @@ $S:460}
 A.asv.prototype={
 $0(){var s=0,r=A.w(t.H),q=1,p,o=this,n,m,l,k,j,i
 var $async$$0=A.r(function(a,b){if(a===1){p=b
-s=q}while(true)switch(s){case 0:j=new A.cb("http://192.168.0.107:8000/api")
+s=q}while(true)switch(s){case 0:j=new A.cb("http://65.2.153.140:8000/api")
 q=3
 l=o.b
 s=6
@@ -47852,7 +47852,7 @@ var $async$pG=A.r(function(b,c){if(b===1){p=c
 s=q}while(true)switch(s){case 0:s=2
 return A.p(A.bz(),$async$pG)
 case 2:l=c
-k=new A.cb("http://192.168.0.107:8000/api")
+k=new A.cb("http://65.2.153.140:8000/api")
 q=4
 s=7
 return A.p(k.mP("changeBidWinUser",A.a3(["bid_id",a,"party2_id",J.o(l,"loggedInId"),"party2_name",J.o(l,"loggedInName")],t.N,t.z)),$async$pG)
@@ -47967,7 +47967,7 @@ return s},
 An(a){return this.akX(a)},
 akX(a){var s=0,r=A.w(t.y),q,p=2,o,n,m,l,k,j,i
 var $async$An=A.r(function(b,c){if(b===1){o=c
-s=p}while(true)switch(s){case 0:j=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:j=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(j,"bids/"+a+"/approval-status/"),$async$An)
@@ -48151,7 +48151,7 @@ H(a){var s=this,r=null,q=t.p,p=A.aIU(A.a([A.nW(r,B.jH,r,new A.aAO(a),r)],q),B.T,
 return A.cq(p,r,A.db(A.b7(r,A.b4(A.a([new A.hu(B.c_,r,B.bW,B.y,A.a([A.ca(A.u2(A.c1(100),B.dq,B.bp),120,120),A.CY(0,A.b7(r,B.FY,B.m,r,r,new A.by(B.p,r,r,A.c1(100),r,r,B.D),r,35,r,r,r,r,35),r,r,r,0,r,r)],q),r),B.zp,A.Sx(s.e,B.Gb,r,r),B.nA,A.Sx(s.w,B.Gc,r,r),B.nA,A.Sx(s.r,B.G9,r,r),B.nA,A.Sx(s.x,B.Ga,r,r),B.b5,A.ar(A.a([B.TU,B.aL,new A.di(new A.aAP(a),"Fill Assessment Form",r)],q),B.l,B.j,B.h),B.aL,new A.fW(s.gaom(),"Update Profile",r),B.O8],q),B.l,B.j,B.h),B.m,r,r,r,r,r,r,B.je,r,r,o),r,r),r,r,!1,s.d,r)},
 rm(){var s=0,r=A.w(t.H),q=1,p,o=this,n,m,l,k,j,i,h,g,f,e
 var $async$rm=A.r(function(a,b){if(a===1){p=b
-s=q}while(true)switch(s){case 0:f=new A.cb("http://192.168.0.107:8000/api")
+s=q}while(true)switch(s){case 0:f=new A.cb("http://65.2.153.140:8000/api")
 q=3
 k=o.w
 j=o.e
@@ -48232,7 +48232,7 @@ p===$&&A.b()
 return A.cq(r,s,new A.aM(B.a_,new A.K7(p,s),s),s,new A.i5(q,s),!1,this.d,s)},
 dH(){var s=0,r=A.w(t.P),q,p=2,o,n,m,l,k,j,i
 var $async$dH=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:j=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:j=new A.cb("http://65.2.153.140:8000/api")
 p=4
 n=null
 s=7
@@ -48261,7 +48261,7 @@ case 2:return A.t(o,r)}})
 return A.v($async$dH,r)},
 wi(){var s=0,r=A.w(t.P),q,p=2,o,n,m,l,k,j,i
 var $async$wi=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:j=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:j=new A.cb("http://65.2.153.140:8000/api")
 p=4
 n=null
 s=7
@@ -48290,7 +48290,7 @@ case 2:return A.t(o,r)}})
 return A.v($async$wi,r)},
 wh(){var s=0,r=A.w(t.P),q,p=2,o,n,m,l,k,j,i
 var $async$wh=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:j=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:j=new A.cb("http://65.2.153.140:8000/api")
 p=4
 n=null
 s=7
@@ -48385,7 +48385,7 @@ return A.cq(e,g,A.hr(new A.aM(B.a_,A.b4(A.a([A.jb(new A.aM(B.cs,A.b4(A.a([B.ia,b
 nv(a){return this.agc(a)},
 agc(a){var s=0,r=A.w(t.H),q=this,p,o,n,m,l,k,j,i,h,g
 var $async$nv=A.r(function(b,c){if(b===1)return A.t(c,r)
-while(true)switch(s){case 0:l=A.aFM("POST",A.hA("http://192.168.0.107:8000/api/bids",0,null))
+while(true)switch(s){case 0:l=A.aFM("POST",A.hA("http://65.2.153.140:8000/api/bids",0,null))
 s=2
 return A.p(A.bz(),$async$nv)
 case 2:k=c
@@ -48425,7 +48425,7 @@ return A.u(null,r)}})
 return A.v($async$nv,r)},
 kI(){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$kI=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"get-approve-categories"),$async$kI)
@@ -48457,7 +48457,7 @@ return A.v($async$kI,r)},
 kO(a){return this.XN(a)},
 XN(a){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$kO=A.r(function(b,c){if(b===1){o=c
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"get-approve-subcategories/"+a),$async$kO)
@@ -48487,7 +48487,7 @@ case 2:return A.t(o,r)}})
 return A.v($async$kO,r)},
 we(){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h,g
 var $async$we=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:h=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:h=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(h,"products/all"),$async$we)
@@ -48879,7 +48879,7 @@ var $async$f1=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$f1)
 case 3:k=b
-j=new A.cb("http://192.168.0.107:8000/api")
+j=new A.cb("http://65.2.153.140:8000/api")
 p=5
 s=8
 return A.p(J.dF(j,"bids?id="+A.f(J.o(k,"loggedInId"))),$async$f1)
@@ -48917,7 +48917,7 @@ return A.cq(A.dq(a,"Bids",!0,!1,s),s,new A.aM(B.a_,A.eQ(new A.awT(),this.rr(this
 rr(a){return this.Xi(a)},
 Xi(a){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$rr=A.r(function(b,c){if(b===1){o=c
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"bids?bid_id="+a),$async$rr)
@@ -48989,7 +48989,7 @@ p=t.S
 return A.cq(l,n,new A.aM(B.a_,A.b4(A.a([j,B.aJ,A.eQ(new A.apE(o),r,s),B.aJ,A.ar(A.a([B.T8,B.O6,A.b3(A.d_(!0,B.H,!1,n,A.d9(),o.e,n,n,n,2,B.dr,!0,n,!0,n,!1,n,n,n,n,n,n,1,n,n,!1,"\u2022",n,n,n,n,n,!1,n,n,B.Z,n,n,n,n,n,n,n,B.E,n,B.a0,n,n,n),1)],q),B.l,B.j,B.h),B.aJ,A.b4(A.a([B.SU,A.ar(A.a([A.aLB(B.a9,o.f,new A.apF(o),0,p),B.U4],q),B.l,B.j,B.h),A.ar(A.a([A.aLB(B.a9,o.f,new A.apG(o),1,p),B.TE],q),B.l,B.j,B.h)],q),B.K,B.j,B.h),B.aL,new A.fW(o.gZa(),"Submit",n),B.aJ],q),B.l,B.j,B.h),n),n,new A.r8(k,n),!1,m,n)},
 wk(){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$wk=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"users-by-type/?user_type=supplier"),$async$wk)
@@ -49018,7 +49018,7 @@ case 2:return A.t(o,r)}})
 return A.v($async$wk,r)},
 iU(){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$iU=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"users-by-type/?user_type=manufacturer"),$async$iU)
@@ -49049,7 +49049,7 @@ var $async$rU=A.r(function(a,a0){if(a===1){p=a0
 s=q}while(true)switch(s){case 0:s=2
 return A.p(A.bz(),$async$rU)
 case 2:d=a0
-c=new A.cb("http://192.168.0.107:8000/api")
+c=new A.cb("http://65.2.153.140:8000/api")
 q=4
 l=o.w
 k=o.z
@@ -49245,7 +49245,7 @@ var $async$f1=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$f1)
 case 3:k=b
-j=new A.cb("http://192.168.0.107:8000/api")
+j=new A.cb("http://65.2.153.140:8000/api")
 p=5
 s=8
 return A.p(J.dF(j,"refers?id="+A.f(J.o(k,"loggedInId"))),$async$f1)
@@ -49404,7 +49404,7 @@ var $async$j7=A.r(function(a,b){if(a===1){p=b
 s=q}while(true)switch(s){case 0:s=2
 return A.p(A.bz(),$async$j7)
 case 2:k=b
-j=new A.cb("http://192.168.0.107:8000/api")
+j=new A.cb("http://65.2.153.140:8000/api")
 q=4
 s=7
 return A.p(j.mP("services",A.a3(["user_id",J.o(k,"loggedInId"),"item",o.f.a.a,"description",o.e.a.a],t.N,t.z)),$async$j7)
@@ -49528,7 +49528,7 @@ var $async$dH=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$dH)
 case 3:k=b
-j=new A.cb("http://192.168.0.107:8000/api")
+j=new A.cb("http://65.2.153.140:8000/api")
 p=5
 s=8
 return A.p(J.dF(j,B.c.T("services?user_id=",J.bd(J.o(k,"loggedInId")))),$async$dH)
@@ -49613,7 +49613,7 @@ g.push(A.b3(A.hr(new A.aM(B.fG,A.b4(A.a([new A.qf(m,n),s,B.f1,A.aaO(new A.wd(a.C
 return A.cq(j,n,A.ar(g,B.K,B.j,B.h),n,new A.rt(i,n),!1,l,n)},
 kJ(){var s=0,r=A.w(t.z),q=1,p,o=this,n,m,l,k,j
 var $async$kJ=A.r(function(a,b){if(a===1){p=b
-s=q}while(true)switch(s){case 0:k=new A.cb("http://192.168.0.107:8000/api")
+s=q}while(true)switch(s){case 0:k=new A.cb("http://65.2.153.140:8000/api")
 q=3
 s=6
 return A.p(J.dF(k,"getDashboardData"),$async$kJ)
@@ -49758,7 +49758,7 @@ return A.cq(s,B.n,A.db(A.aKm("assets/images/splash.jpg",a.C(r).f.a.b/2,q.a.a),s,
 lM(a,b){return this.Ym(a,b)},
 Ym(a,b){var s=0,r=A.w(t.H),q=1,p,o,n,m,l,k
 var $async$lM=A.r(function(c,d){if(c===1){p=d
-s=q}while(true)switch(s){case 0:l=new A.cb("http://192.168.0.107:8000/api")
+s=q}while(true)switch(s){case 0:l=new A.cb("http://65.2.153.140:8000/api")
 q=3
 s=6
 return A.p(J.aEx(l,"users",A.a3(["username",a,"password",b],t.N,t.z)),$async$lM)
@@ -49889,7 +49889,7 @@ return A.cq(h,j,A.hr(A.db(A.ca(new A.aM(B.a_,A.b4(A.a([A.jb(new A.aM(B.cs,A.b4(A
 nx(a){return this.agk(a)},
 agk(a){var s=0,r=A.w(t.H),q=this,p,o,n,m,l,k,j,i
 var $async$nx=A.r(function(b,c){if(b===1)return A.t(c,r)
-while(true)switch(s){case 0:n=A.aFM("POST",A.hA("http://192.168.0.107:8000/api/products",0,null))
+while(true)switch(s){case 0:n=A.aFM("POST",A.hA("http://65.2.153.140:8000/api/products",0,null))
 m=t.N
 k=A
 j=J
@@ -49926,7 +49926,7 @@ return A.u(null,r)}})
 return A.v($async$nx,r)},
 kI(){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$kI=A.r(function(a,b){if(a===1){o=b
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"get-approve-categories"),$async$kI)
@@ -49954,7 +49954,7 @@ return A.v($async$kI,r)},
 kO(a){return this.XM(a)},
 XM(a){var s=0,r=A.w(t.b5),q,p=2,o,n,m,l,k,j,i,h
 var $async$kO=A.r(function(b,c){if(b===1){o=c
-s=p}while(true)switch(s){case 0:i=new A.cb("http://192.168.0.107:8000/api")
+s=p}while(true)switch(s){case 0:i=new A.cb("http://65.2.153.140:8000/api")
 p=4
 s=7
 return A.p(J.dF(i,"get-approve-subcategories/"+a),$async$kO)
@@ -50093,7 +50093,7 @@ var $async$j7=A.r(function(a,b){if(a===1){p=b
 s=q}while(true)switch(s){case 0:s=2
 return A.p(A.bz(),$async$j7)
 case 2:k=b
-j=new A.cb("http://192.168.0.107:8000/api")
+j=new A.cb("http://65.2.153.140:8000/api")
 q=4
 s=7
 return A.p(j.mP("scraps",A.a3(["user_id",J.o(k,"loggedInId"),"item",o.f.a.a,"description",o.e.a.a,"item_type",o.r.a.a,"item_price",o.w.a.a,"item_quantity",o.x.a.a],t.N,t.z)),$async$j7)
@@ -50145,7 +50145,7 @@ f1(){var s=0,r=A.w(t.P),q,p=2,o,n,m,l,k,j
 var $async$f1=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$f1)
-case 3:n=new A.cb("http://192.168.0.107:8000/api")
+case 3:n=new A.cb("http://65.2.153.140:8000/api")
 p=5
 s=8
 return A.p(J.dF(n,"bids"),$async$f1)
@@ -50383,7 +50383,7 @@ var $async$dH=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$dH)
 case 3:j=b
-i=new A.cb("http://192.168.0.107:8000/api")
+i=new A.cb("http://65.2.153.140:8000/api")
 p=5
 A.aj("products/"+A.f(n.a.c?"all":J.o(j,"loggedInId")))
 s=8
@@ -50439,7 +50439,7 @@ var $async$dH=A.r(function(a,b){if(a===1){o=b
 s=p}while(true)switch(s){case 0:s=3
 return A.p(A.bz(),$async$dH)
 case 3:k=b
-j=new A.cb("http://192.168.0.107:8000/api")
+j=new A.cb("http://65.2.153.140:8000/api")
 p=5
 s=8
 return A.p(J.dF(j,B.c.T("scraps?user_id=",J.bd(J.o(k,"loggedInId")))),$async$dH)
@@ -50483,7 +50483,7 @@ return A.p(A.bz(),$async$vF)
 case 2:i=b
 A.aj("user")
 A.aj(i)
-n=new A.cb("http://192.168.0.107:8000/api")
+n=new A.cb("http://65.2.153.140:8000/api")
 q=4
 m="bids/"+o.a.c+"/"
 s=7
@@ -50514,7 +50514,7 @@ A.CS.prototype={
 U(){return new A.XK(A.bM(null),A.bM(null),A.bM(null),B.k)}}
 A.XK.prototype={
 H(a){var s,r,q=this,p="Place a Bid",o=null,n=A.dq(a,p,!0,!1,o),m=A.c1(20),l=t.p
-m=A.b4(A.a([A.b7(o,o,B.m,o,o,new A.by(o,A.uf(B.iH,new A.iB("http://192.168.0.107:8000/media/"+q.a.w,1,o),o),o,m,o,o,B.D),o,225,o,o,o,o,1/0),B.aJ,A.ar(A.a([A.ca(A.u2(A.c1(100),B.dq,B.bp),50,50),B.O5,A.a4("By ",o,o,o,o,A.bB(o,o,B.U,o,o,o,o,o,o,o,o,20,o,o,B.L,o,o,!0,o,o,o,o,o,o,o,o),o,o),A.a4(q.a.r,o,o,o,o,A.bB(o,o,B.U,o,o,o,o,o,o,o,o,20,o,o,B.L,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.aL,B.nO,A.a4(q.a.e,o,o,o,o,B.cg,o,o),B.d5],l),B.l,B.j,B.h),B.aJ,A.ar(A.a([A.b3(A.a4(q.a.d,o,o,o,o,B.nL,o,o),1)],l),B.l,B.j,B.h),B.cd,A.a4(q.a.f,o,o,o,o,B.i8,o,o)],l),B.K,B.j,B.h)
+m=A.b4(A.a([A.b7(o,o,B.m,o,o,new A.by(o,A.uf(B.iH,new A.iB("http://65.2.153.140:8000/media/"+q.a.w,1,o),o),o,m,o,o,B.D),o,225,o,o,o,o,1/0),B.aJ,A.ar(A.a([A.ca(A.u2(A.c1(100),B.dq,B.bp),50,50),B.O5,A.a4("By ",o,o,o,o,A.bB(o,o,B.U,o,o,o,o,o,o,o,o,20,o,o,B.L,o,o,!0,o,o,o,o,o,o,o,o),o,o),A.a4(q.a.r,o,o,o,o,A.bB(o,o,B.U,o,o,o,o,o,o,o,o,20,o,o,B.L,o,o,!0,o,o,o,o,o,o,o,o),o,o),B.aL,B.nO,A.a4(q.a.e,o,o,o,o,B.cg,o,o),B.d5],l),B.l,B.j,B.h),B.aJ,A.ar(A.a([A.b3(A.a4(q.a.d,o,o,o,o,B.nL,o,o),1)],l),B.l,B.j,B.h),B.cd,A.a4(q.a.f,o,o,o,o,B.i8,o,o)],l),B.K,B.j,B.h)
 s=A.b4(A.a([A.ar(A.a([A.a4("Ending Time ",o,o,o,o,A.bB(o,o,B.bf,o,o,o,o,o,o,o,o,20,o,o,B.L,o,o,!0,o,o,o,o,o,o,o,o),o,o),A.a4("24th Feb 10:15 pm",o,o,o,o,B.dQ,o,o)],l),B.l,B.c8,B.h),A.ca(o,20,o),A.ar(A.a([A.a4("Minimum Bid Price ",o,o,o,o,A.bB(o,o,B.bf,o,o,o,o,o,o,o,o,20,o,o,B.L,o,o,!0,o,o,o,o,o,o,o,o),o,o),A.a4(q.a.e,o,o,o,o,B.dQ,o,o)],l),B.l,B.c8,B.h)],l),B.l,B.j,B.h)
 r=q.a.x?new A.fW(new A.awQ(q,a),"Refer",o):new A.fW(new A.awR(q,a),p,o)
 return A.cq(n,o,A.hr(A.b4(A.a([new A.aM(B.jf,m,o),A.hV(B.F,!0,o,A.b7(o,A.b4(A.a([new A.aM(B.jj,s,o),B.cd,B.w,r],l),B.l,B.j,B.bF),B.m,o,o,o,o,o,o,B.jg,o,o,1/0),B.m,o,4,o,o,B.MG,o,o,B.cZ)],l),B.l,B.j,B.h),o,o),o,o,!1,o,o)}}
@@ -50526,7 +50526,7 @@ $0(){return A.aG(this.b,new A.CT(this.a.a.c,null))},
 $S:0}
 A.Qj.prototype={
 H(a){var s=this,r=null,q=A.dq(a,"Product Description",!0,!1,r),p=A.c1(20),o=t.p,n=s.y
-return A.cq(q,r,A.hr(A.b4(A.a([new A.aM(B.jf,A.b4(A.a([A.b7(r,r,B.m,r,r,new A.by(r,A.uf(B.iH,new A.iB("http://192.168.0.107:8000"+s.z,1,r),r),r,p,r,r,B.D),r,225,r,r,r,r,1/0),B.aJ,A.ar(A.a([A.a4("Type ",r,r,r,r,A.bB(r,r,B.U,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(s.r,r,r,r,r,A.bB(r,r,B.U,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),B.aL,B.nO,A.a4(s.e,r,r,r,r,B.cg,r,r),B.d5],o),B.l,B.j,B.h),B.aJ,A.ar(A.a([A.b3(A.a4(s.d,r,r,r,r,B.nL,r,r),1)],o),B.l,B.j,B.h),B.cd,A.a4(s.f,r,r,r,r,B.i8,r,r)],o),B.K,B.j,B.h),r),A.b7(r,A.b4(A.a([new A.aM(B.jj,A.b4(A.a([A.ar(A.a([A.a4("Category ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(n,r,r,r,r,B.dQ,r,r)],o),B.l,B.c8,B.h),B.aJ,A.ar(A.a([A.a4("Sub Category ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(n,r,r,r,r,B.dQ,r,r)],o),B.l,B.c8,B.h),B.aJ,A.ar(A.a([A.a4("Availability ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(s.w,r,r,r,r,B.dQ,r,r)],o),B.l,B.c8,B.h)],o),B.l,B.j,B.h),r),B.cd],o),B.l,B.j,B.bF),B.m,r,r,r,r,r,r,B.jg,r,r,1/0)],o),B.l,B.j,B.h),r,r),r,r,!1,r,r)}}
+return A.cq(q,r,A.hr(A.b4(A.a([new A.aM(B.jf,A.b4(A.a([A.b7(r,r,B.m,r,r,new A.by(r,A.uf(B.iH,new A.iB("http://65.2.153.140:8000"+s.z,1,r),r),r,p,r,r,B.D),r,225,r,r,r,r,1/0),B.aJ,A.ar(A.a([A.a4("Type ",r,r,r,r,A.bB(r,r,B.U,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(s.r,r,r,r,r,A.bB(r,r,B.U,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),B.aL,B.nO,A.a4(s.e,r,r,r,r,B.cg,r,r),B.d5],o),B.l,B.j,B.h),B.aJ,A.ar(A.a([A.b3(A.a4(s.d,r,r,r,r,B.nL,r,r),1)],o),B.l,B.j,B.h),B.cd,A.a4(s.f,r,r,r,r,B.i8,r,r)],o),B.K,B.j,B.h),r),A.b7(r,A.b4(A.a([new A.aM(B.jj,A.b4(A.a([A.ar(A.a([A.a4("Category ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(n,r,r,r,r,B.dQ,r,r)],o),B.l,B.c8,B.h),B.aJ,A.ar(A.a([A.a4("Sub Category ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(n,r,r,r,r,B.dQ,r,r)],o),B.l,B.c8,B.h),B.aJ,A.ar(A.a([A.a4("Availability ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(s.w,r,r,r,r,B.dQ,r,r)],o),B.l,B.c8,B.h)],o),B.l,B.j,B.h),r),B.cd],o),B.l,B.j,B.bF),B.m,r,r,r,r,r,r,B.jg,r,r,1/0)],o),B.l,B.j,B.h),r,r),r,r,!1,r,r)}}
 A.Rh.prototype={
 H(a){var s=this,r=null,q=t.p
 return A.cq(A.dq(a,"Scrap Description",!0,!1,r),r,A.hr(A.b4(A.a([new A.aM(B.jf,A.b4(A.a([B.aJ,A.ar(A.a([A.a4("Type ",r,r,r,r,A.bB(r,r,B.U,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(s.r,r,r,r,r,A.bB(r,r,B.U,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),B.aL,B.nO,A.a4(s.e,r,r,r,r,B.cg,r,r),B.d5],q),B.l,B.j,B.h),B.aJ,A.ar(A.a([A.b3(A.a4(s.d,r,r,r,r,B.nL,r,r),1)],q),B.l,B.j,B.h),B.cd,A.a4(s.f,r,r,r,r,B.i8,r,r)],q),B.K,B.j,B.h),r),A.b7(r,A.b4(A.a([new A.aM(B.jj,A.b4(A.a([A.ar(A.a([A.a4("Availability ",r,r,r,r,A.bB(r,r,B.bf,r,r,r,r,r,r,r,r,20,r,r,B.L,r,r,!0,r,r,r,r,r,r,r,r),r,r),A.a4(s.w,r,r,r,r,B.dQ,r,r)],q),B.l,B.c8,B.h)],q),B.l,B.j,B.h),r),B.cd],q),B.l,B.j,B.bF),B.m,r,r,r,r,r,r,B.jg,r,r,1/0)],q),B.l,B.j,B.h),r,r),r,r,!1,r,r)}}
@@ -50590,7 +50590,7 @@ p.push(A.b3(A.hr(new A.aM(B.fG,A.b4(A.a([new A.qf(o,i),B.b5,n,B.f1,A.aaO(new A.w
 return A.cq(s,i,A.rg(!0,A.ar(p,B.K,B.j,B.h),B.aj,!0),i,new A.i5(r,i),!1,f,i)},
 kJ(){var s=0,r=A.w(t.z),q=1,p,o=this,n,m,l,k,j
 var $async$kJ=A.r(function(a,b){if(a===1){p=b
-s=q}while(true)switch(s){case 0:k=new A.cb("http://192.168.0.107:8000/api")
+s=q}while(true)switch(s){case 0:k=new A.cb("http://65.2.153.140:8000/api")
 q=3
 s=6
 return A.p(J.dF(k,"getDashboardData"),$async$kJ)
