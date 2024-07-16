@@ -49,18 +49,30 @@
             <div class="card">
                 <div class="card-body">
                     {% if "suppliers" in request.path %}
-                        <h4 class="card-title">Suppliers</h4>
-                        <h6 class="card-subtitle">List of all suppliers</h6>
-                        {% elif "manufacturers" in request.path %}
-                        <h4 class="card-title">Manufacturers</h4>
-                        <h6 class="card-subtitle">List of all manufacturers</h6>
-                        {% elif "service-provider" in request.path %}
-                        <h4 class="card-title">Service-provider</h4>
-                        <h6 class="card-subtitle">List of all service-provider</h6>
-                        {% elif "referral" in request.path %}
-                        <h4 class="card-title">Referral</h4>
-                        <h6 class="card-subtitle">List of all referral</h6>
-                        {% endif %}</span>
+                    <h4 class="card-title">Suppliers</h4>
+                    <h6 class="card-subtitle">List of all suppliers</h6>
+                    {% elif "manufacturers" in request.path %}
+                    <h4 class="card-title">Manufacturers</h4>
+                    <h6 class="card-subtitle">List of all manufacturers</h6>
+                    {% elif "service-provider" in request.path %}
+                    <h4 class="card-title">Service-provider</h4>
+                    <h6 class="card-subtitle">List of all service-provider</h6>
+                    {% elif "referral" in request.path %}
+                    <h4 class="card-title">Referral</h4>
+                    <h6 class="card-subtitle">List of all referral</h6>
+                    {% endif %}</span>
+
+                    <div class="text-end">
+                    {% if "suppliers" in request.path %}
+                    <a href="{% url 'export-to-excel-suppliers' %}" class="btn btn-primary">Export as Excel</a>
+                    {% elif "manufacturers" in request.path %}
+                    <a href="{% url 'export-to-excel-manufacturers' %}" class="btn btn-primary">Export as Excel</a>
+                    {% elif "service-provider" in request.path %}
+                    <a href="{% url 'export-to-excel-service-providers' %}" class="btn btn-primary">Export as Excel</a>
+                    {% elif "referral" in request.path %}
+                    <a href="{% url 'export-to-excel-referrals' %}" class="btn btn-primary">Export as Excel</a>
+                    {% endif %}
+                    </div>
 
                     <div class="table-responsive">
                         <table id="default_order"

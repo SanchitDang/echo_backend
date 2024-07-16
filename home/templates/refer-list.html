@@ -28,9 +28,14 @@
                     <div class="table-responsive">
                         <div id="default_order_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                             <div class="row">
-
-
                             </div>
+                                
+                    <div class="text-end">
+                        {% comment %} <a href="" class="btn btn-primary">Add Product</a> {% endcomment %}
+                        <a href="{% url 'export-to-excel-refers' %}" class="btn btn-primary">Export as Excel</a>
+                    </div>
+
+                            
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table id="default_order"

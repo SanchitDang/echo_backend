@@ -237,7 +237,23 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label class="labels">Delete</label>
+                        <div class="d-flex align-items-center">
+                            <span class="current-status {% if bid_data.0.is_approved == 'yes' %}text-success{% else %}text-danger{% endif %}">
+                                Delete Bid
+                            </span>
+                            <div class="ml-auto"> <!-- Add this div with ml-auto -->
+                                <div class="ml-auto">
+                                    <a href="{% url 'delete-bid' bid_id=bid_data.0.id %}" class="btn btn-sm btn-square btn-neutral text-danger-hover">
+                                                        <i class="bi bi-trash"></i>  
+                                    </a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

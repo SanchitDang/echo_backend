@@ -38,6 +38,10 @@ urlpatterns = [
     # path('create_assessment/', views.create_assessment, name='create_assessment'),
     # path('edit_assessment/<int:assessment_id>/', views.edit_assessment, name='edit_assessment'),
 
+    path('units-list/', views.units_list, name='units_list'),
+    path('add-units/', views.add_unit, name='add_units'),
+    path('edit-units/<int:units_id>/', views.update_unit, name='edit_units'),
+    path('delete-units/<int:units_id>/', views.delete_unit, name='delete_units'),
 
     path('category-list/', views.category_list, name='category_list'),
     path('add-category/', views.add_category, name='add_category'),
@@ -93,5 +97,18 @@ urlpatterns = [
     path('update-banner/<str:id>', views.update_banner, name='update_banner'),
     path('delete-banner/<str:id>', views.delete_banner, name='delete_banner'),
 
+    # Download as excel file
+    path('export-to-excel-suppliers/', views.export_to_excel_sup, name='export-to-excel-suppliers'),
+    path('export-to-excel-manufacturers/', views.export_to_excel_man, name='export-to-excel-manufacturers'),
+    path('export-to-excel-service-providers/', views.export_to_excel_service, name='export-to-excel-service-providers'),
+    path('export-to-excel-referrals/', views.export_to_excel_referrals, name='export-to-excel-referrals'),
+    path('export-to-excel-refers/', views.export_to_excel_refers, name='export-to-excel-refers'),
+    path('export-to-excel-one-time-bids/', views.export_to_excel_one_time, name='export-to-excel-one-time-bids'),
+    path('export-to-excel-real-time-bids/', views.export_to_excel_real_time, name='export-to-excel-real-time-bids'),
+    path('export-to-excel-categories/', views.export_to_excel_cat, name='export-to-excel-categories'),
+    path('export-to-excel-sub-categories/', views.export_to_excel_sub_cat, name='export-to-excel-sub-categories'),
+    path('export-to-excel-products/', views.export_to_excel_products, name='export-to-excel-products'),
+    path('export-to-excel-user-types/', views.export_to_excel_user_types, name='export-to-excel-user-types'),
+    path('export-to-excel-user-domains/', views.export_to_excel_user_domains, name='export-to-excel-user-domains'),
 
 ]   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

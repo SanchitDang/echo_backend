@@ -2,19 +2,21 @@ import json
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.http import JsonResponse
-from apis.models import Users, Bids, Assessment
+from apis.models import Users, Bids, Unit
 from .models import PanelUser,Assessments,Banner
-from .forms import DynamicAssessmentForm, LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm,BannerForm
+from .forms import LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm,BannerForm,UnitForm
 from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Domains,UserType,Refers
 import os
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
 import logging
+import openpyxl
+from django.http import HttpResponse
 
 
 parent_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -584,6 +586,38 @@ def toggle_product_approval(request, product_id):
 
 
 
+def units_list(request):
+    categories = Unit.objects.all()
+
+    context = {
+        'units': categories
+    }
+
+    return render(request, 'unit-list.html', context)
+
+def add_unit(request):
+    form = UnitForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('units_list')
+    
+    return render(request, 'add-update-unit.html', {'form': form,})
+
+def update_unit(request, units_id):
+    category = Unit.objects.get(id=units_id)
+    form = UnitForm(request.POST or None, instance=category)
+    if form.is_valid():
+        form.save()
+        return redirect('units_list')
+    
+    return render(request, 'add-update-unit.html', {'form': form, 'category_id': units_id,})
+
+def delete_unit(request, units_id):
+    category = Unit.objects.get(id=units_id)
+    category.delete()
+    return redirect('units_list')
+
+
 
 def category_list(request):
     categories = ItemsCategory.objects.all()
@@ -879,4 +913,315 @@ def delete_banner(request,id) :
     banner.delete()
     
     return redirect('banner_list')
+
+def export_to_excel_sup(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Users._meta.get_fields()]
     
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Users.objects.filter(user_type="supplier").values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_man(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Users._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Users.objects.filter(user_type="manufacturers").values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_service(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Users._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Users.objects.filter(user_type="service provider").values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_referrals(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Users._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Users.objects.filter(user_type="referral").values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_refers(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Refers._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Refers.objects.all().values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_one_time(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Bids._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Bids.objects.filter(bid_type="one_time").values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_real_time(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Bids._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Bids.objects.filter(bid_type="real_time").values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_cat(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in ItemsCategory._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = ItemsCategory.objects.all().values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response
+
+def export_to_excel_sub_cat(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in ItemsSubCategories._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = ItemsSubCategories.objects.all().values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response   
+
+def export_to_excel_products(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Products._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Products.objects.all().values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response   
+
+def export_to_excel_user_types(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in UserType._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = UserType.objects.all().values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response   
+
+def export_to_excel_user_domains(request):
+    # Create an in-memory workbook
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Data'
+
+    # Get all the field names from the model
+    model_fields = [field.name for field in Domains._meta.get_fields()]
+    
+    # Define the headers dynamically
+    sheet.append(model_fields)
+
+    # Retrieve the data from the database
+    data = Domains.objects.all().values_list(*model_fields)
+
+    # Write the data to the sheet
+    for row in data:
+        sheet.append([str(value) for value in row])
+
+    # Create a HTTP response with the Excel file
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    workbook.save(response)
+
+    return response   

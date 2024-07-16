@@ -43,8 +43,10 @@
                     <div class="text-end">
                         {% if "domains" in request.path %}
                         <a href="{% url 'add_domains' %}" class="btn btn-primary">Add Domain</a>
+                        <a href="{% url 'export-to-excel-user-domains' %}" class="btn btn-primary">Export as Excel</a>
                         {% elif "user_type" in request.path  %}
                         <a href="{% url 'add_user_type' %}" class="btn btn-primary">Add User Type</a>
+                        <a href="{% url 'export-to-excel-user-types' %}" class="btn btn-primary">Export as Excel</a>
                         {% endif %}
                     </div>
                     <div class="table-responsive">

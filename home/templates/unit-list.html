@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block title %}<title>Sub Category</title> {% endblock title %} {% block body %}
+{% extends "base.html" %} {% block title %}<title>Unit</title> {% endblock title %} {% block body %}
 
 
 <div class="page-breadcrumb">
@@ -8,7 +8,7 @@
 
                 <nav class="breadcrumb">
                     <a class="breadcrumb-item" href="{% url 'dashboard' %}">Home</a>
-                    <span class="breadcrumb-item active">Bids List</span>
+                    <span class="breadcrumb-item active">Units List</span>
                 </nav>
             </div>
         </div>
@@ -22,50 +22,41 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Sub Category</h4>
-                    <h6 class="card-subtitle">List of all sub categories</h6>
+                    <h4 class="card-title">Unit</h4>
+                    <h6 class="card-subtitle">List of all Units</h6>
 
                     <div class="text-end">
-                        <a href="{% url 'add_sub_category' %}" class="btn btn-primary">Add Sub Category</a>
+                        <a href="{% url 'add_units' %}" class="btn btn-primary">Add Unit</a>
                         <a href="{% url 'export-to-excel-categories' %}" class="btn btn-primary">Export as Excel</a>
                     </div>
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered no-wrap">
                             <thead>
                                 <tr>
-                                    <th>Sr No. <i class="fa fa-fw fa-sort"></th>
-                                    <th>Category    <i class="fa fa-fw fa-sort"></th>
-                                    <th>Sub Category    <i class="fa fa-fw fa-sort"></th>
-                                    <th scope="col">Status</th>
+                                    <th>Sr No.<i class="fa fa-fw fa-sort"></th>
+                                    <th>Name<i class="fa fa-fw fa-sort"></th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
 
 
                             <tbody>
-                                {% for sub_categorie in sub_categories %}
+                                {% for categorie in units %}
                                 <tr>
                                     
                                     <td>{{ forloop.counter }}</td>
                                     
-                                    <td>{{ sub_categorie.category_id }}</td>
-                                    <td>{{ sub_categorie.sub_category }}</td>
-                                    <td>
-                                        <a class="text-heading font-semibold" href="{% url 'subcategory_approve_disapprove' id=sub_categorie.id %}"> {% if sub_categorie.is_approved == 'yes' %}
-                                            Approved
-                                        {% else %}
-                                            Unapproved
-                                        {% endif %}</a>
-                                    </td>
+                                    <td>{{ categorie.name }}</td>
                                    
                                     <td class="text-end">
-                                        <a href="{% url 'edit_sub_category' sub_category_id=sub_categorie.id %}" class="btn btn-sm btn-neutral">View</a>
+                                        <a href="{% url 'edit_units' units_id=categorie.id %}" class="btn btn-sm btn-neutral">View</a>
+
+                                        <a href="{% url 'delete_units' units_id=categorie.id %}" >
                                         <button type="button"
                                             class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                                            <a href="{% url 'delete_sub_category' id=sub_categorie.id %}" 
-                                                <i class="bi bi-trash"></i>
-                                            </a>
+                                            <i class="bi bi-trash"></i>
                                         </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 {% endfor %}

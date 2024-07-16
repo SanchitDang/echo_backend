@@ -1,7 +1,7 @@
 from django import forms
 from apis.models import Assessment
 from.models import PanelUser,Assessments,Banner
-from apis.models import Users,ItemsCategory,ItemsSubCategories,Domains,UserType,Products
+from apis.models import Users,ItemsCategory,ItemsSubCategories,Domains,UserType,Products,Unit
 from django.utils.html import format_html
 
 class DynamicAssessmentForm(forms.ModelForm):
@@ -49,6 +49,11 @@ class AssessmentForm(forms.ModelForm):
             if field.required:
                 field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
+
+class UnitForm(forms.ModelForm):
+    class Meta:
+        model = Unit
+        fields = ['name'] 
 
 class ItemsCategoryForm(forms.ModelForm):
     class Meta:

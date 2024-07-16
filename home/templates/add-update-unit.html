@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %}<title>Units</title> {% endblock title %} 
+
+{% block style %}
+
+
+
+{% endblock style %}
+
+
+
+{% block body %}
+
+
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+       
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    
+                    <button type="button" class="btn btn-outline-secondary btn-rounded"><i class="bi bi-arrow-left"></i>Back</button>
+    
+    
+                    <h4 class="text-right">Unit</h4>
+                </div>
+
+                <form method="POST">
+                    {% csrf_token %}
+                                    
+                    <div class="row mt-1">
+                        <div class="col-md-12">
+                            <label for="{{ form.unit.id_for_label }}">{{ form.unit.label }}</label>
+                            {{ form.name }}
+                            {% if form.unit.errors %}
+                                <p class="mb-0 text-danger">{{ form.unit.errors.as_text }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <button class="btn btn-primary profile-button" type="submit">Add</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+
+
+
+
+{% endblock body %}
