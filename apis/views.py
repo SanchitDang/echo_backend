@@ -439,6 +439,13 @@ def get_approve_users_types(request):
 
 @api_view(['GET'])
 @csrf_exempt
+def get_units(request):
+    users = Unit.objects.all().values()
+    return Response({"status": "success", "data": users})
+
+
+@api_view(['GET'])
+@csrf_exempt
 def get_approve_users(request):
     users = Users.objects.filter(is_approved='yes').values()
     return Response({"status": "success", "data": users})

@@ -181,9 +181,13 @@
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
                                     class="hide-menu">Assessments</span></a></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'bids-list' %}"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'bids-list-one-time' %}"
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
-                                    class="hide-menu">Bids</span></a></li>
+                                    class="hide-menu">One-Time Bids</span></a></li>
+
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'bids-list-real-time' %}"
+                                aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
+                                    class="hide-menu">Realtime Bids</span></a></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'category_list' %}"
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span

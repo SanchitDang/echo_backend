@@ -4,7 +4,6 @@ from django.db import models
 # python manage.py migrate 
 
 
-# application users
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
@@ -14,6 +13,7 @@ class Users(models.Model):
     password = models.CharField(max_length=200)
     user_type = models.CharField(max_length=200) # current user type selected by user
     user_types = models.JSONField(default=list) 
+    user_domains = models.JSONField(default=list) 
     address = models.CharField(max_length=500, blank=True, null=True)
     company_name = models.CharField(max_length=500, blank=True, null=True)
     company_size = models.CharField(max_length=500, blank=True, null=True)
@@ -23,6 +23,7 @@ class Users(models.Model):
 
     def __str__(self):
         return self.username 
+
 
 class Bids(models.Model):
     id = models.AutoField(primary_key=True)
@@ -41,7 +42,7 @@ class Bids(models.Model):
     bid_sub_category = models.CharField(max_length=100, null=True)
     bid_type = models.CharField(max_length=10, null=True)               #one_time or real_time
     bid_win_type = models.CharField(max_length=10, null=True)           #highest win or lowest win
-    bid_status= models.CharField(max_length=20, null=True)           #on_going cancelled or finished
+    bid_status= models.CharField(max_length=20, null=True)              #on_going cancelled or finished
     bid_opening_time = models.TextField(default='2000-01-01T18:18', null=True)
     bid_closing_time = models.TextField(default='2000-01-01T18:18', null=True)
     is_approved = models.CharField(max_length=5, default="no")
@@ -116,6 +117,11 @@ class ItemsSubCategories(models.Model):
         return self.sub_category
 
 
+class Unit(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=200, null=True)
+
+
 class Domains(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200, null=True)  
@@ -133,5 +139,3 @@ class Assessment(models.Model):
 
     def __str__(self):
         return f"Assessment {self.pk}"
-
-

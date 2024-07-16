@@ -28,6 +28,8 @@ urlpatterns = [
 
 
     path('bids/', views.bids_view, name='bids-list'),
+    path('bids-one-time/', views.bids_view_one, name='bids-list-one-time'),
+    path('bids-real-time/', views.bids_view_real, name='bids-list-real-time'),
     path('bids_by_type/', views.bids_by_type_view, name='bids-by-type'),
     path('bids/edit-bid/<str:bid_id>/', views.bids_edit_view, name='edit-bid'),
     path('bids/delete-bid/<str:bid_id>/', views.bids_delete_view, name='delete-bid'),

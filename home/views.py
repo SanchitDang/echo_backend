@@ -426,6 +426,19 @@ def bids_view(request):
 
     return render(request, 'bid-list.html', {'bids': bids,})
 
+
+def bids_view_one(request):
+    bids = Bids.objects.filter(bid_type="one_time")
+
+    return render(request, 'bid-list.html', {'bids': bids,})
+
+
+def bids_view_real(request):
+    bids = Bids.objects.filter(bid_type="real_time")
+
+    return render(request, 'bid-list.html', {'bids': bids,})
+
+
 def bid_approve_disapprove(request, bid_id):
     try:
         bid = Bids.objects.get(id=bid_id)

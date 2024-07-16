@@ -73,7 +73,7 @@ class Assessments(models.Model):
 	assessed_mode = models.CharField(max_length=1000,blank=True, null=True)
 	assessed_by = models.CharField(max_length=100,blank=True, null=True)
 	assessment_date = models.DateField(blank=True, null=True)
-	assessment_for = models.CharField(max_length=100, choices=[('Scrap', 'Scrap'), ('Raw material', 'Raw material'), ('Services', 'Services')],blank=True, null=True)
+	assessment_for = models.CharField(max_length=500,blank=True, null=True)
 	previous_assessment_date = models.DateField(blank=True, null=True)
 	organization_structure_details = models.FileField(blank=True, null=True)
 	satuatory_documents_details = models.FileField(blank=True, null=True)

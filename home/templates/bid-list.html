@@ -80,7 +80,8 @@
                                                 <td>{{ bid.price }}</td>
                                                 <td>{{ bid.party1_name }}</td>
                                                 <td>
-                                                    <a class="text-heading font-semibold" href="{% url 'bid_approve_disapprove' bid_id=bid.id %}"> {% if bid.is_approved == 'yes' %}
+                                                    {% comment %} <a class="text-heading font-semibold" href="{% url 'bid_approve_disapprove' bid_id=bid.id %}"> {% if bid.is_approved == 'yes' %} {% endcomment %}
+                                                    <a class="text-heading font-semibold"> {% if bid.is_approved == 'yes' %}
                                                         Approved
                                                     {% else %}
                                                         Not Approved

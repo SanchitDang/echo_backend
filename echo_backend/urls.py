@@ -46,6 +46,8 @@ urlpatterns = [
     path('api/get_user_types_list/<int:user_id>', get_user_types_list, name='get_user_types_list'), 
     path('api/get-approve-users-types', get_approve_users_types, name='get_approve_users_types'),
 
+    path('api/get-units/', get_units, name='get_units'),
+
     path('api/get-approve-categories/', get_approve_categories, name='get_approve_categories'),
     path('api/get-approve-subcategories/<int:category_id>/', get_approve_subcategories, name='get_approve_subcategories'),
 
