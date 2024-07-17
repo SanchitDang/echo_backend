@@ -51,7 +51,7 @@ class PanelUser(AbstractBaseUser):
 	email = models.CharField(max_length=100)
 	phone= models.CharField(max_length=100)
 	password = models.CharField(max_length=100)
-	user_type = models.CharField( blank=True, max_length=20 ,choices=[('Admin', 'Admin'), ('Execution', 'Execution'), ('Service_support', 'Service support'), ('Freelancers', 'Freelancers') ,('referral', 'referral')])
+	user_type = models.CharField( blank=True, max_length=20 ,choices=[('Admin', 'Admin'), ('Execution', 'Execution'), ('Service_support', 'Service support'), ('Freelancers', 'Freelancers'), ('referral', 'referral')])
 	is_staff = models.BooleanField(default=False)
 
 	objects = CustomUserManager()
@@ -102,7 +102,6 @@ class Assessments(models.Model):
 	is_approved = models.CharField(max_length=100, blank=True, null=True)
 	user_remark = models.CharField(max_length=1000, blank=True, null=True)
 	echo_team_remark = models.CharField(max_length=1000, blank=True, null=True)
-	# is_approved = models.CharField(max_length=100, choices=[('Yes', 'Yes'), ('No', 'No')],blank=True, null=True)
 	
 
 class Banner(models.Model):

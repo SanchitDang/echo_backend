@@ -32,6 +32,7 @@ class UserForm(forms.ModelForm):
 
 class AssessmentForm(forms.ModelForm):
     file_field = forms.FileField(label='Upload File', required=False)
+    assessed_by = forms.ChoiceField(label='Assessed By', required=True)
 
     class Meta:
         model = Assessments
@@ -40,14 +41,17 @@ class AssessmentForm(forms.ModelForm):
             'assessment_date': DateInput(),
             'previous_assessment_date': DateInput(),
             'established_year': DateInput(),
-			'assessed_mode': Select(),
+            'assessed_mode': Select(),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        users = PanelUser.objects.filter(user_type="Execution")
+        self.fields['assessed_by'].choices = [(user.id, user.name) for user in users]
+        
         for field in self.fields.values():
             field.label = field.label.title()
-            field.widget.attrs['placeholder'] = ('Enter '+ field.label).title()
+            field.widget.attrs['placeholder'] = ('Enter ' + field.label).title()
             field.widget.attrs['class'] = 'form-control'
             field.widget.attrs['autocomplete'] = 'off'
             if field.required:
@@ -177,3 +181,38 @@ class BannerForm(forms.ModelForm):
 			field.widget.attrs['autocomplete'] = 'off'
 			if field.required:
 				field.label = format_html('<span style="color:red">* </span> {}', field.label)
+
+
+class PanelUserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput(), label='Password')
+    confirm_password = forms.CharField(widget=forms.PasswordInput(), label='Confirm Password')
+
+    class Meta:
+        model = PanelUser
+        fields = ['name', 'email', 'phone', 'password', 'confirm_password', 'user_type', 'is_staff']
+        widgets = {
+            'user_type': forms.Select(choices=[
+                ('Admin', 'Admin'),
+                ('Execution', 'Execution'),
+                ('Service_support', 'Service support'),
+                ('Freelancers', 'Freelancers'),
+                ('referral', 'referral')
+            ]),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+            field.widget.attrs['autocomplete'] = 'off'
+            field.label = field.label.title()
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password and confirm_password and password != confirm_password:
+            self.add_error('confirm_password', 'Passwords do not match.')
+
+        return cleaned_data

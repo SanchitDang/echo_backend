@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.http import JsonResponse
 from apis.models import Users, Bids, Unit
 from .models import PanelUser,Assessments,Banner
-from .forms import LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm,BannerForm,UnitForm
+from .forms import LoginForm,UserForm,AssessmentForm,ItemsSubCategoriesForm,ItemsCategoryForm,MyprofleForm,DomainsForm,UserTypeForm,ProductForm,BannerForm,UnitForm,PanelUserForm
 from apis.models import  ItemsSubCategories,ItemsCategory,Scraps,Services,Products,Domains,UserType,Refers
 import os
 import firebase_admin
@@ -354,6 +354,82 @@ def delete_assessment(request, id):
     return redirect('assement_list')
 
 
+def add_panel_user(request):
+    if request.method == 'POST':
+        form = PanelUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('panel_users_admin')  # Replace with your success URL
+    else:
+        form = PanelUserForm()
+    
+    return render(request, 'add-panel-user.html', {'form': form})
+
+def list_panel_users(request):
+    users = PanelUser.objects.all()
+    names = [user.name for user in users]  # Extract the names
+
+    context = {
+        'response': 'Success',
+        'names': names  
+    }
+
+    return context
+
+
+def panel_users(request):
+    users = PanelUser.objects.all()
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'admin-type-list.html', context)
+
+def panel_users_admin(request):
+    users = PanelUser.objects.filter(user_type='Admin')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'admin-type-list.html', context)
+
+def panel_users_execution(request):
+    users = PanelUser.objects.filter(user_type='Execution')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'admin-type-list.html', context)
+
+def panel_users_service_support(request):
+    users = PanelUser.objects.filter(user_type='Service_support')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'admin-type-list.html', context)
+
+def panel_users_freelancers(request):
+    users = PanelUser.objects.filter(user_type='Freelancers')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'admin-type-list.html', context)
+
+def panel_users_referral(request):
+    users = PanelUser.objects.filter(user_type='referral')
+
+    context = {
+        'users': users
+    }
+
+    return render(request, 'admin-type-list.html', context)
 
 
 
