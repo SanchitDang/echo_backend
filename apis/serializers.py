@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 from home.models import Assessments
 
+
 class UsersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users

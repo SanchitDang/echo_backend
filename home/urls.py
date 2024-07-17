@@ -3,9 +3,6 @@ from .import views
 from django.conf import settings
 from django.conf.urls.static import static
 
-# admin creds for django panel
-# admin@admin.com
-# admin
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),

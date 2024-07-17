@@ -1,8 +1,5 @@
 from django.db import models
 
-# python manage.py makemigrations
-# python manage.py migrate 
-
 
 class Users(models.Model):
     id = models.AutoField(primary_key=True)
