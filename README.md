@@ -1,6 +1,7 @@
 # Echo Backend
 
 ## admin creds for django panel
+url: /master-admin
 admin@admin.com
 admin
 
