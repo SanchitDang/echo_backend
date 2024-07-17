@@ -1,14 +1,12 @@
 from django import forms
-from apis.models import Assessment
 from.models import PanelUser,Assessments,Banner
+from django.forms import ModelForm, Select, TextInput
 from apis.models import Users,ItemsCategory,ItemsSubCategories,Domains,UserType,Products,Unit
 from django.utils.html import format_html
 
-class DynamicAssessmentForm(forms.ModelForm):
-	class Meta:
-		model = Assessment
-		fields = ['data']
 
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class LoginForm(forms.ModelForm):
 	class Meta:
@@ -37,7 +35,13 @@ class AssessmentForm(forms.ModelForm):
 
     class Meta:
         model = Assessments
-        exclude = ('is_approved','updated_by')
+        exclude = ('is_approved', 'updated_by', 'created_by')
+        widgets = {
+            'assessment_date': DateInput(),
+            'previous_assessment_date': DateInput(),
+            'established_year': DateInput(),
+			'assessed_mode': Select(),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

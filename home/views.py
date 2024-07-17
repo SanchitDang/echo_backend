@@ -540,52 +540,6 @@ def toggle_product_approval(request, product_id):
         return JsonResponse({'status': 'error', 'message': 'Product not found'}, status=404)
 
 
-# def create_assessment(request):
-#     if request.method == 'POST':
-#         # Process dynamic data and convert it to JSON
-#         dynamic_data = {}
-#         for key, value in request.POST.items():
-#             if key.startswith('data_key_') and value:
-#                 field_number = key.split('_')[-1]
-#                 data_key = value
-#                 data_value = request.POST.get(f'data_value_{field_number}')
-#                 dynamic_data[data_key] = data_value
-
-#         Assessment.objects.create(data=dynamic_data)
-#         return redirect('/')  # Redirect to the assessment list vie
-
-#     return render(request, 'create_assessment.html',)
-
-
-
-
-
-# def edit_assessment(request, assessment_id):
-#     assessment = Assessment.objects.get(pk=assessment_id)
-#     form_data = {}
-#     for i, (key, value) in enumerate(assessment.data.items()):
-#         form_data['data_key_{}'.format(i)] = key
-#         form_data['data_value_{}'.format(i)] = value
-
-#     form = DynamicAssessmentForm(initial=form_data)
-
-#     if request.method == 'POST':
-#         dynamic_data = {}
-#         for key, value in request.POST.items():
-#             if key.startswith('data_key_') and value:
-#                 field_number = key.split('_')[-1]
-#                 data_key = value
-#                 data_value = request.POST.get(f'data_value_{field_number}')
-#                 dynamic_data[data_key] = data_value
-
-#         assessment.data = dynamic_data
-#         assessment.save()
-#         return redirect('/')  # Redirect to the assessment list view
-
-#     return render(request, 'edit_assessment.html', {'data': form_data, 'form': form,})
-
-
-
 def units_list(request):
     categories = Unit.objects.all()
 

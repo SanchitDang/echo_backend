@@ -66,11 +66,18 @@ class PanelUser(AbstractBaseUser):
 
 
 class Assessments(models.Model):
+	
+	assessed_choices = [
+		("initial", 'Initial Phase'),
+		("processing", 'Processing Phase'),
+		("final", 'Final Phase')
+	]
+
 	id = models.AutoField(primary_key=True)
 	supplier_address = models.CharField(max_length=100, blank=True, null=True)
 	supplier_location = models.CharField(max_length=100, blank=True, null=True)
 	items = models.CharField(max_length=100,blank=True, null=True)
-	assessed_mode = models.CharField(max_length=1000,blank=True, null=True)
+	assessed_mode = models.CharField(max_length=1000,blank=True, null=True, choices=assessed_choices, default='initial')
 	assessed_by = models.CharField(max_length=100,blank=True, null=True)
 	assessment_date = models.DateField(blank=True, null=True)
 	assessment_for = models.CharField(max_length=500,blank=True, null=True)
@@ -93,6 +100,8 @@ class Assessments(models.Model):
 	created_by = models.CharField(max_length=100,blank=True, null=True)
 	updated_by = models.CharField(max_length=100,blank=True, null=True)
 	is_approved = models.CharField(max_length=100, blank=True, null=True)
+	user_remark = models.CharField(max_length=1000, blank=True, null=True)
+	echo_team_remark = models.CharField(max_length=1000, blank=True, null=True)
 	# is_approved = models.CharField(max_length=100, choices=[('Yes', 'Yes'), ('No', 'No')],blank=True, null=True)
 	
 

@@ -2,6 +2,7 @@ from django.urls import path
 from .import views
 from django.conf import settings
 from django.conf.urls.static import static
+
 # admin creds for django panel
 # admin@admin.com
 # admin
@@ -24,8 +25,6 @@ urlpatterns = [
 
     path('user-profile/<int:id>/', views.edit_user_profile, name='user-profile'),
     path('delete-user/<int:id>/', views.delete_user, name='delete-user'),
-    path('user-assessment/<int:id>/', views.edit_user_assessment, name='user-assessment'),
-
 
     path('bids/', views.bids_view, name='bids-list'),
     path('bids-one-time/', views.bids_view_one, name='bids-list-one-time'),
@@ -34,9 +33,6 @@ urlpatterns = [
     path('bids/edit-bid/<str:bid_id>/', views.bids_edit_view, name='edit-bid'),
     path('bids/delete-bid/<str:bid_id>/', views.bids_delete_view, name='delete-bid'),
     path('bids/bid_approve_disapprove/<str:bid_id>/', views.bid_approve_disapprove, name='bid_approve_disapprove'),
-
-    # path('create_assessment/', views.create_assessment, name='create_assessment'),
-    # path('edit_assessment/<int:assessment_id>/', views.edit_assessment, name='edit_assessment'),
 
     path('units-list/', views.units_list, name='units_list'),
     path('add-units/', views.add_unit, name='add_units'),
@@ -86,6 +82,7 @@ urlpatterns = [
 
     path('assement-list', views.assement_list, name='assement_list'),
     path('usertype-approve-disapprove/<str:id>', views.user_approve_disapprove, name='user_approve_disapprove'),
+    path('user-assessment/<int:id>/', views.edit_user_assessment, name='user-assessment'),
     path('delete-assessment/<str:id>', views.delete_assessment, name='delete_assessment'),
 
     path('user_type_list', views.user_type_list, name='user_type_list'),
