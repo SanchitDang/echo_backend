@@ -58,7 +58,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="{% url 'dashboard' %}">
+                        <a href="{% url 'execution_dashboard' %}">
                             <!-- <b class="logo-icon"> -->
                                 <!-- Dark Logo icon -->
                                 <!-- <img src="{% static 'assets/images/logo-icon.png' %}" alt="homepage"
@@ -164,16 +164,14 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'dashboard' %}"
+                        <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'execution_dashboard' %}"
                                 aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                                     class="hide-menu">Dashboard</span></a></li>
                         <li class="list-divider"></li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link" href="{% url 'suppliers-users-by-type' %}"
+                        {% comment %} <li class="sidebar-item"> <a class="sidebar-link" href="{% url 'suppliers-users-by-type' %}"
                                 aria-expanded="false"><i data-feather="tag" class="feather-icon"></i><span
-                                    class="hide-menu">Suppliers
-                                </span></a>
-                        </li>
+                                    class="hide-menu">Suppliers</span></a></li>
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'manufacturers-users-by-type' %}"
                                 aria-expanded="false"><i data-feather="message-square" class="feather-icon"></i><span
@@ -197,7 +195,7 @@
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'products_list' %}"
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
-                                    class="hide-menu">Products</span></a></li>
+                                    class="hide-menu">Products</span></a></li> {% endcomment %}
 
                         <li class="sidebar-item"> <a class="sidebar-link sidebar-link" href="{% url 'assement_list' %}"
                                 aria-expanded="false"><i data-feather="calendar" class="feather-icon"></i><span
@@ -330,7 +328,7 @@
         $.ajax({
             type: 'GET',
             
-            url: `/api/toggle-user-assessment-approval/${assissment_id}/`,
+            url: `/api/toggle_user_assessment_approval/${assissment_id}/`,
             success: function(response) {
                 if (response.status === 'success') {
                     const bidStatusElement = $('.current-status');

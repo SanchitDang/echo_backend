@@ -17,6 +17,7 @@ from firebase_admin import firestore
 import logging
 import openpyxl
 from django.http import HttpResponse
+from datetime import datetime
 
 
 parent_directory = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -340,13 +341,13 @@ def edit_user_assessment(request, id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     form = AssessmentForm(instance=assessment)
     if request.method == 'POST':
-        form = AssessmentForm(request.POST, instance=assessment)
+        form = AssessmentForm(request.POST, request.FILES, instance=assessment)
         if form.is_valid():
             form.save()
             messages.success(request, 'Assessment updated successfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-    return render(request, 'user-assement.html', {'form': form, 'assessment_id': id})
+    return render(request, 'user-assement.html', {'form': form, 'assessment_id': id, 'status': assessment.is_approved, 'mode': assessment.assessed_mode})
 
 def delete_assessment(request, id):
     assessment = Assessments.objects.get(id=id)
@@ -598,7 +599,7 @@ def toggle_user_approval(request, user_id):
 
 def toggle_user_assessment_approval(request, assessment_id):
     try:
-        assessment = Assessments.objects.get(id=assessment_id)
+        assessment = Assessments.objects.get(created_by=assessment_id)
         assessment.is_approved = 'no' if assessment.is_approved == 'yes' else 'yes'
         assessment.save()
         return JsonResponse({'status': 'success', 'is_approved': assessment.is_approved})
@@ -948,7 +949,7 @@ def export_to_excel_sup(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"suppliers_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Users._meta.get_fields()]
@@ -965,7 +966,7 @@ def export_to_excel_sup(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"suppliers_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -974,7 +975,7 @@ def export_to_excel_man(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"manufacturers_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Users._meta.get_fields()]
@@ -983,7 +984,7 @@ def export_to_excel_man(request):
     sheet.append(model_fields)
 
     # Retrieve the data from the database
-    data = Users.objects.filter(user_type="manufacturers").values_list(*model_fields)
+    data = Users.objects.filter(user_type="manufacturer").values_list(*model_fields)
 
     # Write the data to the sheet
     for row in data:
@@ -991,7 +992,7 @@ def export_to_excel_man(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"manufacturers_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1000,7 +1001,7 @@ def export_to_excel_service(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"service_providers_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Users._meta.get_fields()]
@@ -1017,7 +1018,7 @@ def export_to_excel_service(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"service_providers_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1026,7 +1027,7 @@ def export_to_excel_referrals(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"referrals_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Users._meta.get_fields()]
@@ -1043,7 +1044,7 @@ def export_to_excel_referrals(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"referrals_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1052,7 +1053,7 @@ def export_to_excel_refers(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"refers_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Refers._meta.get_fields()]
@@ -1069,7 +1070,7 @@ def export_to_excel_refers(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"refers_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1078,7 +1079,7 @@ def export_to_excel_one_time(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"one_time_bids_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Bids._meta.get_fields()]
@@ -1095,7 +1096,7 @@ def export_to_excel_one_time(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"one_time_bids_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1104,7 +1105,7 @@ def export_to_excel_real_time(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"real_time_bids_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Bids._meta.get_fields()]
@@ -1121,7 +1122,7 @@ def export_to_excel_real_time(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"real_time_bids_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1130,7 +1131,7 @@ def export_to_excel_cat(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"item_categories_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in ItemsCategory._meta.get_fields()]
@@ -1147,7 +1148,7 @@ def export_to_excel_cat(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"item_categories_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response
@@ -1156,7 +1157,7 @@ def export_to_excel_sub_cat(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"sub_categories_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in ItemsSubCategories._meta.get_fields()]
@@ -1173,7 +1174,7 @@ def export_to_excel_sub_cat(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"sub_categories_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response   
@@ -1182,7 +1183,7 @@ def export_to_excel_products(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"products_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Products._meta.get_fields()]
@@ -1199,7 +1200,7 @@ def export_to_excel_products(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"products_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response   
@@ -1208,7 +1209,7 @@ def export_to_excel_user_types(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"user_types_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in UserType._meta.get_fields()]
@@ -1225,7 +1226,7 @@ def export_to_excel_user_types(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"user_types_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response   
@@ -1234,7 +1235,7 @@ def export_to_excel_user_domains(request):
     # Create an in-memory workbook
     workbook = openpyxl.Workbook()
     sheet = workbook.active
-    sheet.title = 'Data'
+    sheet.title = f"user_domains_{datetime.now().strftime('%Y%m%d')}"
 
     # Get all the field names from the model
     model_fields = [field.name for field in Domains._meta.get_fields()]
@@ -1251,7 +1252,7 @@ def export_to_excel_user_domains(request):
 
     # Create a HTTP response with the Excel file
     response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=data.xlsx'
+    response['Content-Disposition'] = 'attachment; filename='+f"user_domains_{datetime.now().strftime('%Y%m%d')}"+'.xlsx'
     workbook.save(response)
 
     return response   

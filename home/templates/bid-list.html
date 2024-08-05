@@ -24,8 +24,11 @@
 
                     <div class="text-end">
                         {% comment %} <a href="" class="btn btn-primary">Add Product</a> {% endcomment %}
-                        <a href="{% url 'export-to-excel-one-time-bids' %}" class="btn btn-primary">Export One-Time Bids as Excel</a>
-                        <a href="{% url 'export-to-excel-real-time-bids' %}" class="btn btn-primary">Export Real-Time Bids as Excel</a>
+                        {% if bids.0.bid_type == "one_time" %}
+                            <a href="{% url 'export-to-excel-one-time-bids' %}" class="btn btn-primary">Export One-Time Bids as Excel</a>
+                        {% else %}
+                            <a href="{% url 'export-to-excel-real-time-bids' %}" class="btn btn-primary">Export Real-Time Bids as Excel</a>
+                        {% endif %}
                     </div>
 
                     <div class="table-responsive">

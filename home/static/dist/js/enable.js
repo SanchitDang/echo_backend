@@ -57,7 +57,7 @@ function toggle_user_assessment_approval(assissment_id) {
     $.ajax({
         type: 'GET',
         
-        url: `/api/toggle-user-assessment-approval/${assissment_id}/`,
+        url: `/api/toggle_user_assessment_approval/${assissment_id}/`,
         success: function(response) {
             if (response.status === 'success') {
                 const bidStatusElement = $('.current-status');

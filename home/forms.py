@@ -31,7 +31,6 @@ class UserForm(forms.ModelForm):
 
 
 class AssessmentForm(forms.ModelForm):
-    file_field = forms.FileField(label='Upload File', required=False)
     assessed_by = forms.ChoiceField(label='Assessed By', required=True)
 
     class Meta:
@@ -46,10 +45,12 @@ class AssessmentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # Make 'assessed_by' dropdown with execution users
         users = PanelUser.objects.filter(user_type="Execution")
         self.fields['assessed_by'].choices = [(user.id, user.name) for user in users]
         
-        for field in self.fields.values():
+        for field_name, field in self.fields.items():
             field.label = field.label.title()
             field.widget.attrs['placeholder'] = ('Enter ' + field.label).title()
             field.widget.attrs['class'] = 'form-control'
@@ -57,6 +58,9 @@ class AssessmentForm(forms.ModelForm):
             if field.required:
                 field.label = format_html('<span style="color:red">* </span> {}', field.label)
 
+            # Make 'assessment_for' field read-only
+            if field_name == 'assessment_for':
+                field.widget.attrs['readonly'] = True
 
 class UnitForm(forms.ModelForm):
     class Meta:
