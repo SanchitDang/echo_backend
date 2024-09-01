@@ -17,6 +17,7 @@ class Users(models.Model):
     manufacturer_category = models.CharField(max_length=500, blank=True, null=True)
     adhaar_number = models.CharField(max_length=200, blank=True, null=True)
     is_approved = models.CharField(max_length=5, default="no", blank=True, null=True)
+    img = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.username 
